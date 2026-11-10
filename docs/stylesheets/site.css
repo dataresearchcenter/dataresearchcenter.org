@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────────────
-   site.css – layout flip, header restyle, scroll-color hooks.
+   site.css – layout flip, header restyle, typography.
    Loaded after components.css so it can win class-specificity ties.
    ─────────────────────────────────────────────────────────────────── */
 
@@ -36,10 +36,10 @@
   height: 100%;
   margin: 0;
   padding: 5rem 1.75rem 2rem;          /* tighter overall – top clears the close X */
-  background-color: var(--background, var(--md-default-bg-color));
-  color: var(--text, var(--md-default-fg-color));
+  background-color: var(--bg-black);
+  color: var(--color-white);
   /* Offset hard shadow uses the same stroke as every other border in the design. */
-  box-shadow: calc(-1 * var(--stroke-width)) var(--stroke-width) 0 0 var(--color-black);
+  box-shadow: calc(-1 * var(--stroke-width)) var(--stroke-width) 0 0 var(--color-white);
   /* Sharp corners. Upstream darc-zensical rounds the drawer (16px) inside a
      mobile media query — "rounded only in smaller views" — but the design
      uses sharp panels everywhere, so pin it to 0 at all widths. */
@@ -57,13 +57,6 @@
 [dir=rtl] [data-md-toggle="drawer"]:checked ~ .md-container .md-sidebar--nav-overlay {
   transform: translateX(0);
   pointer-events: auto;
-}
-
-/* Dark scheme – swap to bg-black panel + white shadow. */
-body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
-  background-color: var(--bg-black);
-  color: var(--color-white);
-  box-shadow: calc(-1 * var(--stroke-width)) var(--stroke-width) 0 0 var(--color-white);
 }
 
 /* Close button (label so the drawer toggles via the existing checkbox). */
@@ -101,6 +94,16 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
 .md-sidebar--nav-overlay .md-nav__list { display: flex; flex-direction: column; gap: 1.25rem; }
 .md-sidebar--nav-overlay .md-nav__item { margin: 0; padding: 0; }
 
+/* A nav section (e.g. OpenAleph, `navigation.indexes`): the section link,
+   then its pages indented along a stroke; no expand chevron. */
+.md-sidebar--nav-overlay .md-nav__container > label { display: none; }
+.md-sidebar--nav-overlay .md-nav[data-md-level="1"] {
+  margin-top: .9rem;
+  padding-left: 1rem;
+  border-left: var(--stroke-width) solid currentColor;
+}
+.md-sidebar--nav-overlay .md-nav[data-md-level="1"] .md-nav__list { gap: .9rem; }
+
 /* Mobile: mkdocs-material turns the primary nav into absolutely-positioned
    sliding panels (`position: absolute; top:0; left:0`) with `overflow-x: auto`.
    Inside our overlay that ignores the drawer padding (content jams to the top-
@@ -115,6 +118,12 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
     height: auto !important;
     transform: none !important;
     overflow: visible !important;
+  }
+  /* Nested navs (sections) are sliding panels hidden until opened: show
+     them in place, like at desktop. */
+  .md-sidebar--nav-overlay .md-nav[data-md-level="1"] {
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   /* Drop mkdocs-material's integrated table-of-contents (it nests under the
@@ -216,12 +225,26 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
    and the content grows into the freed-up right side.
 */
 
+/* The TOC sticks to the top of the viewport: the header scrolls away
+   (section 4), but the theme's JS still offsets it by the header's height
+   (an inline `top`). */
+.md-sidebar--secondary {
+  top: 0 !important;
+}
+
 @media screen and (min-width: 76.25em) {
   /* TOC styled as a left-rail sidebar. */
   .md-sidebar--toc-left {
     order: 0;
     padding-left: 0;
     padding-right: 1.2rem;
+  }
+
+  /* Material also keeps a left margin for the primary sidebar, which is
+     the out-of-flow drawer here: drop it, so pages without a TOC are
+     centered. (The TOC rule below wins where there is one.) */
+  [dir=ltr] .md-sidebar--primary:not([hidden]) ~ .md-content > .md-content__inner {
+    margin-left: 0;
   }
 
   /* The default content margin assumes TOC on the right.
@@ -246,16 +269,18 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
 /* ═══════════════════════════════════════════════════════════════════
    4. Header – three-column marketing layout
    ═══════════════════════════════════════════════════════════════════
-   [ site name + breadcrumb ]   [ centered logo ]   [ palette · search · burger ]
+   [ sign in (or site name) ]   [ centered logo ]   [ palette · search · burger ]
 
    Override mkdocs-material's flex header with a 3-column grid so the
    logo stays visually centered regardless of side-content width.
 */
 
+/* In the page flow: the header scrolls away with the page (the theme makes
+   it sticky; `header.autohide` is off in mkdocs.yml). */
 .md-header {
+  position: relative;
   background-color: var(--md-default-bg-color);
   color: var(--md-default-fg-color);
-  transition: background-color .2s linear;
   z-index: 4;
 }
 /* Drop the 0.05rem hairline that mkdocs-material adds to `.md-header--shadow`. */
@@ -305,6 +330,26 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
   .md-header__breadcrumb { display: inline; }
 }
 
+/* LEFT – sign in button (`extra.signin` in mkdocs.yml), in place of the
+   site title: a small outline `.btn` (which is scoped to `.md-typeset`).
+   Inset like the burger opposite. */
+.md-header__signin {
+  justify-self: start;
+  margin-inline-start: .6rem;
+  padding: .5em 1.5em;
+  border: var(--stroke-width) solid currentColor;
+  border-radius: 9999px;
+  color: inherit;
+  font-size: .7rem;
+  font-weight: var(--font-weight-bold);
+  line-height: normal;
+  white-space: nowrap;
+  transition: box-shadow var(--transition-fast);
+}
+.md-header__signin:hover {
+  box-shadow: var(--shadow-button);
+}
+
 /* CENTER – logo (grid column 2). Always visible (overrides
    mkdocs-material's `.md-logo { display: none }` at narrow widths). */
 .md-header > .md-header__inner > .md-logo {
@@ -314,9 +359,10 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
   display: inline-flex !important;
   align-items: center;
 }
-.md-header > .md-header__inner > .md-logo .md-logo__img,
+/* The logo has a subline ("Data and Research Center"), so it's set large
+   enough to read it. */
 .md-header > .md-header__inner > .md-logo img {
-  height: 2.4rem;
+  height: 4.4rem;
   width: auto;
 }
 
@@ -334,6 +380,12 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
   align-items: center;
   justify-content: center;
 }
+/* …except on a page without the drawer (`hide: [menu]`, main.html). Decided
+   here, not in header.html: instant navigation keeps the header and only
+   swaps the content, drawer included. */
+body:not(:has(.md-sidebar--primary)) .md-header__burger {
+  display: none !important;
+}
 
 /* Hide mkdocs-material's default left-side burger label that lives
    alongside the logo – we render our own on the right. */
@@ -341,90 +393,79 @@ body[data-md-color-scheme="slate"] .md-sidebar--nav-overlay {
   display: none !important;
 }
 
-/* On small screens collapse the site-name text; logo + burger keep the brand. */
+/* On small screens collapse the site-name text; logo + burger keep the brand.
+   The sign in button stays, with a smaller logo to make room. */
 @media screen and (max-width: 30em) {
   .md-header__title { display: none; }
+  .md-header__signin { padding-inline: 1em; }
+  .md-header > .md-header__inner > .md-logo img { height: min(3.2rem, 16vw); }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════════
-   6. Scroll-color body classes
+   5. Typography, links and lists
    ═══════════════════════════════════════════════════════════════════
-   scroll-color.js toggles `.bg--{white,black,green,orange,yellow,purple}`
-   on <body> and `.md-header--bg-{...}` on the header as `data-background-color`
-   sections cross the viewport midpoint. Color values come from tokens.css.
-
-   Note: smooth transition lets the swap feel cinematic rather than abrupt.
+   Sections paint their own color blocks (components.css); the body keeps
+   the scheme's background.
 */
 
-body {
-  background-color: var(--md-default-bg-color);
-  transition: background-color .2s linear;
+/* One type scale at every width: Material grows the root font size on
+   wide screens (137.5% from 100em, 150% from 125em), which enlarges every
+   rem on the page. Keep its base 125% (20px). */
+html {
+  font-size: 125%;
 }
 
-/* Light-scheme only – dark mode is intentionally locked to the DARC
-   dark palette (no per-section color swap). The JS still toggles
-   `bg--*` classes so search/scrollspy hooks work uniformly, but the
-   visible bg is gated here to `[data-md-color-scheme="default"]`.
-
-   Specificity bump (`body[data-md-color-scheme="default"].bg--…`)
-   beats mkdocs-material's `body { background: var(--md-default-bg-color) }`
-   without needing !important. */
-
-body[data-md-color-scheme="default"].bg--white  { background-color: var(--bg-white);  color: var(--color-black); }
-body[data-md-color-scheme="default"].bg--black  { background-color: var(--bg-black);  color: var(--color-white); }
-body[data-md-color-scheme="default"].bg--green  { background-color: var(--bg-green);  color: var(--color-black); }
-body[data-md-color-scheme="default"].bg--orange { background-color: var(--bg-orange); color: var(--color-black); }
-body[data-md-color-scheme="default"].bg--yellow { background-color: var(--bg-yellow); color: var(--color-black); }
-body[data-md-color-scheme="default"].bg--purple { background-color: var(--bg-purple); color: var(--color-black); }
-
-body[data-md-color-scheme="default"] .md-header.md-header--bg-white  { background-color: var(--bg-white);  color: var(--color-black); }
-body[data-md-color-scheme="default"] .md-header.md-header--bg-black  { background-color: var(--bg-black);  color: var(--color-white); }
-body[data-md-color-scheme="default"] .md-header.md-header--bg-green  { background-color: var(--bg-green);  color: var(--color-black); }
-body[data-md-color-scheme="default"] .md-header.md-header--bg-orange { background-color: var(--bg-orange); color: var(--color-black); }
-body[data-md-color-scheme="default"] .md-header.md-header--bg-yellow { background-color: var(--bg-yellow); color: var(--color-black); }
-body[data-md-color-scheme="default"] .md-header.md-header--bg-purple { background-color: var(--bg-purple); color: var(--color-black); }
-
-/* When a section color is active, also clear .md-main's own bg so
-   the body color flows through. */
-body[data-md-color-scheme="default"][class*="bg--"] .md-main {
-  background-color: transparent !important;
+/* Body text: 18px (Material's .8rem is 16px). Text sized in em (lists,
+   buttons, chips) follows; headings set in rem don't. */
+.md-typeset {
+  font-size: .9rem;
 }
 
-/* Light mode  → body text is the DARC black token (#1a1a1a).
-   Dark mode   → body text is the DARC white token (#fff8f1).
-   In both schemes mkdocs-material's `.md-typeset { color: var(--md-default-fg-color--light) }`
-   would otherwise paint body text a dimmed gray, which we don't want
-   inside cards or anywhere else.
+/* Body text is the DARC white token (#fff8f1) at regular weight;
+   mkdocs-material's `.md-typeset { color: var(--md-default-fg-color--light) }`
+   would otherwise paint it a dimmed gray. Light sections (landing.css) swap
+   in dark text at medium weight.
 
-   The weight is exposed as `--font-weight-body` (scheme-scoped) so the
-   drawer nav can share the exact same value and the two never drift:
-   light = medium (500), dark = regular (400). */
-body[data-md-color-scheme="default"] { --font-weight-body: 500; }
-body[data-md-color-scheme="slate"]   { --font-weight-body: 400; }
+   The weight is exposed as `--font-weight-body` so the drawer nav can share
+   the exact same value and the two never drift. */
+body { --font-weight-body: 400; }
 
-body[data-md-color-scheme="default"] .md-typeset,
-body[data-md-color-scheme="default"] .md-typeset p,
-body[data-md-color-scheme="default"] .md-typeset li,
-body[data-md-color-scheme="default"] .md-typeset blockquote,
-body[data-md-color-scheme="default"] .md-typeset .footnote {
-  color: var(--color-black);
-  font-weight: var(--font-weight-body);
-}
-body[data-md-color-scheme="slate"] .md-typeset,
-body[data-md-color-scheme="slate"] .md-typeset p,
-body[data-md-color-scheme="slate"] .md-typeset li,
-body[data-md-color-scheme="slate"] .md-typeset blockquote,
-body[data-md-color-scheme="slate"] .md-typeset .footnote {
+.md-typeset,
+.md-typeset p,
+.md-typeset li,
+.md-typeset blockquote,
+.md-typeset .footnote {
   color: var(--color-white);
   font-weight: var(--font-weight-body);
 }
 
-/* Headings are bold. Mkdocs-material defaults h1/h2 to ~300 and h3/h4 to 400,
-   which reads too thin for the DARC design. Same specificity as material's
-   rule, but site.css loads after it so this wins. (h1 left to the hero /
-   page-title styling.) */
-.md-typeset h2,
+/* Admonition titles are set in Sligoil (upstream), which has a single
+   weight: regular, not a synthesized bold. */
+.md-typeset .admonition-title {
+  font-weight: 400;
+}
+
+/* Heading scale: h1 (upstream) and h2 are Sligoil at its only weight,
+   regular; h3 and h4 are bold Inter (Material defaults them to a thin
+   ~300/400). Component headings stay bold Inter: the h2 in a hero and in a
+   feature card (the landing page's 2x2). A section's opening h2 is its
+   headline (components.css). Same specificity as Material's rules;
+   site.css loads after them, so these win. */
+.md-typeset h2 {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+.md-typeset :is(.hero, .card--feature) h2 {
+  font-family: inherit;
+  font-weight: 700;
+}
+/* Blog: only the h1 is Sligoil. Post titles in the excerpts (the listings
+   and the landing page's News) and the subheads of a post are bold Inter. */
+:is(.md-post, .md-content--post) .md-typeset h2 {
+  font-family: inherit;
+  font-weight: 700;
+}
 .md-typeset h3,
 .md-typeset h4 {
   font-weight: 700;
@@ -468,6 +509,29 @@ body[data-md-color-scheme="slate"] .md-typeset .footnote {
   font-style: italic;
 }
 
+/* Blog pages sit on paper: the listings (index, category and archive pages,
+   whose `.md-post` excerpts sit right in the content) and the posts
+   (`.md-content--post`); not the landing page, whose News section shows
+   excerpts too. Their content and TOC are light surfaces (components.css),
+   code blocks and admonitions included; the overlay drawer, also inside
+   .md-main, stays dark. */
+body:has(.md-content__inner > .md-post, .md-content--post) .md-main {
+  background-color: var(--bg-white);
+}
+/* Category buttons under the listing title (overrides/blog.html) */
+.md-typeset .blog-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+}
+
+/* Category links in the post meta take the text color (the theme's link
+   color is blue here). */
+.md-post .md-meta__link,
+.md-post .md-meta__link:hover {
+  color: inherit;
+}
+
 /* Body unordered-list bullets → the DARC check mark (inline SVG marker).
    Scoped to content; the inline `::before` + negative margin gives a hanging
    marker without needing `position` on the <li>. Card grids (`.grid`) and
@@ -491,3 +555,14 @@ body[data-md-color-scheme="slate"] .md-typeset .footnote {
   content: none;
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. Footer – on the page's black
+   ═══════════════════════════════════════════════════════════════════
+   Upstream paints the footer band pure #000 to set it off from the page;
+   here it's the same DARC black as every black surface (--bg-black). */
+.md-footer,
+.md-footer-meta {
+  background-color: var(--bg-black);
+}

@@ -12,7 +12,7 @@
   --color-black: var(--oa-black);
   --color-white: var(--oa-paper);
 
-  /* Section accent colors used by the scroll-color JS – not in darc */
+  /* Section colors (`.screen--bg-*`) – not in darc */
   --bg-white:  var(--oa-paper);
   --bg-black:  var(--oa-black);
   --bg-green:  var(--oa-green-300);
@@ -26,6 +26,9 @@
   --l:  2rem;
   --xl: 4rem;
 
+  /* Vertical padding inside a color section */
+  --section-y: clamp(3.2rem, 9vw, 6rem);
+
   /* Stroke – single weight across the design system */
   --stroke-width: 2px;
 
@@ -33,22 +36,18 @@
   --radius-card:    1.6rem;
   --radius-chip-sm: 0.8rem;
 
-  /* Container max-width (matches mkdocs-material's .md-grid) */
+  /* Widths: content (1280px on wide pages, components.css); header and
+     footer (.md-grid) */
   --container-lg: 1024px;
+  --container-xl: 1280px;
 
   /* Transitions */
   --transition-fast:   150ms ease;
   --transition-normal: 300ms ease;
 
   /* Iconic offset hard shadow (used on hover for buttons + drawer) */
-  --shadow-button:       2px 2px 0 0 var(--color-black);
-  --shadow-button-light: 2px 2px 0 0 var(--color-white);
+  --shadow-button: 2px 2px 0 0 var(--color-white);
 
   /* One bold weight, used for buttons + emphasis */
   --font-weight-bold: 700;
-}
-
-/* In dark scheme, swap the default shadow to the white-tinted version. */
-[data-md-color-scheme="slate"] {
-  --shadow-button: var(--shadow-button-light);
 }

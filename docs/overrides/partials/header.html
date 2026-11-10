@@ -1,6 +1,6 @@
 {#-
   Header – three-column marketing layout, mirroring the original site:
-    [ site name + breadcrumb ]   [ centered logo ]   [ palette · search · burger ]
+    [ sign in (or site name) ]   [ centered logo ]   [ palette · search · burger ]
 
   Keeps mkdocs-material's data-md-component attributes so the bundled JS
   (palette toggle, search box, drawer checkbox) keeps working.
@@ -14,13 +14,22 @@
 <header class="{{ class }}" data-md-component="header">
   <div class="md-header__inner md-grid">
 
-    {# LEFT – site name (grid column 1, by source order) #}
-    <div class="md-header__title">
-      <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
-         class="md-header__site-link">
-        {{ config.site_name }}
+    {# LEFT – sign in button (`extra.signin`), else the site name
+       (grid column 1, by source order) #}
+    {% if config.extra.signin %}
+      <a href="{{ config.extra.signin.url }}" class="md-header__signin">
+        {{ config.extra.signin.label }}
       </a>
-    </div>
+    {% elif config.extra.brand %}
+      <div class="md-header__title">
+        <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
+           class="md-header__site-link">
+          {{ config.site_name }}
+        </a>
+      </div>
+    {% else %}
+    <span></span>
+    {% endif %}
 
     {# CENTER – clickable logo back to home (grid column 2, auto-width) #}
     <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"

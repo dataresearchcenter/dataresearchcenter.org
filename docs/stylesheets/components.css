@@ -13,12 +13,8 @@
 
 .md-typeset img {
   display: block;
-  border: var(--stroke-width) solid var(--color-black);
+  border: var(--stroke-width) solid var(--color-white);
   box-shadow: var(--shadow-button);
-}
-
-[data-md-color-scheme="slate"] .md-typeset img {
-  border-color: var(--color-white);
 }
 
 /* Per-image opt-outs:  ![](url){.no-border}  /  {.no-shadow}  */
@@ -27,6 +23,22 @@
 }
 
 .md-typeset img.no-shadow {
+  box-shadow: none;
+}
+
+/* Center an image in the text flow: `![](url){.center}` */
+.md-typeset img.center {
+  margin-inline: auto;
+}
+
+/* Feature symbol in a hero (openaleph pages): borderless, centered, at
+   most 200px wide. `![](icon.svg){.section-icon}` */
+.md-typeset img.section-icon {
+  margin: 0 auto 1.25rem;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  border: none;
   box-shadow: none;
 }
 
@@ -112,15 +124,58 @@ main.md-main>*,
   max-width: var(--container-lg);
 }
 
-/* Padding lives ONLY on the main container, so it's identical whether a page
-   uses .screen sections (marketing) or plain markdown (blog/other). .screen
-   carries no padding — nothing to double up — and stacked sections are spaced
-   by a gap instead. */
+/* Material's .md-grid: the header and footer are wider than the content
+   (main's inner grid takes the content width from the rule above). */
+.md-grid {
+  max-width: var(--container-xl);
+}
+
+/* Wide pages (`wide: true` in the front matter, marked by the content
+   partial, e.g. the landing page): content as wide as header and footer,
+   except in `.screen--narrow` sections, which keep the default width. */
+body:has(.page--wide) main.md-main>*,
+body:has(.page--wide) .screen:not(.screen--narrow)>* {
+  max-width: var(--container-xl);
+}
+
+/* Horizontal padding lives ONLY on the main container, so it's identical
+   whether a page uses .screen sections (marketing) or plain markdown
+   (blog/other). */
 main.md-main {
   padding: 2rem 1rem;
 }
-.screen + .screen {
-  margin-block-start: 4rem;
+
+/* Sections are hard color blocks: each paints its color full-bleed (the
+   border-image outset reaches the viewport edges without affecting layout
+   or scrolling), and stacked sections butt against each other, spaced by
+   padding inside each. A black section at the top or bottom of a page sits
+   on the page color, where main's padding already spaces it. */
+.screen {
+  padding-block: var(--section-y);
+  border-image: conic-gradient(var(--section-accent, transparent) 0 0) fill 0 // 0 100vw;
+}
+.screen--bg-black:not(.screen ~ *) {
+  padding-block-start: 0;
+}
+.screen--bg-black:not(:has(~ .screen)) {
+  padding-block-end: 0;
+}
+
+/* A page opening with a light section: the block starts right under the
+   header. Main, its inner grid and the article drop their top spacing
+   (the theme's `#__skip` anchor always comes first); the section's own
+   padding takes over. */
+.md-main:has(.md-content__inner > #__skip + .screen:not(.screen--bg-black)) {
+  padding-top: 0;
+}
+.md-main__inner:has(.md-content__inner > #__skip + .screen:not(.screen--bg-black)) {
+  margin-top: 0;
+}
+.md-content__inner:has(> #__skip + .screen:not(.screen--bg-black)) {
+  padding-top: 0;
+}
+.md-content__inner:has(> #__skip + .screen:not(.screen--bg-black))::before {
+  display: none;
 }
 
 /* Neutralise material's own content-container inset so main's padding is the
@@ -132,9 +187,20 @@ main.md-main {
   padding-inline: 0;
 }
 
-/* Per-section accent: sections are TRANSPARENT – the page-wrapper sets
-   the visible background via the scroll-color JS. Sections only set
-   text color and expose --section-accent for child components. */
+/* Section headline: the h2 a section opens with (`## …` first in a
+   `.screen`) is large, on every page; Sligoil like every h2 (site.css).
+   The page's one h1 is its title, visually hidden on pages that hide it
+   (partials/content.html). */
+.md-typeset .screen > h2:first-child {
+  margin: 0 0 .5em;
+  font-size: clamp(1.7rem, 4.6vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+/* Per-section color: the block above paints --section-accent; sections
+   also set the text color, and child components can use the accent. */
 .screen--bg-white {
   color: var(--color-black);
   --section-accent: var(--bg-white);
@@ -163,6 +229,67 @@ main.md-main {
 .screen--bg-purple {
   color: var(--color-black);
   --section-accent: var(--bg-purple);
+}
+
+/* Light surfaces: light sections (and cards carrying their class), the
+   blog's content and TOC (site.css paints its background), and the TOC
+   beside a page that opens with a light section. Components paint text,
+   strokes and fills with --color-white (text on fills with --color-black),
+   upstream headings use --text and theme elements the --md-* text and line
+   tokens, which the dark palette sets light: swapping them turns every
+   component dark-on-light. Inline code, code blocks and admonitions take
+   the upstream light scheme's panel, code and admonition tokens. The
+   shadow (and every token built on another) is redeclared because a var()
+   inside a custom property resolves where it's declared. */
+.screen--bg-white,
+.screen--bg-green,
+.screen--bg-orange,
+.screen--bg-yellow,
+.screen--bg-purple,
+body:has(.md-content__inner > .md-post, .md-content--post) .md-content,
+body:has(.md-content__inner > .md-post, .md-content--post) .md-sidebar--secondary,
+body:has(.md-content__inner > #__skip + .screen:not(.screen--bg-black)) .md-sidebar--secondary {
+  --color-white: var(--oa-black);
+  --color-black: var(--oa-paper);
+  --shadow-button: 2px 2px 0 0 var(--oa-black);
+  --font-weight-body: 500;
+  --text: var(--oa-black);
+  --text-dim: var(--oa-gray-700);
+  --text-mute: var(--oa-gray-600);
+  --line: var(--oa-gray-200);
+  --md-default-fg-color: var(--oa-black);
+  --md-default-fg-color--light: var(--oa-gray-700);
+  --md-default-fg-color--lighter: var(--oa-gray-600);
+  --md-default-fg-color--lightest: var(--oa-gray-200);
+  --md-default-bg-color: var(--section-accent, var(--bg-white));
+  --md-typeset-color: var(--oa-black);
+  --md-typeset-table-color: var(--oa-gray-200);
+  --panel: var(--oa-white);
+  --panel-2: var(--oa-gray-100);
+  --line-strong: var(--oa-gray-300);
+  --accent-bg: rgba(255, 95, 51, .10);
+  --md-code-bg-color: var(--panel-2);
+  --md-code-fg-color: var(--text);
+  --md-code-hl-color: var(--accent-bg);
+  --md-code-hl-keyword-color: var(--oa-purple-700);
+  --md-code-hl-constant-color: var(--oa-purple-600);
+  --md-code-hl-number-color: var(--oa-purple-500);
+  --md-code-hl-string-color: var(--oa-green-900);
+  --md-code-hl-function-color: var(--oa-orange-700);
+  --md-code-hl-special-color: var(--oa-orange-700);
+  --md-code-hl-variable-color: var(--oa-yellow-900);
+  --md-code-hl-name-color: var(--text);
+  --md-code-hl-operator-color: var(--oa-gray-700);
+  --md-code-hl-punctuation-color: var(--oa-gray-700);
+  --md-code-hl-comment-color: var(--oa-gray-500);
+  --md-code-hl-generic-color: var(--text-dim);
+  --md-admonition-bg-color: var(--panel);
+  --md-admonition-fg-color: var(--text);
+  --admonition-info: var(--oa-purple-700);
+  --admonition-warning: var(--oa-yellow-900);
+  --admonition-danger: var(--oa-orange-800);
+  --admonition-success: var(--oa-green-900);
+  color: var(--oa-black);
 }
 
 .screen--full-height {
@@ -201,20 +328,19 @@ main.md-main {
   gap: 2rem;
   align-items: center;
   width: 100%;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 768px) {
   .hero {
     grid-template-columns: 5fr 6fr;
-    gap: 4rem;
-    margin-bottom: 6rem;
+    margin-bottom: 3rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero {
-    margin-bottom: 8rem;
+    margin-bottom: 4rem;
   }
 }
 
@@ -270,13 +396,9 @@ main.md-main {
    buttons (em-based padding) scale to match the teaser text. */
 .md-typeset .hero--landing>p {
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.45;
   margin-block: .25rem;
-}
-
-body[data-md-color-scheme="slate"] .md-typeset .hero--landing>p {
-  font-weight: 400;
 }
 
 @media (max-width: 640px) {
@@ -301,11 +423,50 @@ body[data-md-color-scheme="slate"] .md-typeset .hero--landing>p {
   padding-top: 0;
 }
 
+/* Two-column hero rhythm (openaleph.org): the title sits flush with the
+   top of its column, 1.25rem above the teaser; paragraphs are flush, so
+   the gaps come from the title and the action row. */
+.md-typeset .hero:not(.hero--landing) :is(h1, h2) {
+  margin: 0;
+  padding-bottom: 1.25rem;
+}
+
+.md-typeset .hero > div > p {
+  margin: 0;
+}
+
+/* A leading tagline paragraph (`**text**`) sits .25rem above the title. */
+.md-typeset .hero > div > p:first-child {
+  margin-bottom: .25rem;
+}
+
 /* Hero columns just stretch the image edge-to-edge; the global image
    border below provides the visual frame. */
 .md-typeset .hero img {
   width: 100%;
   height: auto;
+}
+
+/* An unframed image (a logo or symbol: `.no-border`, `.section-icon`) sits
+   inset in its cell, so it reads smaller than its column; a framed one (a
+   screenshot) fills the column. */
+.md-typeset .hero > p:has(img:is(.no-border, .section-icon)),
+.md-typeset .hero > img:is(.no-border, .section-icon) {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .md-typeset .hero > p:has(img:is(.no-border, .section-icon)),
+  .md-typeset .hero > img:is(.no-border, .section-icon) {
+    padding: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .md-typeset .hero > p:has(img:is(.no-border, .section-icon)),
+  .md-typeset .hero > img:is(.no-border, .section-icon) {
+    padding: 5rem;
+  }
 }
 
 /* If the last paragraph of a hero is just a row of `.btn` links,
@@ -327,12 +488,9 @@ body[data-md-color-scheme="slate"] .md-typeset .hero--landing>p {
    Button – primary + secondary (matches the original Zola spec)
    ═══════════════════════════════════════════════════════════════════
    Two intents only:
-     `.btn`           = SECONDARY – transparent fill, currentColor border + text
-                        (rides the scroll-color body bg in light mode;
-                         outlined-on-dark in dark mode)
-     `.btn.btn--primary` = PRIMARY  – filled
-                        light: black bg + white text
-                        dark : white bg + black text
+     `.btn`           = SECONDARY – transparent fill, outlined in the text
+                        color (--color-white; dark in light sections)
+     `.btn.btn--primary` = PRIMARY  – filled inverse (text-color bg)
 */
 
 /* All button selectors are prefixed with `.md-typeset` so they beat
@@ -354,13 +512,14 @@ body[data-md-color-scheme="slate"] .md-typeset .hero--landing>p {
   font-weight: var(--font-weight-bold);
   line-height: normal;
   background-color: transparent;
-  color: inherit;
+  color: var(--color-white);
   text-decoration: none;
   cursor: pointer;
   transition: box-shadow var(--transition-fast);
 }
 
 .md-typeset .btn:hover:not(:disabled) {
+  color: var(--color-white);
   text-decoration: none;
   box-shadow: var(--shadow-button);
 }
@@ -370,39 +529,15 @@ body[data-md-color-scheme="slate"] .md-typeset .hero--landing>p {
   cursor: not-allowed;
 }
 
-/* PRIMARY – light mode (black bg, white text) */
+/* PRIMARY – filled inverse */
 .md-typeset .btn.btn--primary {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  border-color: var(--color-black);
-}
-
-.md-typeset .btn.btn--primary:hover:not(:disabled) {
-  color: var(--color-white);
-  box-shadow: var(--shadow-button);
-}
-
-/* PRIMARY – dark mode (white bg, black text) */
-body[data-md-color-scheme="slate"] .md-typeset .btn.btn--primary {
   background-color: var(--color-white);
   color: var(--color-black);
   border-color: var(--color-white);
 }
 
-body[data-md-color-scheme="slate"] .md-typeset .btn.btn--primary:hover:not(:disabled) {
+.md-typeset .btn.btn--primary:hover:not(:disabled) {
   color: var(--color-black);
-  box-shadow: var(--shadow-button-light);
-}
-
-/* SECONDARY – dark mode (white outline, transparent fill).
-   In light mode `.btn` inherits currentColor from body fg (black). */
-body[data-md-color-scheme="slate"] .md-typeset .btn:not(.btn--primary) {
-  color: var(--color-white);
-  border-color: var(--color-white);
-}
-
-body[data-md-color-scheme="slate"] .md-typeset .btn:not(.btn--primary):hover {
-  box-shadow: var(--shadow-button-light);
 }
 
 
@@ -422,7 +557,7 @@ body[data-md-color-scheme="slate"] .md-typeset .btn:not(.btn--primary):hover {
 
 .md-typeset .grid.cards>ul>li,
 .md-typeset .grid>.card {
-  border: var(--stroke-width) solid var(--color-black);
+  border: var(--stroke-width) solid var(--color-white);
   border-radius: var(--radius-card);
   box-shadow: none;
   background: transparent;
@@ -469,38 +604,95 @@ body[data-md-color-scheme="slate"] .md-typeset .btn:not(.btn--primary):hover {
    `.md-typeset .grid > .card:hover { border-color:#0000; box-shadow:... }`. */
 .md-typeset .grid.cards>ul>li:hover,
 .md-typeset .grid>.card:hover {
-  border-color: var(--color-black);
+  border-color: var(--color-white);
   box-shadow: none;
 }
 
-[data-md-color-scheme="slate"] .md-typeset .grid.cards>ul>li,
-[data-md-color-scheme="slate"] .md-typeset .grid>.card,
-[data-md-color-scheme="slate"] .md-typeset .grid.cards>ul>li:hover,
-[data-md-color-scheme="slate"] .md-typeset .grid>.card:hover {
-  border-color: var(--color-white);
+
+/* Mermaid diagrams (```mermaid): drawn in the text color of the surface they
+   sit on, outlined like the cards, labels on the section color. The theme
+   sets these tokens on the page, where they resolve to the dark scheme's
+   colors (and its accent); redeclared on the diagram, they follow a light
+   section's swap and reach into the diagram's shadow root. */
+.md-typeset .mermaid {
+  --md-mermaid-edge-color: var(--color-white);
+  --md-mermaid-node-bg-color: transparent;
+  --md-mermaid-node-fg-color: var(--color-white);
+  --md-mermaid-label-bg-color: var(--section-accent, var(--bg-black));
+  --md-mermaid-label-fg-color: var(--color-white);
+}
+
+/* A wide diagram in `<div class="diagram" markdown>` keeps its natural size
+   and scrolls sideways on narrow screens instead of shrinking its labels
+   (the theme draws it in a closed shadow root, out of reach of CSS). */
+.md-typeset .diagram {
+  overflow-x: auto;
+}
+.md-typeset .diagram > .mermaid {
+  min-width: 35rem;
+}
+
+/* Layer stack (open-source.md): `<div class="stack" markdown>` with one
+   paragraph per layer, top layer first: a bold label, then its links, one
+   per line. The links are outlined boxes sharing three columns; a lone one
+   spans them. On phones the label sits above its boxes, two to a row.
+   (Plain HTML, not Mermaid: the theme's Mermaid can't link nodes.) */
+.md-typeset .stack {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-block: 2rem 2.5rem;
+}
+.md-typeset .stack > p {
+  display: grid;
+  grid-template-columns: 11rem repeat(3, minmax(0, 1fr));
+  gap: .5rem;
+  align-items: center;
+  margin: 0;
+  font-size: .8rem;
+  line-height: 1.3;
+}
+/* `:not(.btn)` outweighs the content-link underline rule (site.css). */
+.md-content .md-typeset .stack > p > a:not(.btn) {
+  display: block;
+  padding: .55rem .6rem;
+  border: var(--stroke-width) solid currentColor;
+  border-radius: .4rem;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: box-shadow var(--transition-fast);
+}
+.md-content .md-typeset .stack > p > a:not(.btn):is(:hover, :focus-visible) {
+  box-shadow: var(--shadow-button);
+}
+.md-typeset .stack > p > a:only-of-type {
+  grid-column: span 3;
+}
+@media (max-width: 640px) {
+  .md-typeset .stack > p {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .md-typeset .stack > p > :is(strong, a:only-of-type) {
+    grid-column: 1 / -1;
+  }
 }
 
 
 /* Inline label chip – `<kbd>EU</kbd>` semantically marks a short
    keyboard/control label, widely co-opted as a chip primitive.
-   Filled inverse of the page: black bg + white text in light mode,
-   white bg + black text in dark mode (same swap as .btn.btn--primary). */
+   Filled inverse of the page, like .btn.btn--primary. */
 .md-typeset kbd {
   display: inline-block;
   padding: .15rem .6rem;
   margin-right: .25rem;
   border-radius: var(--radius-chip-sm);
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-black);
   border: none;
   box-shadow: none;
   line-height: 1.2;
   font-family: inherit;
-}
-
-body[data-md-color-scheme="slate"] .md-typeset kbd {
-  background: var(--color-white);
-  color: var(--color-black);
 }
 
 
@@ -508,7 +700,7 @@ body[data-md-color-scheme="slate"] .md-typeset kbd {
    Targets every <form> / <input> the author drops into a markdown page.
    Mkdocs-material's reset (`input { color: var(--md-typeset-color) }`)
    wins on its own selector, so we set color + border-color explicitly
-   per scheme rather than relying on `currentColor`. */
+   rather than relying on `currentColor`. */
 .md-typeset form {
   display: flex;
   gap: .5rem;
@@ -527,20 +719,12 @@ body[data-md-color-scheme="slate"] .md-typeset kbd {
      input — and the stretched submit button beside it — render at the same
      size as buttons elsewhere (e.g. in cards), not taller. */
   padding: .625em 2em;
-  border: var(--stroke-width) solid var(--color-black);
+  border: var(--stroke-width) solid var(--color-white);
   border-radius: 9999px;
   background: transparent;
-  color: var(--color-black);
+  color: var(--color-white);
   font: inherit;
   line-height: normal;
-}
-
-body[data-md-color-scheme="slate"] .md-typeset form input[type="email"],
-body[data-md-color-scheme="slate"] .md-typeset form input[type="text"],
-body[data-md-color-scheme="slate"] .md-typeset form input[type="search"],
-body[data-md-color-scheme="slate"] .md-typeset form input[type="url"] {
-  border-color: var(--color-white);
-  color: var(--color-white);
 }
 
 .md-typeset form input::placeholder {

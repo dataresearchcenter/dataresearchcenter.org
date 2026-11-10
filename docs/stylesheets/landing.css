@@ -1,0 +1,539 @@
+/* ───────────────────────────────────────────────────────────────────
+   landing.css – the landing page (index.md): card variants, the search
+   pill and the OpenAleph data blocks rendered by scripts/render.py.
+   Loaded after site.css.
+   ─────────────────────────────────────────────────────────────────── */
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   Cards
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* The landing hero sits closer to the cards that follow it. */
+.md-typeset .hero--landing:has(+ .grid) {
+  margin-bottom: 3rem;
+}
+
+/* A lone paragraph in the landing hero is the intro, not a tagline
+   (components.css shrinks a first paragraph): body size, balanced. */
+.md-typeset .hero--landing > p:only-child {
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.45;
+  text-wrap: balance;
+}
+@media (max-width: 640px) {
+  .md-typeset .hero--landing > p:only-child {
+    font-size: 1rem;
+  }
+}
+
+/* `.grid--wide`: two cards per row (four make a 2x2); one per row on
+   narrow screens. */
+.md-typeset .grid.grid--wide {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* `.grid--three`: three cards per row; two, then one, on narrower screens. */
+.md-typeset .grid.grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .md-typeset .grid.grid--wide {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .md-typeset .grid.grid--three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .md-typeset .grid.grid--three {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A card carrying a section class is filled with that section's color. */
+.md-typeset .grid > .card:is(.screen--bg-white, .screen--bg-black, .screen--bg-green, .screen--bg-orange, .screen--bg-yellow, .screen--bg-purple) {
+  background-color: var(--section-accent);
+}
+
+/* `.card--feature`: a roomier card with a large title, for the few cards
+   leading a page. Blocks are spaced by the gap; only an action row is
+   pushed to the bottom. */
+.md-typeset .grid > .card.card--feature {
+  container: feature / inline-size;
+  gap: 1.2rem;
+  padding: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+.md-typeset .grid > .card.card--feature > * {
+  margin-block: 0;
+}
+.md-typeset .card--feature h2 {
+  font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+.md-typeset .card--feature li {
+  margin-bottom: .3em;
+}
+.md-typeset .grid > .card.card--feature > p:has(> .btn) {
+  margin-top: auto;
+  padding-top: .4rem;
+  gap: .6rem;
+  font-size: .7rem;
+}
+.md-typeset .card--feature .btn {
+  padding-inline: 1.2em;
+}
+
+/* `.card--media`: a full-row card with an image left (`.card__media`, a
+   <figure> whose <figcaption> is a credit chip), content right
+   (`.card__body`) and an optional strip underneath (`.card__footer`).
+   Stacks on narrow screens. */
+.md-typeset .grid > .card.card--media {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas: "media body" "footer footer";
+  padding: 0;
+  overflow: hidden;
+}
+.md-typeset .grid > .card.card--media:not(:has(> .card__media)) {
+  grid-template-areas: "body body" "footer footer";
+}
+.md-typeset .grid > .card.card--media > * {
+  margin: 0;
+}
+.md-typeset .card__media {
+  grid-area: media;
+  position: relative;
+  display: block;
+  width: auto;
+  min-height: 16rem;
+  border-right: var(--stroke-width) solid currentColor;
+}
+.md-typeset .card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  border: 0;
+  box-shadow: none;
+}
+.md-typeset .card__media figcaption {
+  position: absolute;
+  left: .7rem;
+  bottom: .7rem;
+  max-width: calc(100% - 1.4rem);
+  margin: 0;
+  padding: .15rem .5rem;
+  border-radius: var(--radius-chip-sm);
+  background: var(--oa-gray-200);
+  color: var(--oa-black);
+  font-size: .55rem;
+  font-style: normal;
+  line-height: 1.4;
+  text-align: left;
+}
+.md-typeset .card__body {
+  grid-area: body;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding: 1.6rem 1.8rem;
+}
+.md-typeset .card__body > * {
+  margin: 0;
+}
+.md-typeset .card__footer {
+  grid-area: footer;
+  padding: 1rem 1.8rem 1.2rem;
+  border-top: var(--stroke-width) solid currentColor;
+}
+@media (max-width: 900px) {
+  .md-typeset .grid > .card.card--media,
+  .md-typeset .grid > .card.card--media:not(:has(> .card__media)) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "media" "body" "footer";
+  }
+  .md-typeset .card__media {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    border-right: 0;
+    border-bottom: var(--stroke-width) solid currentColor;
+  }
+  .md-typeset :is(.card__body, .card__footer) {
+    padding-inline: 1.2rem;
+  }
+}
+
+/* Bullet lists inside cards keep the check-mark marker (site.css drops it
+   for card list items themselves). Template lists carry a class. */
+.md-content .md-typeset .grid > .card ul:not([class]) > li::before,
+.md-content .md-typeset .grid.cards > ul > li ul:not([class]) > li::before {
+  content: "";
+}
+
+/* Plan price: `**€200**{.price}` */
+.md-typeset .price {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* A paragraph of buttons directly in a section is an action row. */
+.md-typeset .screen > p:has(> .btn) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s);
+}
+
+/* Search pill: `<form role="search">` with an input and a submit button,
+   drawn as one outlined pill with a magnifier in front. */
+.md-typeset form[role="search"] {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: .7rem;
+  height: 3rem;
+  padding: 0 .35rem 0 1.1rem;
+  border: var(--stroke-width) solid currentColor;
+  border-radius: 9999px;
+  transition: box-shadow var(--transition-fast);
+}
+.md-typeset form[role="search"]:focus-within {
+  box-shadow: 4px 4px 0 0 currentColor;
+}
+.md-typeset form[role="search"]::before {
+  content: "";
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='m21 21-4.35-4.35'/></svg>") center / contain no-repeat;
+}
+.md-typeset form[role="search"] input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: .9rem;
+  text-overflow: ellipsis;
+  outline: none;
+}
+.md-typeset form[role="search"] input::-webkit-search-cancel-button {
+  display: none;
+}
+.md-typeset form[role="search"] .btn {
+  height: 2.2rem;
+  padding-block: 0;
+}
+@media (max-width: 520px) {
+  .md-typeset form[role="search"] {
+    gap: .5rem;
+    height: 2.8rem;
+    padding-left: .9rem;
+  }
+  .md-typeset form[role="search"] input[type="search"] {
+    font-size: .8rem;
+  }
+  .md-typeset form[role="search"] .btn {
+    height: 2rem;
+    padding-inline: 1.2em;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   OpenAleph data blocks (scripts/templates/)
+   Muted text uses opacity .8, which keeps ≥4.5:1 on every section color.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* `ul.` matches material's `.md-typeset ul:not([hidden])` (load order wins). */
+.md-typeset ul:is(.stats, .terms, .Statistics__list) {
+  margin: 0;
+  padding: 0;
+}
+.md-typeset ul:is(.stats, .terms, .Statistics__list) > li {
+  margin: 0;
+}
+/* Index numbers aren't a prose list: no check mark (site.css), also outside
+   a card grid (zone.md). */
+.md-content .md-typeset ul.stats > li::before {
+  content: none;
+}
+
+/* Index numbers, under the search box */
+.md-typeset ul.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem .8rem;
+  margin-top: 1.5rem;
+}
+@container feature (min-width: 22rem) {
+  .md-typeset ul.stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+/* In a feature card (index.md) they sit at the bottom, level with the
+   action rows of the cards beside it. */
+.md-typeset .grid > .card.card--feature > ul.stats {
+  margin-top: auto;
+}
+.md-typeset ul.stats > li {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.md-typeset .stat__value {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.md-typeset .stat__label {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+/* Topic cards (`.card--media`): country chips, title, search terms */
+.md-typeset .topic__countries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+.md-typeset .topic__countries kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  margin: 0;
+  padding: .15rem .6rem;
+  background: var(--oa-green-200);
+  color: var(--oa-black);
+  font-size: .65rem;
+  font-weight: 500;
+}
+.md-typeset .topic__countries img {
+  width: .8rem;
+  height: .6rem;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(26, 26, 26, .2);
+  object-fit: cover;
+}
+.md-typeset .topic h3 {
+  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+}
+.md-typeset ul.terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.md-typeset .terms .btn {
+  padding: .2rem .6rem;
+  font-size: .7rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+/* Custom-link searches ({label, url} in topics.yml) */
+.md-typeset .terms .btn--query {
+  background-color: var(--oa-purple-200);
+}
+.md-typeset .topic .section-label {
+  margin: 0 0 .3rem;
+  font-size: .6rem;
+  opacity: .8;
+}
+
+/* Data cards (Curated Collections, Explore): a `.card__header` (an
+   optional icon, the title, an optional description) over a rule, then the
+   blocks at an even distance, the list right under them (other cards push
+   their last block to the bottom). */
+.md-typeset .grid > .card:has(> .card__header) {
+  gap: .5rem;
+}
+.md-typeset .grid > .card:has(> .card__header) > * {
+  margin-block: 0;
+}
+.md-typeset .card__header {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+  padding-bottom: .6rem;
+  border-bottom: var(--stroke-width) solid currentColor;
+}
+.md-typeset .card__header > img {
+  flex-shrink: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+}
+.md-typeset .card__header h3 {
+  margin: 0;
+}
+.md-typeset .card__header p {
+  margin: .2rem 0 0;
+  opacity: .8;
+}
+
+/* Data rows, shared by the CollectionList (as in the OpenAleph UI: category,
+   label, count; Curated Collections and the topic cards) and the Statistics
+   lists (icon, label, count; Explore): a bold label that truncates, muted
+   details, a mono count at the end. No hover fill: only the label
+   underlines. The selector ties the content-link underline rule (site.css),
+   which this file follows. */
+.md-content .md-typeset :is(.CollectionList, .Statistics__list) a:is(.CollectionList__item, .Statistics__item) {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .3rem 0;
+  text-decoration: none;
+}
+.md-typeset :is(.CollectionList__label, .Statistics__label) {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.md-typeset :is(.CollectionList__category, .CollectionList__count, .Statistics__value) {
+  flex-shrink: 0;
+  font-size: .85em;
+  opacity: .8;
+}
+.md-typeset :is(.CollectionList__count, .Statistics__value) {
+  font-family: var(--font-mono);
+}
+.md-typeset :is(.CollectionList__item, .Statistics__item):hover :is(.CollectionList__label, .Statistics__label) {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .2em;
+}
+
+/* Statistics icons: FtM schema icons and flags, or a blank of their width */
+.md-typeset .Statistics__icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: .75rem;
+}
+.md-typeset svg.Statistics__icon {
+  height: 1rem;
+  fill: currentColor;
+}
+
+/* The CollectionList fills two columns, row by row, where there's room. */
+.md-typeset .CollectionList {
+  container: list / inline-size;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+  column-gap: 2.4rem;
+}
+/* Narrow lists (phones): the label on its own line, then category · count */
+@container list (max-width: 25rem) {
+  .md-content .md-typeset .CollectionList a.CollectionList__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "label label" "category count";
+    gap: .1rem .6rem;
+  }
+  .md-typeset .CollectionList__label {
+    grid-area: label;
+  }
+  .md-typeset .CollectionList__category {
+    grid-area: category;
+  }
+  .md-typeset .CollectionList__count {
+    grid-area: count;
+  }
+}
+
+/* News: the newest blog posts, through the blog's excerpt partial
+   (scripts/render.py). Unlike on the blog, its meta list sits inside
+   .md-typeset here: drop the typeset list styles (block display, margins,
+   text color and weight) and the check marks (site.css), as on the blog. */
+.md-typeset .md-post__meta .md-meta__list {
+  display: inline-flex;
+  margin: 0;
+}
+.md-typeset .md-post__meta .md-meta__list > li {
+  margin: 0;
+  color: inherit;
+  font-weight: inherit;
+}
+.md-content .md-typeset .md-post__meta li::before {
+  content: none;
+}
+
+/* darc.zone page (zone.md), as the darc.zone landing: `.hero--zone` on a
+   landing hero sets a large title with an orange, upright emphasis
+   (`# DARC.*ZONE*`), a narrower lede and search pill; `.stats--row`
+   (scripts/templates/stats_zone.html) puts the index numbers in a
+   centered row of four, two on phones. The column may shrink below its
+   content's widths (a landing hero's `1fr` grows to fit them). */
+.md-typeset .hero--zone {
+  grid-template-columns: minmax(0, 1fr);
+}
+.md-typeset .hero--zone h1 {
+  margin-bottom: .5rem;
+  font-size: clamp(2.2rem, 7.4vw, 5rem);
+  line-height: 1;
+  letter-spacing: -.035em;
+}
+.md-typeset .hero--zone h1 em {
+  font-style: normal;
+  color: var(--oa-orange-500);
+}
+/* The tagline is a small label, like the index numbers' captions. */
+.md-typeset .hero--zone > p:first-child {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+.md-typeset .hero--zone > p:first-child strong {
+  font-weight: inherit;
+}
+.md-typeset .hero--zone > h1 + p {
+  max-width: 32rem;
+  margin-inline: auto;
+  color: var(--text-dim);
+  text-wrap: pretty;
+}
+.md-typeset .hero--zone form[role="search"] {
+  width: min(33rem, 100%);
+  height: 3.2rem;
+  margin: 1rem auto 0;
+}
+.md-typeset .hero--zone form[role="search"] input {
+  text-align: left;
+}
+.md-typeset ul.stats--row {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem 1.2rem;
+  margin-top: 2.5rem;
+}
+.md-typeset ul.stats--row > li {
+  align-items: center;
+}
+.md-typeset ul.stats--row .stat__value {
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+}
+@media (max-width: 640px) {
+  .md-typeset ul.stats--row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

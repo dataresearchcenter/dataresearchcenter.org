@@ -16,8 +16,16 @@
 {% block site_nav %}
   {# Secondary (TOC) – moved to the LEFT, render first #}
   {% if "toc.integrate" not in features %}
+    {# Hidden by `hide: [toc]`, or when it would be empty (same rule as the
+       theme's TOC partial: a lone h1 doesn't count), e.g. on blog category
+       pages, so it doesn't reserve an empty column. #}
+    {% set toc = page.toc %}
+    {% set first = toc | first %}
+    {% if first and first.level == 1 %}
+      {% set toc = first.children %}
+    {% endif %}
     {% set hidden = "" %}
-    {% if page.meta and page.meta.hide and "toc" in page.meta.hide %}
+    {% if not toc or (page.meta and page.meta.hide and "toc" in page.meta.hide) %}
       {% set hidden = "hidden" %}
     {% endif %}
     <div class="md-sidebar md-sidebar--secondary md-sidebar--toc-left"
@@ -34,8 +42,10 @@
      rendered (no `hidden`): it's the burger-toggled overlay, not a persistent
      sidebar, so `hide: navigation` must NOT hide it — the blog plugin sets that
      on every post, which would otherwise leave the burger opening an invisible
-     (display:none) drawer. #}
-  {% if nav %}
+     (display:none) drawer. A page drops it with `hide: [menu]` (e.g. zone.md);
+     site.css then hides the burger. #}
+  {% set hide_menu = page.meta and page.meta.hide and "menu" in page.meta.hide %}
+  {% if nav and not hide_menu %}
     <div class="md-sidebar md-sidebar--primary md-sidebar--nav-overlay drawer__panel"
          data-md-component="sidebar" data-md-type="navigation">
       <label class="drawer__close" for="__drawer" aria-label="Close menu">

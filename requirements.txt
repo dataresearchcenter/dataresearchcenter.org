@@ -1,2 +1,5 @@
-mkdocs-material[imaging]
-mkdocs-redirects
+zensical>=0.0.74
+# scripts/fetch.py + render.py (also pulled in by zensical)
+pyyaml
+jinja2
+markdown

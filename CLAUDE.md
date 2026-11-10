@@ -43,7 +43,8 @@ docs/
   reference.md  typography.md   authoring aids (not in the nav)
   assets/                images; assets/openaleph/ is fetched (gitignored)
   stylesheets/           tokens.css · components.css · site.css · landing.css
-  overrides/             main.html, blog.html, partials/{header,content,post,copyright}.html
+  javascripts/scroll-color.js  page, header and drawer take the color of the section at mid-viewport
+  overrides/             main.html, blog.html, partials/{header,content,logo,post,copyright}.html
   snippets/              make render output (gitignored, `exclude_docs`)
 data/
   topics.yml  dataset_groups.yml   editorial (fields in README.md)
@@ -123,17 +124,23 @@ See `docs/reference.md` for snippets. Wrapper `<div>`/`<section>` need the
 ## Layout chrome
 
 - Horizontal padding is on `main.md-main` only; `.screen` pads vertically and
-  paints its color full-bleed (`border-image`).
+  paints its color full-bleed (`border-image`) until `scroll-color.js` runs;
+  then the page background takes the color of the section at mid-viewport
+  (`body.bg--*`, as on the old openaleph.org), fading in .4s, and every
+  section's text and tokens follow it (cards keep their own).
 - Header (`partials/header.html`): site name (`extra.brand`) | logo |
-  actions (Login / Sign up from `extra.signin`, burger). It scrolls with the
-  page. Site search is off. Front matter `header:` picks the variant:
-  `standard` (default), `zone` (smaller logo left, Login / Sign up, no drawer)
-  or `inverted` (black on paper, `extra.logo_light`; `partials/logo.html`
-  renders both logos). The variants are CSS on a page marker
-  (`.page--header-*`, `partials/content.html`): instant navigation keeps the
-  header.
+  actions (Login / Sign up from `extra.signin`, burger). Sticky, hidden while
+  scrolling down (`header.autohide`); its height follows `--header-logo`, as
+  does the anchor scroll margin. Site search is off. `javascripts/scroll-color.js`
+  gives it the page's `screen--bg-*` class (light surfaces show
+  `extra.logo_light`; `partials/logo.html` renders both logos). Front
+  matter `header: zone`: smaller logo left, Login / Sign up, no drawer; CSS on
+  a page marker (`.page--header-zone`, `partials/content.html`), as instant
+  navigation keeps the header.
 - Drawer: the primary sidebar as a right overlay, also on blog posts (`main.html`
-  ignores `hide: navigation`); none on `header: zone` pages.
+  ignores `hide: navigation`); none on `header: zone` pages. Front matter
+  `drawer:` (h2 ids, e.g. index.md) lists those sections above the pages.
+  Colored like the header.
 - TOC on the left at desktop, hidden when empty, sticky at the top.
 - Blog pages (listings, posts) sit on paper; post categories are `[DARC]` or
   `[OpenAleph]`, with buttons from `extra.blog_categories`.

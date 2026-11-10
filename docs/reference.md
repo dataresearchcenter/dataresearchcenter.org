@@ -64,14 +64,18 @@ excerpts) only the h1 is Sligoil.
 wide page (`wide: true`, 1280px), like the team section at the bottom of the
 landing page. Elsewhere it changes nothing.
 
-**Page header:** `header:` in the front matter picks one of three:
+**Page header:** it takes the color of the section under it, with the dark
+logo (`extra.logo_light`) on light ones. `header:` in the front matter picks
+the layout:
 
 - `standard` (the default): centered logo, burger on the right.
 - `zone`: a smaller logo on the left, Login and Sign up on the right
   (`extra.signin` in `mkdocs.yml`, `primary: true` fills one), no menu.
   zone.md uses it.
-- `inverted`: the standard header in black on paper, with the dark logo
-  (`extra.logo_light`).
+
+**Menu sections:** `drawer:` in the front matter lists h2 ids
+(`[updates, what-we-do]`); the menu shows those sections, in page order, above
+the pages.
 
 _Project-specific component – no upstream._
 

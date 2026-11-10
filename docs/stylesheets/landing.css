@@ -25,8 +25,13 @@
   }
 }
 
+/* The search card: heading and numbers share the free space, the form sits
+   in the middle. */
+.md-typeset .grid > .card.card--feature:has(> form[role="search"]) > :is(h2, ul.stats) {
+  flex: 1 1 0;
+}
 .md-typeset .grid > .card.card--feature > ul.stats {
-  margin-top: auto;
+  align-content: end;
 }
 .md-typeset ul.stats > li {
   display: flex;

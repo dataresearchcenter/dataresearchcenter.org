@@ -12,6 +12,7 @@ theme:
   # No Google Fonts; darc-zensical.css declares Inter and Sligoil Micro.
   font: false
   features:
+    - header.autohide
     - navigation.instant
     - navigation.tracking
     - navigation.sections
@@ -32,14 +33,15 @@ extra:
       url: blog/category/darc/
     - title: OpenAleph
       url: blog/category/openaleph/
-  # The inverted header's logo (`header: inverted`)
+  # The header's logo on light sections
   logo_light: https://darcdn.et/style/logos/darc/svg/DARC-Logo-RGB-Horizontal-Subline-Pos.svg
-  # Header buttons on `header: zone` pages; Sign up goes to zone.md's guide.
+  # Header buttons on `header: zone` pages. Site paths, not `#…`: instant
+  # navigation keeps the header, links resolved on the page it was loaded on.
   signin:
     - label: Login
       url: https://search.openaleph.org/api/2/sessions/oauth?next=%2Fnotifications
     - label: Sign up
-      url: "#signup"
+      url: zone/#signup
       primary: true
   social:
     - icon: material/mail
@@ -55,6 +57,9 @@ extra_css:
   - stylesheets/components.css
   - stylesheets/site.css
   - stylesheets/landing.css
+
+extra_javascript:
+  - javascripts/scroll-color.js
 
 markdown_extensions:
   - admonition
@@ -87,7 +92,6 @@ plugins:
       post_url_date_format: yyyy
       blog_toc: false
       post_excerpt: required
-  # Zensical enables search unless told not to.
   - search:
       enabled: false
   # A warm cache intermittently crashes the build ("... not in collection").

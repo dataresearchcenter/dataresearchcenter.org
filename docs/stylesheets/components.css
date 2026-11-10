@@ -114,11 +114,30 @@ main.md-main {
   border-image: conic-gradient(var(--section-accent, transparent) 0 0) fill 0 // 0 100vw;
 }
 
+/* javascripts/scroll-color.js: the section at the viewport's midpoint colors
+   the page, and every section takes that color (the light surfaces rule swaps
+   the tokens by the page's class). */
+body {
+  background-color: var(--page-bg, var(--md-default-bg-color));
+  transition: var(--transition-bg);
+}
+body.bg--white  { --page-bg: var(--bg-white); }
+body.bg--black  { --page-bg: var(--bg-black); }
+body.bg--green  { --page-bg: var(--bg-green); }
+body.bg--orange { --page-bg: var(--bg-orange); }
+body.bg--yellow { --page-bg: var(--bg-yellow); }
+body.bg--purple { --page-bg: var(--bg-purple); }
+body[class*="bg--"] .md-content__inner > .screen {
+  --section-accent: var(--page-bg);
+  border-image: none;
+  color: var(--color-white);
+}
+
 /* A black section at the top or bottom of a page: main's padding spaces it. */
-.screen--bg-black:not(.screen ~ *) {
+.screen.screen--bg-black:not(.screen ~ *) {
   padding-block-start: 0;
 }
-.screen--bg-black:not(:has(~ .screen)) {
+.screen.screen--bg-black:not(:has(~ .screen)) {
   padding-block-end: 0;
 }
 
@@ -182,18 +201,20 @@ main.md-main {
 }
 
 /* Light surfaces: dark-on-light. Tokens built on other tokens are redeclared,
-   since var() resolves where a custom property is declared. */
-.screen--bg-white,
-.screen--bg-green,
-.screen--bg-orange,
-.screen--bg-yellow,
-.screen--bg-purple,
+   since var() resolves where a custom property is declared. Sections go by
+   the page's color once scroll-color.js runs, everything else by its own. */
+:is(.screen--bg-white, .screen--bg-green, .screen--bg-orange, .screen--bg-yellow, .screen--bg-purple):not(.screen),
+body:not([class*="bg--"]) .screen:is(.screen--bg-white, .screen--bg-green, .screen--bg-orange, .screen--bg-yellow, .screen--bg-purple),
+body:is(.bg--white, .bg--green, .bg--orange, .bg--yellow, .bg--purple) .md-content__inner > .screen,
 body:has(.md-content__inner > .md-post, .md-content--post) .md-content,
 body:has(.md-content__inner > .md-post, .md-content--post) .md-sidebar--secondary,
 body:has(.md-content__inner > #__skip + .screen:not(.screen--bg-black)) .md-sidebar--secondary,
-body:has(.page--header-inverted) .md-header {
+/* until scroll-color.js runs: a page opening light */
+body:has(.md-content__inner > #__skip + .screen:not(.screen--bg-black), .md-content__inner > .md-post, .md-content--post) :is(.md-header, .md-sidebar--nav-overlay):not([class*="screen--bg-"]) {
   --color-white: var(--oa-black);
   --color-black: var(--oa-paper);
+  --logo-neg: none;
+  --logo-pos: block;
   --shadow-button: 2px 2px 0 0 var(--oa-black);
   --font-weight-body: 500;
   --text: var(--oa-black);

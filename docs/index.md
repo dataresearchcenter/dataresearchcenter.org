@@ -1,6 +1,11 @@
 ---
 title: "Data and Research Center – DARC"
 wide: true
+drawer:
+  - updates
+  - what-we-do
+  - who-we-are
+  - contact
 hide:
   - toc
   - title
@@ -20,7 +25,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 
 <div class="card card--feature" markdown>
 
-## Search our public database
+## Search the public DARC.ZONE
 
 <form action="https://search.openaleph.org/search" method="get" role="search">
   <input type="search" name="q" placeholder="Donald Trump, Владимир Путин, 习近平" aria-label="Search OpenAleph" autocomplete="off" spellcheck="false">
@@ -36,8 +41,8 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 ## Get the most out of your own material
 
 - Upload your own documents and cross-reference against our catalog
-- A private workspace on **darc.zone**, shared with your team, for €200/month
-- Your own OpenAleph instance, hosted on secure infrastructure in Germany or Iceland, from €1,600/month
+- A private workspace on [**darc.zone**](https://darc.zone), shared with your team, from €200/month
+- For full flexibility get your own OpenAleph server, securely hosted and managed by us
 
 [See our offer](./zone.md#team){.btn .btn--primary}
 
@@ -78,12 +83,11 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 
 <section class="screen screen--bg-white screen--narrow" markdown>
 
-## News
-
+## Updates
 
 --8<-- "docs/snippets/news.html"
 
-[All posts](blog/index.md){.btn}
+[Blog](blog/index.md){.btn}
 [Newsletter](./projects.md){.btn .btn--primary}
 
 </section>
@@ -91,10 +95,6 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 <section class="screen screen--bg-green screen--narrow" markdown>
 
 ## What we do
-
-At DARC, we provide expert-driven, flexible research and data solutions tailored to the unique needs of journalists, NGOs, civil society organizations, and select corporate clients.
-
-Powered by [OpenAleph](openaleph.md), our versatile open-source search tool, we ensure fast, efficient, and precise investigations, delivering the reliability of an in-house team with the convenience of a monthly subscription.
 
 ### Comprehensive Research
 
@@ -106,9 +106,9 @@ A global team with local expertise, we deliver context-driven solutions.
 - Investigating website ownership and affiliations
 - Geolocating images and videos
 
-### Managed OpenAleph
+### DARC.ZONE and OpenAleph
 
-Our open source tool [OpenAleph](openaleph.md), the software behind [darc.zone](https://darc.zone), simplifies large-scale document and data search.
+Our open source tool [OpenAleph](openaleph.md), the software behind [DARC.ZONE](https://darc.zone), simplifies large-scale document and data search.
 
 - Setting up and managing your organization's own OpenAleph infrastructure
 - Securing access to reference datasets
@@ -147,8 +147,6 @@ Below are some of the hands-on training sessions and workshops that we've run in
 <section class="screen screen--bg-black screen--narrow" markdown>
 
 ## Who we are
-
-DARC is an independent organization providing bespoke data and research services for investigative teams.
 
 Our team has decades of combined experience in investigative journalism and developing research tools and software. Our founders Karina, Simon and Jan have worked on multiple award-winning, cross-border, cross-newsroom investigations with [Norddeutscher Rundfunk](https://ndr.de), the [Organized Crime and Corruption Reporting Project](https://occrp.org) and [CORRECTIV](https://correctiv.org).
 

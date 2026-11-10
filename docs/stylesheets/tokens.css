@@ -29,6 +29,7 @@
 
   --transition-fast:   150ms ease;
   --transition-normal: 300ms ease;
+  --transition-bg: background-color .4s linear;
 
   --font-weight-bold: 700;
 }

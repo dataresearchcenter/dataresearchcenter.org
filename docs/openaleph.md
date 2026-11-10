@@ -1,6 +1,5 @@
 ---
 title: "OpenAleph"
-header: inverted
 hide:
   - toc
 ---

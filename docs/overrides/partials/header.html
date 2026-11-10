@@ -61,7 +61,7 @@
       {% if config.extra.signin %}
         <span class="md-header__signin">
           {% for link in config.extra.signin %}
-            <a href="{{ link.url }}" class="md-header__signin-link{% if link.primary %} md-header__signin-link--primary{% endif %}">{{ link.label }}</a>
+            <a href="{{ link.url | url }}" class="md-header__signin-link{% if link.primary %} md-header__signin-link--primary{% endif %}">{{ link.label }}</a>
           {% endfor %}
         </span>
       {% endif %}

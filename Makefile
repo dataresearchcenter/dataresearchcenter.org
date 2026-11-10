@@ -24,7 +24,7 @@ serve: render
 	$(ZENSICAL) serve
 
 publish: fetch build
-	aws s3 --endpoint-url https://s3.investigativedata.org sync ./site s3://dataresearchcenter.org
+	putfs sync ./site putfs://static.darc.zone/dataresearchcenter.org
 
 clean:
 	rm -rf site docs/snippets

@@ -1,21 +1,30 @@
-PYTHON ?= .venv/bin/python
+# Run from the project root: snippet paths resolve against the working directory.
 
-.PHONY: all build clean dev publish install
+# .venv (make install) when present, else the tools on PATH (CI)
+PYTHON ?= $(or $(wildcard .venv/bin/python),python3)
+ZENSICAL ?= $(or $(wildcard .venv/bin/zensical),zensical)
 
-all: clean build publish
+.DEFAULT_GOAL := build
+.PHONY: install fetch render build serve publish clean
 
 install:
-	python3 -m venv .venv
+	test -x .venv/bin/python || python3 -m venv .venv
 	.venv/bin/pip install -r requirements.txt
 
-build: install clean
-	mkdocs build
+fetch:
+	$(PYTHON) scripts/fetch.py
 
-dev: install
-	mkdocs serve --watch docs --livereload
+render:
+	$(PYTHON) scripts/render.py
+
+build: render
+	$(ZENSICAL) build
+
+serve: render
+	$(ZENSICAL) serve
+
+publish: fetch build
+	putfs sync ./site putfs://static.darc.zone/dataresearchcenter.org
 
 clean:
-	rm -rf site
-
-publish:
-	putfs sync --overwrite ./site putfs://static.darc.zone/dataresearchcenter.org
+	rm -rf site docs/snippets

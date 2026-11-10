@@ -4,7 +4,7 @@ hide:
   - toc
 ---
 
-<section class="screen screen--bg-black screen--full-height" data-background-color="black" markdown>
+<section class="screen screen--bg-black screen--full-height" markdown>
 
 # We'd love to hear from you!
 
@@ -34,7 +34,7 @@ DE361014839
 FONTS [Sligoil](https://www.velvetyne.fr/fonts/sligoil/) by Ariel Martín Pérez, [Inter](https://rsms.me/inter/) by Rasmus Andersson<br>
 DESIGN [Nina Bender](https://www.ninabender.com)<br>
 EMOJIS designed by [OpenMoji](https://openmoji.org/) – the open-source emoji and icon project. License: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/#)<br>
-FUNDING [investigraph](https://investigraph.dev) was funded by [Media Tech Lab Bayern](https://www.media-lab.de/en/), [Secure Research Hub](https://openaleph.org) was funded by [MIZ Babelsberg](https://www.miz-babelsberg.de/startseite.html)
+FUNDING [investigraph](https://investigraph.dev) was funded by [Media Tech Lab Bayern](https://www.media-lab.de/en/), [Secure Research Hub](openaleph.md) was funded by [MIZ Babelsberg](https://www.miz-babelsberg.de/startseite.html)
 </small>
 
 </section>

@@ -1,0 +1,17 @@
+{#- Index numbers on the darc.zone page (docs/zone.md): a row of four under
+    the hero, with that page's longer captions (stats.html, the landing
+    page's search card, keeps the short ones). -#}
+{% set captions = {
+  "entities": "public entities",
+  "datasets": "public datasets",
+  "countries": "countries & territories",
+  "documents": "public documents",
+} %}
+<ul class="stats stats--row" aria-label="Index statistics">
+  {% for key, value in stats %}
+  <li class="stat">
+    <data class="stat__value" value="{{ value }}">{{ value|compact }}</data>
+    <span class="stat__label">{{ captions[key] }}</span>
+  </li>
+  {% endfor %}
+</ul>

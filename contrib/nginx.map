@@ -1,0 +1,128 @@
+# 301 redirects: "$host$uri" (decoded, no query string) → absolute URL.
+# In the http block:
+#
+#     map_hash_bucket_size 256;
+#     map $host$uri $darc_redirect {
+#         default "";
+#         include /path/to/contrib/nginx.map;
+#     }
+#
+# and in the openaleph.org and dataresearchcenter.org server blocks:
+#
+#     if ($darc_redirect) {
+#         return 301 $darc_redirect;
+#     }
+#
+# Keys use bare hosts (redirect www.* first). openaleph.org/docs/ isn't listed.
+
+# openaleph.org pages
+"openaleph.org/"          "https://dataresearchcenter.org/openaleph/";
+"openaleph.org/start/"    "https://dataresearchcenter.org/openaleph/#get-started";
+"openaleph.org/start"     "https://dataresearchcenter.org/openaleph/#get-started";
+"openaleph.org/managed/"  "https://dataresearchcenter.org/openaleph/managed/";
+"openaleph.org/managed"   "https://dataresearchcenter.org/openaleph/managed/";
+"openaleph.org/faq/"      "https://dataresearchcenter.org/openaleph/#faq";
+"openaleph.org/faq"       "https://dataresearchcenter.org/openaleph/#faq";
+"openaleph.org/about/"    "https://dataresearchcenter.org/openaleph/#about";
+"openaleph.org/about"     "https://dataresearchcenter.org/openaleph/#about";
+
+# openaleph.org blog (posts and archives keep their path)
+"openaleph.org/blog/"                                                                             "https://dataresearchcenter.org/blog/category/openaleph/";
+"openaleph.org/blog"                                                                              "https://dataresearchcenter.org/blog/category/openaleph/";
+"openaleph.org/blog/2025/openaleph-commits-to-the-commons/"                                       "https://dataresearchcenter.org/blog/2025/openaleph-commits-to-the-commons/";
+"openaleph.org/blog/2025/openaleph-commits-to-the-commons"                                        "https://dataresearchcenter.org/blog/2025/openaleph-commits-to-the-commons/";
+"openaleph.org/blog/2025/a-fresh-take-on-file-ingestion-and-python-integration-for-openaleph/"    "https://dataresearchcenter.org/blog/2025/a-fresh-take-on-file-ingestion-and-python-integration-for-openaleph/";
+"openaleph.org/blog/2025/a-fresh-take-on-file-ingestion-and-python-integration-for-openaleph"     "https://dataresearchcenter.org/blog/2025/a-fresh-take-on-file-ingestion-and-python-integration-for-openaleph/";
+"openaleph.org/blog/2025/ai-transcriptions-in-openaleph-the-first-steps/"                         "https://dataresearchcenter.org/blog/2025/ai-transcriptions-in-openaleph-the-first-steps/";
+"openaleph.org/blog/2025/ai-transcriptions-in-openaleph-the-first-steps"                          "https://dataresearchcenter.org/blog/2025/ai-transcriptions-in-openaleph-the-first-steps/";
+"openaleph.org/blog/2025/making-audio-and-video-files-searchable/"                                "https://dataresearchcenter.org/blog/2025/making-audio-and-video-files-searchable/";
+"openaleph.org/blog/2025/making-audio-and-video-files-searchable"                                 "https://dataresearchcenter.org/blog/2025/making-audio-and-video-files-searchable/";
+"openaleph.org/blog/2025/putting-a-face-to-the-name/"                                             "https://dataresearchcenter.org/blog/2025/putting-a-face-to-the-name/";
+"openaleph.org/blog/2025/putting-a-face-to-the-name"                                              "https://dataresearchcenter.org/blog/2025/putting-a-face-to-the-name/";
+"openaleph.org/blog/2025/geocoded-addresses-in-openaleph-a-new-way-to-spot-connections/"          "https://dataresearchcenter.org/blog/2025/geocoded-addresses-in-openaleph-a-new-way-to-spot-connections/";
+"openaleph.org/blog/2025/geocoded-addresses-in-openaleph-a-new-way-to-spot-connections"           "https://dataresearchcenter.org/blog/2025/geocoded-addresses-in-openaleph-a-new-way-to-spot-connections/";
+"openaleph.org/blog/2025/bringing-local-ai-to-openaleph/"                                         "https://dataresearchcenter.org/blog/2025/bringing-local-ai-to-openaleph/";
+"openaleph.org/blog/2025/bringing-local-ai-to-openaleph"                                          "https://dataresearchcenter.org/blog/2025/bringing-local-ai-to-openaleph/";
+"openaleph.org/blog/2025/80-years-of-the-aleph-and-the-release-of-openaleph-5/"                   "https://dataresearchcenter.org/blog/2025/80-years-of-the-aleph-and-the-release-of-openaleph-5/";
+"openaleph.org/blog/2025/80-years-of-the-aleph-and-the-release-of-openaleph-5"                    "https://dataresearchcenter.org/blog/2025/80-years-of-the-aleph-and-the-release-of-openaleph-5/";
+"openaleph.org/blog/2025/when-names-travel-together-discover-correlations-in-your-data/"          "https://dataresearchcenter.org/blog/2025/when-names-travel-together-discover-correlations-in-your-data/";
+"openaleph.org/blog/2025/when-names-travel-together-discover-correlations-in-your-data"           "https://dataresearchcenter.org/blog/2025/when-names-travel-together-discover-correlations-in-your-data/";
+"openaleph.org/blog/2025/a-look-inside-openaleph-5s-elasticsearch-improvements/"                  "https://dataresearchcenter.org/blog/2025/a-look-inside-openaleph-5s-elasticsearch-improvements/";
+"openaleph.org/blog/2025/a-look-inside-openaleph-5s-elasticsearch-improvements"                   "https://dataresearchcenter.org/blog/2025/a-look-inside-openaleph-5s-elasticsearch-improvements/";
+"openaleph.org/blog/2025/openaleph-51-released-reworked-synonym-search-and-new-tagging-feature/"  "https://dataresearchcenter.org/blog/2025/openaleph-51-released-reworked-synonym-search-and-new-tagging-feature/";
+"openaleph.org/blog/2025/openaleph-51-released-reworked-synonym-search-and-new-tagging-feature"   "https://dataresearchcenter.org/blog/2025/openaleph-51-released-reworked-synonym-search-and-new-tagging-feature/";
+"openaleph.org/blog/2026/in-platform-translation-for-sensitive-documents/"                        "https://dataresearchcenter.org/blog/2026/in-platform-translation-for-sensitive-documents/";
+"openaleph.org/blog/2026/in-platform-translation-for-sensitive-documents"                         "https://dataresearchcenter.org/blog/2026/in-platform-translation-for-sensitive-documents/";
+"openaleph.org/blog/2026/openaleph-52-strengthening-email-and-breaking-language-barriers/"        "https://dataresearchcenter.org/blog/2026/openaleph-52-strengthening-email-and-breaking-language-barriers/";
+"openaleph.org/blog/2026/openaleph-52-strengthening-email-and-breaking-language-barriers"         "https://dataresearchcenter.org/blog/2026/openaleph-52-strengthening-email-and-breaking-language-barriers/";
+"openaleph.org/blog/2026/when-emails-get-complicated-52-handles-it/"                              "https://dataresearchcenter.org/blog/2026/when-emails-get-complicated-52-handles-it/";
+"openaleph.org/blog/2026/when-emails-get-complicated-52-handles-it"                               "https://dataresearchcenter.org/blog/2026/when-emails-get-complicated-52-handles-it/";
+"openaleph.org/blog/2026/openaleph-521-taking-translations-a-step-further/"                       "https://dataresearchcenter.org/blog/2026/openaleph-521-taking-translations-a-step-further/";
+"openaleph.org/blog/2026/openaleph-521-taking-translations-a-step-further"                        "https://dataresearchcenter.org/blog/2026/openaleph-521-taking-translations-a-step-further/";
+"openaleph.org/blog/2026/openaleph-53-email-threads-table-exploration-and-entity-screening/"      "https://dataresearchcenter.org/blog/2026/openaleph-53-email-threads-table-exploration-and-entity-screening/";
+"openaleph.org/blog/2026/openaleph-53-email-threads-table-exploration-and-entity-screening"       "https://dataresearchcenter.org/blog/2026/openaleph-53-email-threads-table-exploration-and-entity-screening/";
+"openaleph.org/blog/2026/how-to-use-the-new-screening-feature/"                                   "https://dataresearchcenter.org/blog/2026/how-to-use-the-new-screening-feature/";
+"openaleph.org/blog/2026/how-to-use-the-new-screening-feature"                                    "https://dataresearchcenter.org/blog/2026/how-to-use-the-new-screening-feature/";
+"openaleph.org/blog/2026/exploring-openaleph-a-practical-guide-to-investigations/"                "https://dataresearchcenter.org/blog/2026/exploring-openaleph-a-practical-guide-to-investigations/";
+"openaleph.org/blog/2026/exploring-openaleph-a-practical-guide-to-investigations"                 "https://dataresearchcenter.org/blog/2026/exploring-openaleph-a-practical-guide-to-investigations/";
+"openaleph.org/blog/2026/context-is-evidence-investigating-a-leak-with-openaleph/"                "https://dataresearchcenter.org/blog/2026/context-is-evidence-investigating-a-leak-with-openaleph/";
+"openaleph.org/blog/2026/context-is-evidence-investigating-a-leak-with-openaleph"                 "https://dataresearchcenter.org/blog/2026/context-is-evidence-investigating-a-leak-with-openaleph/";
+"openaleph.org/blog/archive/2026/"                                                                "https://dataresearchcenter.org/blog/archive/2026/";
+"openaleph.org/blog/archive/2026"                                                                 "https://dataresearchcenter.org/blog/archive/2026/";
+"openaleph.org/blog/archive/2025/"                                                                "https://dataresearchcenter.org/blog/archive/2025/";
+"openaleph.org/blog/archive/2025"                                                                 "https://dataresearchcenter.org/blog/archive/2025/";
+"openaleph.org/blog/page/2/"                                                                      "https://dataresearchcenter.org/blog/category/openaleph/page/2/";
+"openaleph.org/blog/page/2"                                                                       "https://dataresearchcenter.org/blog/category/openaleph/page/2/";
+"openaleph.org/blog/archive/2025/page/2/"                                                         "https://dataresearchcenter.org/blog/archive/2025/page/2/";
+"openaleph.org/blog/archive/2025/page/2"                                                          "https://dataresearchcenter.org/blog/archive/2025/page/2/";
+
+# openaleph.org legacy blog URLs (from before its MkDocs blog)
+"openaleph.org/blog/2025/03/OpenAleph-commits-to-the-commons/3510138e-16b3-4b5d-a06c-41af0aa2d517/"                                         "https://dataresearchcenter.org/blog/2025/openaleph-commits-to-the-commons/";
+"openaleph.org/blog/2025/03/OpenAleph-commits-to-the-commons/3510138e-16b3-4b5d-a06c-41af0aa2d517"                                          "https://dataresearchcenter.org/blog/2025/openaleph-commits-to-the-commons/";
+"openaleph.org/blog/2025/05/A-Fresh-Take-on-File-Ingestion-and-Python-Integration-for-OpenAleph/0802565a-4279-4d6f-84f6-4ab2b09f38f1/"      "https://dataresearchcenter.org/blog/2025/a-fresh-take-on-file-ingestion-and-python-integration-for-openaleph/";
+"openaleph.org/blog/2025/05/A-Fresh-Take-on-File-Ingestion-and-Python-Integration-for-OpenAleph/0802565a-4279-4d6f-84f6-4ab2b09f38f1"       "https://dataresearchcenter.org/blog/2025/a-fresh-take-on-file-ingestion-and-python-integration-for-openaleph/";
+"openaleph.org/blog/2025/05/AI-Transcriptions-in-OpenAleph:-the-First-Steps/68450c9c-78e7-4e3f-8743-40ad6ba7b4f9/"                          "https://dataresearchcenter.org/blog/2025/ai-transcriptions-in-openaleph-the-first-steps/";
+"openaleph.org/blog/2025/05/AI-Transcriptions-in-OpenAleph:-the-First-Steps/68450c9c-78e7-4e3f-8743-40ad6ba7b4f9"                           "https://dataresearchcenter.org/blog/2025/ai-transcriptions-in-openaleph-the-first-steps/";
+"openaleph.org/blog/2025/05/Making-Audio-and-Video-Files-Searchable/999f0117-7cf3-4099-bcd9-f60f5492c897/"                                  "https://dataresearchcenter.org/blog/2025/making-audio-and-video-files-searchable/";
+"openaleph.org/blog/2025/05/Making-Audio-and-Video-Files-Searchable/999f0117-7cf3-4099-bcd9-f60f5492c897"                                   "https://dataresearchcenter.org/blog/2025/making-audio-and-video-files-searchable/";
+"openaleph.org/blog/2025/05/Putting-a-Face-to-the-Name/c003a3a8-ce3d-4745-b61c-ed52e3898525/"                                               "https://dataresearchcenter.org/blog/2025/putting-a-face-to-the-name/";
+"openaleph.org/blog/2025/05/Putting-a-Face-to-the-Name/c003a3a8-ce3d-4745-b61c-ed52e3898525"                                                "https://dataresearchcenter.org/blog/2025/putting-a-face-to-the-name/";
+"openaleph.org/blog/2025/06/Geocoded-Addresses-in-OpenAleph:-A-New-Way-to-Spot-Connections/896ad56e-f96c-41dd-a676-dcb0e705201b/"           "https://dataresearchcenter.org/blog/2025/geocoded-addresses-in-openaleph-a-new-way-to-spot-connections/";
+"openaleph.org/blog/2025/06/Geocoded-Addresses-in-OpenAleph:-A-New-Way-to-Spot-Connections/896ad56e-f96c-41dd-a676-dcb0e705201b"            "https://dataresearchcenter.org/blog/2025/geocoded-addresses-in-openaleph-a-new-way-to-spot-connections/";
+"openaleph.org/blog/2025/08/Bringing-Local-AI-to-OpenAleph/d6074b8f-3d19-43b8-89c2-0c87bfb98591/"                                           "https://dataresearchcenter.org/blog/2025/bringing-local-ai-to-openaleph/";
+"openaleph.org/blog/2025/08/Bringing-Local-AI-to-OpenAleph/d6074b8f-3d19-43b8-89c2-0c87bfb98591"                                            "https://dataresearchcenter.org/blog/2025/bringing-local-ai-to-openaleph/";
+"openaleph.org/blog/2025/09/80-Years-of-The-Aleph-and-the-release-of-OpenAleph-5/2ac021f4-ad09-47ff-a9f0-5f96aa512753/"                     "https://dataresearchcenter.org/blog/2025/80-years-of-the-aleph-and-the-release-of-openaleph-5/";
+"openaleph.org/blog/2025/09/80-Years-of-The-Aleph-and-the-release-of-OpenAleph-5/2ac021f4-ad09-47ff-a9f0-5f96aa512753"                      "https://dataresearchcenter.org/blog/2025/80-years-of-the-aleph-and-the-release-of-openaleph-5/";
+"openaleph.org/blog/2025/09/A-Look-Inside-OpenAleph-5s-ElasticSearch-Improvements/412bfb6e-63ec-4d84-80f5-a1a3ace91520/"                    "https://dataresearchcenter.org/blog/2025/a-look-inside-openaleph-5s-elasticsearch-improvements/";
+"openaleph.org/blog/2025/09/A-Look-Inside-OpenAleph-5s-ElasticSearch-Improvements/412bfb6e-63ec-4d84-80f5-a1a3ace91520"                     "https://dataresearchcenter.org/blog/2025/a-look-inside-openaleph-5s-elasticsearch-improvements/";
+"openaleph.org/blog/2025/09/When-Names-Travel-Together:-Discover-Correlations-in-Your-Data/86038fe7-a661-4eeb-a274-82321e156caa/"           "https://dataresearchcenter.org/blog/2025/when-names-travel-together-discover-correlations-in-your-data/";
+"openaleph.org/blog/2025/09/When-Names-Travel-Together:-Discover-Correlations-in-Your-Data/86038fe7-a661-4eeb-a274-82321e156caa"            "https://dataresearchcenter.org/blog/2025/when-names-travel-together-discover-correlations-in-your-data/";
+"openaleph.org/blog/2025/12/OpenAleph-5.1-Released:-Reworked-Synonym-Search-and-New-Tagging-Feature/ea154c56-220f-48f6-a1c1-deb9c745f574/"  "https://dataresearchcenter.org/blog/2025/openaleph-51-released-reworked-synonym-search-and-new-tagging-feature/";
+"openaleph.org/blog/2025/12/OpenAleph-5.1-Released:-Reworked-Synonym-Search-and-New-Tagging-Feature/ea154c56-220f-48f6-a1c1-deb9c745f574"   "https://dataresearchcenter.org/blog/2025/openaleph-51-released-reworked-synonym-search-and-new-tagging-feature/";
+"openaleph.org/blog/2026/03/In-Platform-Translation-for-Sensitive-Documents/38401cf3-2455-4b0f-a8ea-95e38b97b2f2/"                          "https://dataresearchcenter.org/blog/2026/in-platform-translation-for-sensitive-documents/";
+"openaleph.org/blog/2026/03/In-Platform-Translation-for-Sensitive-Documents/38401cf3-2455-4b0f-a8ea-95e38b97b2f2"                           "https://dataresearchcenter.org/blog/2026/in-platform-translation-for-sensitive-documents/";
+"openaleph.org/blog/2026/03/OpenAleph-5.2:-Strengthening-Email-and-Breaking-Language-Barriers/a1df2376-0bda-44a8-9cf3-ccc4d8534c54/"        "https://dataresearchcenter.org/blog/2026/openaleph-52-strengthening-email-and-breaking-language-barriers/";
+"openaleph.org/blog/2026/03/OpenAleph-5.2:-Strengthening-Email-and-Breaking-Language-Barriers/a1df2376-0bda-44a8-9cf3-ccc4d8534c54"         "https://dataresearchcenter.org/blog/2026/openaleph-52-strengthening-email-and-breaking-language-barriers/";
+"openaleph.org/blog/2026/03/When-Emails-Get-Complicated:-5.2-Handles-It/64dac929-6e82-493e-af84-c0afc8783239/"                              "https://dataresearchcenter.org/blog/2026/when-emails-get-complicated-52-handles-it/";
+"openaleph.org/blog/2026/03/When-Emails-Get-Complicated:-5.2-Handles-It/64dac929-6e82-493e-af84-c0afc8783239"                               "https://dataresearchcenter.org/blog/2026/when-emails-get-complicated-52-handles-it/";
+"openaleph.org/blog/2026/04/OpenAleph-5.2.1:-Taking-Translations-a-Step-Further/a9e1585c-3c3d-43b3-9319-021dc76e908f/"                      "https://dataresearchcenter.org/blog/2026/openaleph-521-taking-translations-a-step-further/";
+"openaleph.org/blog/2026/04/OpenAleph-5.2.1:-Taking-Translations-a-Step-Further/a9e1585c-3c3d-43b3-9319-021dc76e908f"                       "https://dataresearchcenter.org/blog/2026/openaleph-521-taking-translations-a-step-further/";
+
+# Images linked from outside
+~^openaleph\.org/assets/blogs/(.+)$                 "https://dataresearchcenter.org/assets/blogs/$1";
+~^openaleph\.org/assets/icons/(.+)$                 "https://dataresearchcenter.org/openaleph/assets/icons/$1";
+"openaleph.org/assets/openaleph-logo-square.png"   "https://dataresearchcenter.org/assets/openaleph-logo-square.png";
+
+# dataresearchcenter.org legacy blog URLs (also in mkdocs.yml redirects)
+"dataresearchcenter.org/blog/2025/03/Introducing-DARC:-The-Future-of-Investigative-Research-and-Data-Solutions/e862307a-e635-4101-9ad0-88b3fa51c0f9/"  "https://dataresearchcenter.org/blog/2025/introducing-darc-the-future-of-investigative-research-and-data-solutions/";
+"dataresearchcenter.org/blog/2025/03/Introducing-DARC:-The-Future-of-Investigative-Research-and-Data-Solutions/e862307a-e635-4101-9ad0-88b3fa51c0f9"   "https://dataresearchcenter.org/blog/2025/introducing-darc-the-future-of-investigative-research-and-data-solutions/";
+"dataresearchcenter.org/blog/2025/04/Road-Trippin'-with-DARC/0504bd46-d8d7-4b98-b0b5-4ae4741dc841/"                                                    "https://dataresearchcenter.org/blog/2025/road-trippin-with-darc/";
+"dataresearchcenter.org/blog/2025/04/Road-Trippin'-with-DARC/0504bd46-d8d7-4b98-b0b5-4ae4741dc841"                                                     "https://dataresearchcenter.org/blog/2025/road-trippin-with-darc/";
+"dataresearchcenter.org/blog/2025/07/Why-We-Run-Our-Own-Servers-(And-Why-That-Matters-for-You)/02285437-436f-460c-921a-4b40342fb026/"                  "https://dataresearchcenter.org/blog/2025/why-we-run-our-own-servers-and-why-that-matters-for-you/";
+"dataresearchcenter.org/blog/2025/07/Why-We-Run-Our-Own-Servers-(And-Why-That-Matters-for-You)/02285437-436f-460c-921a-4b40342fb026"                   "https://dataresearchcenter.org/blog/2025/why-we-run-our-own-servers-and-why-that-matters-for-you/";
+"dataresearchcenter.org/blog/2026/01/Our-Work-on-The-Damascus-Dossier/f891f334-c78a-46eb-8f1d-0909acbc92c4/"                                           "https://dataresearchcenter.org/blog/2026/our-work-on-the-damascus-dossier/";
+"dataresearchcenter.org/blog/2026/01/Our-Work-on-The-Damascus-Dossier/f891f334-c78a-46eb-8f1d-0909acbc92c4"                                            "https://dataresearchcenter.org/blog/2026/our-work-on-the-damascus-dossier/";
+
+# dataresearchcenter.org pages that became landing page sections
+"dataresearchcenter.org/who-we-are/"  "https://dataresearchcenter.org/#who-we-are";
+"dataresearchcenter.org/who-we-are"   "https://dataresearchcenter.org/#who-we-are";

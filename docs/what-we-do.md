@@ -4,13 +4,13 @@ hide:
   - toc
 ---
 
-<section class="screen screen--bg-black screen--full-height" data-background-color="black" markdown>
+<section class="screen screen--bg-black screen--full-height" markdown>
 
 # What we do
 
 At DARC, we provide expert-driven, flexible research and data solutions tailored to the unique needs of journalists, NGOs, civil society organizations, and select corporate clients. 
 
-Powered by [OpenAleph](https://openaleph.org), our versatile open-source search tool, we ensure fast, efficient, and precise investigations, delivering the reliability of an in-house team with the convenience of a monthly subscription.
+Powered by [OpenAleph](openaleph.md), our versatile open-source search tool, we ensure fast, efficient, and precise investigations, delivering the reliability of an in-house team with the convenience of a monthly subscription.
 
 ## Comprehensive Research
 
@@ -24,9 +24,9 @@ A global team with local expertise, we deliver context-driven solutions.
 
 ## Investigative Tech
 
-Our open source tool [OpenAleph](https://openaleph.org) simplifies large-scale document and data search.
+Our open source tool [OpenAleph](openaleph.md) simplifies large-scale document and data search.
 
-- [Setting up and managing](https://openaleph.org/managed/) your organization's own OpenAleph infrastructure
+- [Setting up and managing](openaleph/managed.md) your organization's own OpenAleph infrastructure
 - Securing access to reference datasets
 - Developing custom OpenAleph features tailored to your team’s needs
 - Providing technical support, onboarding and training

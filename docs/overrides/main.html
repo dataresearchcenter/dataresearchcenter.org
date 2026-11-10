@@ -1,23 +1,16 @@
-{#-
-  investigativedata.io main template – extends mkdocs-material's base.
-
-  Layout flip vs. stock material:
-    1. Site nav (md-sidebar--primary)   → right-side OVERLAY drawer at all widths
-       (toggled by the existing #__drawer checkbox + .md-overlay backdrop).
-    2. Table of contents (md-sidebar--secondary) → LEFT side at desktop.
-
-  Render order matters because `.md-main__inner` is `display: flex` – TOC
-  is emitted first so it appears as the first flex item (left).
-  The primary sidebar is taken out of normal flow in CSS via
-  `position: fixed` regardless of viewport, so it does not affect the row.
--#}
+{#- TOC first (left); the site nav is a fixed overlay drawer (site.css). -#}
 {% extends "base.html" %}
 
 {% block site_nav %}
-  {# Secondary (TOC) – moved to the LEFT, render first #}
+  {# The h2s (a lone h1 doesn't count, as in the theme's TOC partial) #}
+  {% set toc = page.toc %}
+  {% set first = toc | first %}
+  {% if first and first.level == 1 %}
+    {% set toc = first.children %}
+  {% endif %}
   {% if "toc.integrate" not in features %}
     {% set hidden = "" %}
-    {% if page.meta and page.meta.hide and "toc" in page.meta.hide %}
+    {% if not toc or (page.meta and page.meta.hide and "toc" in page.meta.hide) %}
       {% set hidden = "hidden" %}
     {% endif %}
     <div class="md-sidebar md-sidebar--secondary md-sidebar--toc-left"
@@ -30,12 +23,8 @@
     </div>
   {% endif %}
 
-  {# Primary (site nav) – RIGHT-side overlay drawer at all widths. Always
-     rendered (no `hidden`): it's the burger-toggled overlay, not a persistent
-     sidebar, so `hide: navigation` must NOT hide it — the blog plugin sets that
-     on every post, which would otherwise leave the burger opening an invisible
-     (display:none) drawer. #}
-  {% if nav %}
+  {# Ignores `hide: navigation`, which the blog plugin sets on every post. #}
+  {% if nav and not (page.meta and page.meta.header == "zone") %}
     <div class="md-sidebar md-sidebar--primary md-sidebar--nav-overlay drawer__panel"
          data-md-component="sidebar" data-md-type="navigation">
       <label class="drawer__close" for="__drawer" aria-label="Close menu">
@@ -45,13 +34,21 @@
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </label>
-      {# Use mkdocs-material's stock nav partial – it renders `.md-nav` /
-         `.md-nav__list` / `.md-nav__link` with the theme's typography and
-         spacing, so we don't have to restyle anything. The .md-sidebar__*
-         wrappers are kept (display:contents in CSS) so the bundled JS
-         keeps finding them. #}
+      {# The wrappers stay for the theme JS (display: contents in site.css). #}
       <div class="md-sidebar__scrollwrap">
         <div class="md-sidebar__inner">
+          {# `drawer:` in the front matter: the h2 ids listed first #}
+          {% if page.meta and page.meta.drawer %}
+            <nav class="md-nav drawer__sections" aria-label="Sections">
+              <ul class="md-nav__list">
+                {% for item in toc if item.id in page.meta.drawer %}
+                  <li class="md-nav__item">
+                    <a href="{{ item.url }}" class="md-nav__link"><span class="md-ellipsis">{{ item.title }}</span></a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </nav>
+          {% endif %}
           {% include "partials/nav.html" %}
         </div>
       </div>

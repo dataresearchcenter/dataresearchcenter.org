@@ -1,0 +1,9 @@
+{#- Index numbers (under the search box). -#}
+<ul class="stats" aria-label="Index statistics">
+  {% for label, value in stats %}
+  <li class="stat">
+    <data class="stat__value" value="{{ value }}">{{ value|compact }}</data>
+    <span class="stat__label">{{ label }}</span>
+  </li>
+  {% endfor %}
+</ul>

@@ -1,160 +1,167 @@
 # CLAUDE.md
 
-Guidance for Claude Code when working in this repository.
-
 ## What this is
 
-The **production website for [dataresearchcenter.org](https://dataresearchcenter.org)**
-(the Data and Research Center, DARC), built with [MkDocs](https://www.mkdocs.org/)
-+ [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). Content is
-plain markdown under `docs/`, built and deployed to S3 by GitHub Actions on push to
-`main`.
+The website of the Data and Research Center (DARC),
+[dataresearchcenter.org](https://dataresearchcenter.org), built with
+[Zensical](https://zensical.org/) from `mkdocs.yml` (`theme.variant: classic`:
+the Material look the CSS is built on). Content is markdown under `docs/`;
+push to `main` builds and deploys to S3.
 
-This is **no longer a shared template** for downstream DARC sites — other sites
-clone this repo. Only the design layer (`darc-zensical.css`) is shared upstream.
-Zensical (the mkdocs-material successor) can still run the same `mkdocs.yml` as a
-drop-in, but the production toolchain and the blog/optimize/redirects plugins are
-Material's — prefer `mkdocs`.
+Other DARC sites clone this repo; only `darc-zensical.css` is shared, from
+[`zensical-theme-darc`](https://github.com/dataresearchcenter/zensical-theme-darc).
+Zensical has no MkDocs `hooks` and only its
+[supported plugins](https://zensical.org/docs/compatibility/mkdocs/plugins/);
+templates are MiniJinja (no Python calls).
 
 ## Commands
 
 ```bash
-pip install -r requirements.txt        # deps: mkdocs-material[imaging], mkdocs-redirects, …
-
-mkdocs serve     # http://localhost:8000 (live reload)
-mkdocs build     # → ./site
-
-CI=true mkdocs build                   # also runs the image `optimize` plugin (needs `pngquant`)
+make install     # .venv with Zensical and the scripts' dependencies
+make fetch       # OpenAleph API + images → data/openaleph/, docs/assets/openaleph/ (network)
+make render      # data/ + blog posts → docs/snippets/ (offline; build and serve run it)
+make build       # → site/ (default target; CI=true also runs the optimize plugin, needs pngquant)
+make serve       # http://localhost:8000, live reload
+make publish     # fetch, build, sync site/ to S3
+make clean       # remove site/ and docs/snippets/
 ```
 
-## Architecture
+Run `make` from the project root (snippet paths resolve against the working
+directory). It uses `.venv` when present, else the tools on `PATH` (CI). All
+targets are repeatable; `build` works offline from the last `fetch`.
+
+## Layout
 
 ```
 docs/
-  index.md               # pages (markdown)
-  what-we-do.md  who-we-are.md  projects.md  contact.md
-  blog/                  # mkdocs-material blog plugin (index.md + posts/)
-  reference.md           # authoring reference (every component, copy-pasteable)
-  typography.md
-  assets/                # images (profiles, projects, blogs)
-  stylesheets/           # darc-zensical.css is loaded from upstream URL — NOT stored here
-    tokens.css           # project tokens (neutrals, accents, spacing, stroke, radii, shadows)
-    components.css       # .screen, .hero, .btn, .grid.cards modifiers, profile cards, chips
-    site.css             # layout chrome — drawer, header, footer, scroll-color, typography, list markers
-    extra.css            # last-mile site overrides (kept small)
-  javascripts/
-    scroll-color.js      # per-section bg swap on scroll, light-scheme only
-  overrides/             # Material template overrides
-    main.html            # block site_nav swap: TOC left, nav as right overlay drawer
-    partials/            # header.html (3-col), footer.html, logo.html, copyright.html
-    .icons/lucide        # local lucide SVGs (Material ships material/fontawesome/octicons/simple)
-mkdocs.yml               # theme, palette, plugins (meta, blog, search, optimize, redirects), nav, markdown_extensions
-requirements.txt
-.github/workflows/publish.yml   # CI: build (+ optimize) and sync ./site to S3
+  index.md               landing page; ends with the team (#who-we-are)
+  what-we-do.md  projects.md  contact.md  open-source.md
+  zone.md                darc.zone landing (search.openaleph.org) with plans and the sign up guide; `header: zone`
+  openaleph.md           OpenAleph open source project (merged from openaleph.org)
+  openaleph/managed.md   the managed service; openaleph/assets/icons/
+  blog/                  blog plugin: index.md, posts/ (categories DARC, OpenAleph)
+  reference.md  typography.md   authoring aids (not in the nav)
+  assets/                images; assets/openaleph/ is fetched (gitignored)
+  stylesheets/           tokens.css · components.css · site.css · landing.css
+  javascripts/scroll-color.js  page, header and drawer take the color of the section at mid-viewport
+  overrides/             main.html, blog.html, partials/{header,content,logo,post,copyright}.html
+  snippets/              make render output (gitignored, `exclude_docs`)
+data/
+  topics.yml  dataset_groups.yml   editorial (fields in README.md)
+  openaleph/             make fetch output (gitignored)
+scripts/
+  fetch.py  render.py  templates/  resize_assets.py
+contrib/nginx.map        301s: openaleph.org pages and blog, legacy blog URLs, /who-we-are/
+.github/workflows/publish.yml      pip install, pngquant, make fetch build, S3 sync
 ```
 
-Note: `darc-zensical.css` is the shared cross-DARC design layer, loaded at build
-time from the upstream
-[`zensical-theme-darc`](https://github.com/dataresearchcenter/zensical-theme-darc)
-repo via `extra_css` (there is **no local copy**). Keep it in sync upstream; don't
-put project-specific tweaks there — use the local layers.
+## Snippets pipeline
 
-## Build & deploy
+- `fetch.py` resolves the collection IDs in `data/*.yml` via the API
+  (non-public ones are dropped with a warning), snapshots `/api/2/metadata` and
+  `/api/2/statistics`, and downloads topic images (Wikimedia as 960px
+  renditions via the Commons API, SVGs as is), group icons, FtM schema icons and
+  flags. Download failures are warnings. Env: `OPENALEPH_API_URL`,
+  `OPENALEPH_USER_AGENT` (default `openaleph` passes the Anubis challenge),
+  `BUILD_USER_AGENT` (image downloads).
+- `render.py` writes one block per `scripts/templates/*.html` and `news.html`
+  (the newest posts through the blog's `partials/post.html`, as templates can't
+  list posts outside the blog). Without a snapshot it warns and skips the
+  OpenAleph blocks. Re-run it after adding or renaming a post.
+- Pages include blocks with `--8<-- "docs/snippets/<name>.html"`: Zensical
+  resolves snippet paths against the working directory (`!relative` isn't
+  supported) and drops a missing snippet silently.
+- `md_in_html` misreads block tags indented 4+ spaces: `render.py` flattens the
+  indentation.
+- Collection IDs are strings in `topics.yml`, integers in `dataset_groups.yml`.
+  Index numbers: entities = `things`, datasets = `collections`, countries =
+  country keys, documents = schemata descending from `Document`.
 
-The `optimize` image plugin (`mkdocs.yml`) is `enabled: !ENV [CI, false]` — it runs
-only in CI (and `cache: false`, to dodge a warm-cache race), needing the `pngquant`
-binary (PNG) and Pillow (JPG, via `mkdocs-material[imaging]`). Push to `main` runs
-`.github/workflows/publish.yml`: `mkdocs build`, then sync `./site` to S3.
+## CSS
 
-## Design system
+Load order (`extra_css`): `darc-zensical.css` (upstream, by URL: palette
+`--oa-*`, `--font-sans`/`--font-mono` and their `@font-face` on the DARC CDN,
+scheme tokens), then:
 
-Tokens are layered:
+- `tokens.css`: `--color-white`/`--color-black` (text and fills, swapped on
+  light surfaces), `--bg-*` section colors, `--stroke-width` (2px, every
+  border), radii, `--shadow-button`, `--container-lg` (1024px),
+  `--container-xl` (1280px: header, footer, `wide: true` pages) and `--page-x`
+  (the page's side padding, also the zone header's).
+- `components.css`: the authoring components (table below).
+- `site.css`: chrome (drawer, TOC, header, footer), typography, blog.
+- `landing.css`: the generated blocks, News, the darc.zone hero.
 
-1. `darc-zensical.css` (upstream) — `--oa-*` palette, `--font-sans`,
-   `--font-mono`, scheme tokens (`--bg`, `--text`, `--md-*-color`),
-   admonition + code highlight colors per scheme.
-2. `tokens.css` (project) — semantic aliases (`--color-black`, `--color-white`),
-   marketing section accents (`--bg-{white,black,green,orange,yellow,purple}`),
-   spacing scale (`--xs`, `--s`, `--l`, `--xl`), `--stroke-width: 3px`,
-   `--radius-{card,chip-sm}`, `--shadow-button{,-light}`, transitions.
-3. `components.css` + `site.css` — apply tokens to elements.
-
-**Single border weight everywhere**: `var(--stroke-width)` (3px). To rescale
-globally, change the one line in `tokens.css`.
+`theme.font: false`: no Google Fonts. The palette is slate only, so rules are
+written for the dark page; light sections are dark-on-light through the light
+surfaces rule in `components.css`, which also sets the upstream light-scheme
+code and admonition tokens.
 
 ## Components
 
-Every component is plain markdown + a small wrapper class. No macros, no
-Python plugins.
+See `docs/reference.md` for snippets. Wrapper `<div>`/`<section>` need the
+`markdown` attribute.
 
-| Component | Class(es) |
+| Component | Markup |
 |---|---|
-| Section / screen | `.screen` + `.screen--bg-{color}` + optional `.screen--full-height` |
-| Hero (landing) | `.hero.hero--landing` (single column, Sligoil-mono h1) |
-| Hero (2-col w/ media) | `.hero` containing one inner `<div markdown>` (content) and one image — order swaps sides |
-| Buttons | `.btn` (secondary outline) + `.btn.btn--primary` (filled inverse) |
-| Card grid | `<div class="grid cards" markdown>` + markdown list |
-| Card full-width | `{ .card--full }` on a list item |
-| Profile cards | add `profiles` to the grid: `<div class="grid cards profiles" markdown>` |
-| Tag chips | `<kbd>` |
-| Form / input | plain `<form>` + `<input>` (generic CSS) |
-| Inline text utils | `.muted`, `.dim` |
-| Image opt-outs | `{.no-border}`, `{.no-shadow}` |
-
-See `docs/reference.md` for copy-pasteable snippets.
+| Section | `<section class="screen screen--bg-{white,black,green,orange,yellow,purple}">`, `.screen--full-height`, `.screen--narrow` (default width on a wide page) |
+| Section headline | `## …` first in a section |
+| Hero, landing | `.hero.hero--landing` |
+| Hero, darc.zone | `.hero.hero--landing.hero--zone`; numbers via `stats_zone.html` (`ul.stats.stats--row`) |
+| Hero, two columns | `.hero` with a `<div markdown>` and an image; source order sets the sides. A logo or symbol (`.no-border`, `.section-icon`) sits inset, a screenshot fills the column |
+| Buttons | `.btn`, `.btn.btn--primary`; a paragraph of buttons is an action row |
+| Card grid | `<div class="grid cards">` + list; `{ .card--full }`; `.grid--wide` (2 per row), `.grid--three` |
+| Block cards | `<div class="card">` in a `.grid`: `.card--feature`, `.card--media` (`figure.card__media`, `.card__body`, `.card__footer`), filled with `screen--bg-*` |
+| Data card (templates) | `header.card__header` first; rows `CollectionList` / `Statistics__list` share one style |
+| Profile cards | `<div class="grid cards profiles">` |
+| Search pill | `<form role="search">` with an input and a `.btn` |
+| Plan price | `**€200**{.price}` |
+| Chips | `<kbd>` |
+| Utilities | `.muted`, `.dim`, `{.no-border}`, `{.no-shadow}`, `{.center}`, `{.section-icon}` |
+| Layer stack | `<div class="stack">`, a paragraph per layer: `**label**`, then links, one per line |
+| Diagram | ` ```mermaid ` in `<div class="diagram">`; Mermaid can't link nodes (`strict`) |
 
 ## Layout chrome
 
-- **Padding:** all horizontal padding lives on `main.md-main` (so wrapped
-  `.screen` pages and plain-markdown pages like the blog match). `.screen`
-  sections carry no padding; stacked sections are separated by a gap. Material's
-  content-container inset is neutralized in `components.css`.
-- **Header**: 3-column grid (`md-header__title` | centered `md-logo` | actions
-  group with palette / search / source / burger). Always-visible burger.
-- **Drawer**: `.md-sidebar--primary` repurposed as a right-side overlay panel
-  (`max-width: min(22rem, 85vw)`, offset hard shadow, slides in via the
-  `#__drawer` checkbox). Always rendered (`main.html` ignores `hide: navigation`,
-  which the blog plugin sets on posts). `site.css` has a mobile media block that
-  re-flattens Material's mobile nav (static layout, no item borders/box-shadow,
-  drops the integrated TOC).
-- **TOC**: `.md-sidebar--secondary` moved to the LEFT at desktop widths.
-- **Footer**: vanilla `.md-footer-meta` plus a small flexbox column layout.
-
-## Scroll-color
-
-`docs/javascripts/scroll-color.js` toggles `bg--{color}` on `<body>` and
-`md-header--bg-{color}` on `.md-header` as `data-background-color` sections
-cross the viewport midpoint.
-
-**Light mode only** — dark mode (`data-md-color-scheme="slate"`) keeps the
-darc-zensical palette regardless of which section is active. The CSS gate is in
-`site.css`: `body[data-md-color-scheme="default"].bg--*`. (The palette is
-currently slate-only.)
+- Horizontal padding is on `main.md-main` only; `.screen` pads vertically and
+  paints its color full-bleed (`border-image`) until `scroll-color.js` runs;
+  then the page background takes the color of the section at mid-viewport
+  (`body.bg--*`, as on the old openaleph.org), fading in .4s, and every
+  section's text and tokens follow it (cards keep their own).
+- Header (`partials/header.html`): site name (`extra.brand`) | logo |
+  actions (Login / Sign up from `extra.signin`, burger). Sticky, hidden while
+  scrolling down (`header.autohide`); its height follows `--header-logo`, as
+  does the anchor scroll margin. Site search is off. `javascripts/scroll-color.js`
+  gives it the page's `screen--bg-*` class (light surfaces show
+  `extra.logo_light`; `partials/logo.html` renders both logos). Front
+  matter `header: zone`: smaller logo left, Login / Sign up, no drawer; CSS on
+  a page marker (`.page--header-zone`, `partials/content.html`), as instant
+  navigation keeps the header.
+- Drawer: the primary sidebar as a right overlay, also on blog posts (`main.html`
+  ignores `hide: navigation`); none on `header: zone` pages. Front matter
+  `drawer:` (h2 ids, e.g. index.md) lists those sections above the pages.
+  Colored like the header.
+- TOC on the left at desktop, hidden when empty, sticky at the top.
+- Blog pages (listings, posts) sit on paper; post categories are `[DARC]` or
+  `[OpenAleph]`, with buttons from `extra.blog_categories`.
+- Team: `## Who we are` on the landing page; nav link `./#who-we-are`.
+- OpenAleph: `/openaleph/` (`#get-started`, `#faq`, `#about`) and
+  `/openaleph/managed/`. Add a `contrib/nginx.map` entry when a published URL
+  changes.
 
 ## Conventions
 
-- `markdown` attribute on every wrapper `<div>` / `<section>` is required to
-  keep Python-Markdown parsing inside HTML.
-- `<br>` for line breaks inside headings (markdown's two-trailing-spaces and
-  `\` rules don't apply in headings).
-- Body text in light mode is `--color-black` (#1a1a1a) at weight 500;
-  dark mode is `--color-white` at weight 400. Pinned in `site.css`.
-- Headings `h2`–`h4` are bold (700) — pinned in `site.css` (Material defaults
-  them to a thin ~300/400).
-- Inline `<a>` in content (`.md-content a`) inherits color and gets a 2px
-  underline; `.btn`, header permalinks and post-title `.toclink` opt out.
-- Body unordered-list bullets render a custom check-mark SVG (`site.css`);
-  card grids and task lists are excluded.
-- Icons: UI chrome (menu, search, social) uses the **Material** set
-  (`theme.icon`, `extra.social`). Shortcodes (`:lucide-x:`, `:material-x:`,
-  `:simple-x:`, `:octicons-x:`, `:fontawesome-x:`) resolve via `pymdownx.emoji`
-  with `material.extensions.emoji.{twemoji,to_svg}`. **Lucide** isn't shipped by
-  Material — it's bundled locally in `docs/overrides/.icons/lucide/` and
-  registered via the emoji `custom_icons` option, so `:lucide-*:` still works.
-
-## For other DARC sites
-
-This repo is no longer an upstream template — clone it as a starting point. To
-adapt a clone, edit `mkdocs.yml` (`site_name`, `site_url`, `repo_url`, `nav`,
-logos, `extra.social`), `docs/*.md`, and `docs/stylesheets/extra.css`. Don't
-modify the upstream `darc-zensical.css` design layer (it's loaded by URL).
+- The checkout is edited in parallel (host editor, shared mount): re-read a
+  file right before editing and make targeted edits. Local servers on port
+  8000; stop them when done.
+- Root font size is 20px at every width; body text 18px.
+- Headings: h1 and h2 Sligoil 400 (its only weight), h3/h4 bold Inter. Hero,
+  feature card and blog h2s are bold Inter.
+- One h1 per page (`hide: [title]` keeps the automatic one, visually hidden);
+  sections are `##`.
+- `<br>` for line breaks in headings.
+- Content links inherit the color, with a 2px underline.
+- Unordered lists get check-mark bullets, except in card grids and task lists.
+- Icons: `:lucide-*:`, `:material-*:`, `:simple-*:`, `:octicons-*:`,
+  `:fontawesome-*:` (bundled with Zensical); UI chrome uses Material icons.
+- Comments only where the code would surprise.

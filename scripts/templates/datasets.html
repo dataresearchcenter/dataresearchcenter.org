@@ -1,0 +1,22 @@
+{#- Curated collections: one DatasetGroup per group in dataset_groups.yml. -#}
+{% from "_macros.html" import collection_list %}
+
+<div class="grid">
+  {% for group in groups %}
+  <article class="card card--full DatasetGroup">
+    <header class="card__header">
+      {% if group.icon %}
+      <img class="no-border no-shadow" src="{{ group.icon.src }}" alt="">
+      {% endif %}
+      <div>
+        <h3>{{ group.label }}</h3>
+        {% if group.description %}
+        <p>{{ group.description }}</p>
+        {% endif %}
+      </div>
+    </header>
+    {{ group.content|markdown }}
+    {{ collection_list(group.collections) }}
+  </article>
+  {% endfor %}
+</div>

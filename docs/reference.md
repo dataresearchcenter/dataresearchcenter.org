@@ -19,19 +19,19 @@ official docs for the underlying feature.
 
 ## Section (screen)
 
-Every page is composed of `<section class="screen">` blocks. Each one carries
-a `data-background-color` attribute the scroll-color JS uses to swap the page
-background as the section crosses the viewport midpoint.
+Every page is composed of `<section class="screen">` blocks. Each one is a
+hard color block: it paints its background full-bleed, and stacked sections
+butt against each other.
 
 ````markdown
-<section class="screen screen--bg-orange" data-background-color="orange" markdown>
+<section class="screen screen--bg-orange" markdown>
 
 Section content here…
 
 </section>
 ````
 
-**Background variants** (light scheme only – dark mode stays on the slate palette):
+**Background variants** (light sections turn their contents dark-on-light):
 
 | Class                    | Token (`--bg-*`)         |
 |--------------------------|--------------------------|
@@ -42,16 +42,40 @@ Section content here…
 | `.screen--bg-yellow`     | pale `--oa-yellow-100`   |
 | `.screen--bg-purple`     | lavender `--oa-purple-200` |
 
-**Optional modifier**
+**Optional modifiers**
 
 ````markdown
-<section class="screen screen--bg-white screen--full-height" data-background-color="white" markdown>
+<section class="screen screen--bg-white screen--full-height" markdown>
 …
 </section>
 ````
 
 `.screen--full-height` makes the section at least 100 vh – useful for landing
 heroes.
+
+**Headings:** a page has one h1, its title (`# Title`, or a hero's); with
+`hide: [title]` and no h1 of its own, the theme's title stays as a visually
+hidden h1. Sections open with `## …`, which gets the large section headline.
+h1 and h2 are set in Sligoil, h3 and h4 in bold Inter; a hero's h2 stays bold
+Inter, as does a feature card's, and on the blog (listings, posts, the News
+excerpts) only the h1 is Sligoil.
+
+`.screen--narrow` keeps a section at the default content width (1024px) on a
+wide page (`wide: true`, 1280px), like the team section at the bottom of the
+landing page. Elsewhere it changes nothing.
+
+**Page header:** it takes the color of the section under it, with the dark
+logo (`extra.logo_light`) on light ones. `header:` in the front matter picks
+the layout:
+
+- `standard` (the default): centered logo, burger on the right.
+- `zone`: a smaller logo on the left, Login and Sign up on the right
+  (`extra.signin` in `mkdocs.yml`, `primary: true` fills one), no menu.
+  zone.md uses it.
+
+**Menu sections:** `drawer:` in the front matter lists h2 ids
+(`[updates, what-we-do]`); the menu shows those sections, in page order, above
+the pages.
 
 _Project-specific component – no upstream._
 
@@ -63,7 +87,7 @@ A single centered column for splash blocks. Sligoil-mono h1, lighter
 weights, larger button row.
 
 ````markdown
-<section class="screen screen--bg-white screen--full-height" data-background-color="white" markdown>
+<section class="screen screen--bg-white screen--full-height" markdown>
 
 <div class="hero hero--landing" markdown>
 
@@ -140,6 +164,10 @@ Body prose explaining the feature.
 The inner `<div markdown>` wrapper groups the content blocks into a single
 grid item – without it each paragraph would land in its own grid cell.
 
+A framed image (a screenshot, with the default border and shadow) fills its
+column; an unframed one, a logo or symbol (`{.no-border}`, `{.section-icon}`),
+sits inset in its cell.
+
 _Project-specific component – no upstream._
 
 ---
@@ -154,8 +182,8 @@ Two intents only. Apply via attribute lists on inline links or directly on
 [Primary action](#){.btn .btn--primary}
 ````
 
-Light mode: secondary = transparent + black border + black text; primary =
-black bg + white text. Dark mode: white outline / white bg with black text.
+Secondary = transparent, outlined in the text color; primary = filled with
+the text color (white on dark sections, black on light ones).
 
 `<button>` works the same – drop the class on a real form button:
 
@@ -240,6 +268,44 @@ to the bottom of every card so all CTAs align.
 The `{ .card--full }` line right after the item content attaches the modifier;
 `:has(.card--full)` on the parent `<li>` triggers the column span.
 
+### Feature cards (landing page)
+
+Block syntax, two per row (`.grid--wide`, one per row on narrow screens;
+`.grid--three` for three per row). `.card--feature` adds room
+and a large title; a `screen--bg-*` class fills the card with that color. A
+`<form role="search">` renders as one search pill.
+
+````markdown
+<div class="grid grid--wide" markdown>
+
+<div class="card card--feature" markdown>
+
+## Search
+
+<form action="https://search.openaleph.org/search" method="get" role="search">
+  <input type="search" name="q" placeholder="Search" aria-label="Search">
+  <button class="btn btn--primary" type="submit">Search</button>
+</form>
+
+</div>
+
+<div class="card card--feature screen--bg-yellow" markdown>
+
+## A filled card
+
+- A bullet point
+
+[Call to action](#){.btn .btn--primary}
+
+</div>
+
+</div>
+````
+
+`.card--media` (image left, content right, strip underneath; used by the
+topic cards in `scripts/templates/topics.html`) takes a `figure.card__media`,
+a `div.card__body` and an optional `div.card__footer`, and spans the full row.
+
 _Upstream:_ [Zensical – Card grids](https://zensical.org/docs/authoring/grids/#use-card-grids).
 The base `.grid.cards` markup ships with the theme; we only override the
 border thickness/radius and disable the hover effect.
@@ -320,8 +386,8 @@ with a project-specific `.profiles` modifier on the grid.
 
 ## Tag chips
 
-`<kbd>` is repurposed as a chip. Filled with the inverse of the page (black
-in light, white in dark).
+`<kbd>` is repurposed as a chip. Filled with the inverse of the page (white
+on dark sections, black on light ones).
 
 ````markdown
 <kbd>EU</kbd> <kbd>FinCrime</kbd> <kbd>Aleph</kbd>
@@ -348,6 +414,8 @@ hard shadow automatically.
 ![](path.jpg){.no-shadow}                  <!-- drop the shadow -->
 ![](path.jpg){.no-border .no-shadow}       <!-- drop both -->
 ![](path.jpg){style="aspect-ratio:4/3"}    <!-- inline override -->
+![](path.jpg){.center}                     <!-- center in the text flow -->
+![](icon.svg){.section-icon}               <!-- feature symbol in a hero: borderless, centered, max 200px -->
 ````
 
 _Upstream:_ [Zensical – Images](https://zensical.org/docs/authoring/images/)
@@ -426,6 +494,59 @@ Any of these shortcodes resolves to an inline SVG via Zensical's emoji index:
 Combinable with attr_list on links: `[GitHub :simple-github:](#){.btn}`.
 
 _Upstream:_ [Zensical – Icons & emojis](https://zensical.org/docs/authoring/icons-emojis/).
+
+---
+
+## Layer stack
+
+A stack of labeled rows of linked boxes, top layer first (the open-source
+page). One paragraph per layer: a bold label, then its links, one per line.
+The boxes share three columns; a lone one spans them. On phones the label
+sits above its boxes, two to a row. Use it instead of Mermaid when the boxes
+should link somewhere (the theme's Mermaid can't link nodes).
+
+````markdown
+<div class="stack" markdown>
+
+**2 · Application**
+[OpenAleph](https://openaleph.org/docs/)
+[openaleph-search](https://openaleph.org/docs/lib/openaleph-search/)
+
+**1 · Storage**
+[anystore](https://docs.investigraph.dev/lib/anystore/)
+
+</div>
+````
+
+_Project-specific component – no upstream._
+
+---
+
+## Diagrams (Mermaid)
+
+A ` ```mermaid ` block becomes a diagram (the theme loads Mermaid on pages
+that have one). It's drawn in the text color of the section it sits in,
+outlined like the cards. Wrap a wide one in `<div class="diagram" markdown>`
+so it scrolls sideways on phones instead of shrinking its labels; add
+`classDef default stroke-width:2px` and `linkStyle default stroke-width:2px`
+for the brand stroke.
+
+````markdown
+<div class="diagram" markdown>
+
+```mermaid
+flowchart TD
+  classDef default stroke-width:2px
+  linkStyle default stroke-width:2px
+  app(OpenAleph) --> search(openaleph-search)
+  search --> ftmq(ftmq)
+  ftmq -. optional .-> putfs(putfs)
+```
+
+</div>
+````
+
+_Upstream:_ [Zensical – Diagrams](https://zensical.org/docs/authoring/diagrams/).
 
 ---
 

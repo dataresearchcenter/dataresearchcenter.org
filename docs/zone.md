@@ -29,7 +29,7 @@ Search millions of documents, find people and companies, uncover the connections
 
 <section id="plans" class="screen screen--bg-yellow" markdown>
 
-## Sign up for free to search our data, subscribe to bring your own
+## Sign up for free to search our data. Subscribe to bring your own.
 
 [Sign up](#signup){.btn .btn--primary}
 
@@ -39,26 +39,26 @@ Search millions of documents, find people and companies, uncover the connections
 
 per month for the first user, plus €50 for each additional user
 
-Work on investigations together.
-
+Access our data, plus tools to upload, process and investigate your own. Work on investigations together.
 - Full-text search with advanced operators, transliteration and fuzzy matching
-- Company registries, sanctions lists and other structured data from around the world
-- 100 GB of uploads
-- Share investigations and datasets within your team
+- 100 GB of space for your own data
+- Extract people, companies and other entities automatically
+- Translate documents and transcribe audio and video into searchable text
+- Add entities manually and map their connections
+- Cross-reference data to uncover connections and new leads
 
 [Get started](mailto:hi@dataresearchcenter.org?subject=Teams%20plan){.btn .btn--primary}
 
 ### Organizations
 
-Your exclusive OpenAleph installation, deployed, managed and adapted to your needs by DARC.
+Your own dedicated OpenAleph installation, deployed, hosted and managed by DARC, and adapted to your organization's needs.
 
-Everything in Teams, on your own instance:
-
+Everything in Team, on your own instance.
 - Hosted in Germany or with partners in Romania, Finland, the Netherlands or Iceland
-- Data encryption, multi-factor authentication, DDoS protection
-- Use your existing organizations SSO
+- Data encryption, multi-factor authentication and DDoS protection
+- Integration with your organization's existing SSO
 - Backups, security updates and maintenance
-- Upscaling for huge leak imports
+- Infrastructure scaled for large-scale data imports
 
 [Get a quote](mailto:hi@dataresearchcenter.org){.btn .btn--primary}
 
@@ -67,9 +67,9 @@ Everything in Teams, on your own instance:
 
 <section class="screen screen--bg-white" markdown>
 
-## Data behind the headlines
+## Data Behind the Headlines
 
-We've got the data you need to kick off your next investigation: curated searches and datasets for current events.
+Explore datasets relevant to the stories making headlines. Find the data you need to dig deeper, follow new leads and kick off your next investigation.
 
 --8<-- "docs/snippets/topics.html"
 
@@ -80,7 +80,7 @@ We've got the data you need to kick off your next investigation: curated searche
 
 ## Curated Collections
 
-A selection of our datasets grouped by topic, ready to search and cross-reference with your own documents. Some sources are only available to registered researchers. [Get in touch](mailto:hi@dataresearchcenter.org) for access to the full catalog.
+Explore our topic-based dataset collections, ready to search and, for Team users, use as a reference for cross-checking your own data. Some sensitive datasets are available only to journalists on request. [Get in touch](mailto:hi@dataresearchcenter.org) for access.
 
 --8<-- "docs/snippets/datasets.html"
 
@@ -90,9 +90,9 @@ A selection of our datasets grouped by topic, ready to search and cross-referenc
 
 <section class="screen screen--bg-orange" markdown>
 
-## Free software, built in the open
+## Free Software, Built in the Open
 
-OpenAleph is developed and maintained by the [Data and Research Center – DARC](index.md), an independent organization providing data and research services for investigative teams, and a diverse open source community.
+DARC.ZONE runs on OpenAleph, open-source software developed and maintained by the [Data and Research Center – DARC](index.md). Built for investigative research, OpenAleph is developed in the open with contributions from a wider community.
 
 [View on GitHub →](https://github.com/openaleph/openaleph){.btn .btn--primary} [Our blog](/blog/category/openaleph/){.btn}
 
@@ -102,11 +102,11 @@ OpenAleph is developed and maintained by the [Data and Research Center – DARC]
 
 ## Getting Started
 
-Creating an OpenAleph account takes just a few minutes. Register for free to start exploring our platform, with immediate access to a growing collection of publicly available datasets. Follow the steps below to set up your account and begin using OpenAleph.
+Creating a DARC.ZONE account takes just a few minutes. Register for free to start exploring our platform, with immediate access to a growing collection of publicly available datasets. Follow the steps below to set up your account and begin using DARC.ZONE.
 
 ### Create Your Account
 
-1. Click **Sign in** in the top-right corner.
+1. Click **Log in** in the top-right corner.
 2. Select **Register**.
 3. Enter your:
     - Email address
@@ -115,7 +115,7 @@ Creating an OpenAleph account takes just a few minutes. Register for free to sta
 
 ### Set Up Two-Factor Authentication
 
-To secure your account, OpenAleph requires two-factor authentication (2FA).
+To secure your account, DARC.ZONE requires two-factor authentication (2FA).
 
 1. Open your preferred authenticator app on your mobile device.
 2. Scan the QR code displayed during registration, or manually enter the provided setup code.
@@ -139,21 +139,21 @@ Once your email has been verified:
 
 ### What You Can Access
 
-Every registered account includes immediate access to a growing collection of publicly available OpenAleph datasets that you can search, explore, and analyze.
+Every account gives you immediate access to DARC.ZONE’s growing collection of publicly available datasets, which you can search and explore for free.
 
-Free accounts are designed for exploring public data. Journalists and investigative researchers can request the **Researcher tier** for expanded access to additional datasets.
+Journalists and investigative researchers can get in touch to request extended access to additional datasets, including some sensitive material.
 
-For newsrooms and organizations, we offer **OpenAleph Team** subscriptions, a paid tier that unlocks the full OpenAleph platform. Team subscriptions include the ability to upload your own data, cross-reference it against all available datasets, manage private collections, and securely collaborate with your team.
+For newsrooms and organizations, **DARC.ZONE Team** provides access to the platform’s full technical capabilities, including tools to upload and process your own data, cross-reference it against DARC.ZONE datasets, and collaborate securely with your team.
 
-If you're interested in expanded access through the **Researcher tier** or an **OpenAleph Team** subscription, [get in touch with our team](mailto:hi@dataresearchcenter.org) to discuss the best option for your needs.
+Interested in extended access or a Team subscription? [Get in touch] (mailto:hi@dataresearchcenter.org).
 
 </section>
 
 <section class="screen screen--bg-green" markdown>
 
-## Get started exploring public data
+## Explore Public Data
 
-Browse by entity type, dataset category, or country.
+Browse the available data across DARC.ZONE.
 
 --8<-- "docs/snippets/explore.html"
 

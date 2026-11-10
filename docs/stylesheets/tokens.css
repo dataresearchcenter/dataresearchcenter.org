@@ -1,18 +1,11 @@
-/* ───────────────────────────────────────────────────────────────────
-   tokens.css – project-specific tokens that aren't in darc-zensical.
-   Color ramps, fonts, and `--text`/`--background`/`--font-mono`
-   are all defined upstream in darc-zensical.css; we just add semantic
-   aliases plus a few marketing-only values (section accents, spacing,
-   stroke, radius, shadow, transition).
-   ─────────────────────────────────────────────────────────────────── */
+/* Project tokens; the palette and fonts come from darc-zensical.css. */
 
 :root {
-  /* Semantic neutrals – alias the darc palette so component CSS reads
-     `var(--color-black)` instead of `var(--oa-black)`. */
+  /* Text, strokes and fills; light surfaces swap them (components.css). */
   --color-black: var(--oa-black);
   --color-white: var(--oa-paper);
 
-  /* Section colors (`.screen--bg-*`) – not in darc */
+  /* .screen--bg-* */
   --bg-white:  var(--oa-paper);
   --bg-black:  var(--oa-black);
   --bg-green:  var(--oa-green-300);
@@ -20,34 +13,29 @@
   --bg-yellow: var(--oa-yellow-100);
   --bg-purple: var(--oa-purple-200);
 
-  /* Spacing (compact scale used throughout components) */
-  --xs: 0.625rem;
-  --s:  1.25rem;
-  --l:  2rem;
-  --xl: 4rem;
-
-  /* Vertical padding inside a color section */
+  /* Gap in action rows */
+  --s: 1.25rem;
   --section-y: clamp(3.2rem, 9vw, 6rem);
 
-  /* Stroke – single weight across the design system */
   --stroke-width: 2px;
-
-  /* Radii */
   --radius-card:    1.6rem;
   --radius-chip-sm: 0.8rem;
+  --shadow-button: 2px 2px 0 0 var(--color-white);
 
-  /* Widths: content (1280px on wide pages, components.css); header and
-     footer (.md-grid) */
   --container-lg: 1024px;
   --container-xl: 1280px;
+  /* Side padding of the page (main) */
+  --page-x: 1rem;
 
-  /* Transitions */
   --transition-fast:   150ms ease;
   --transition-normal: 300ms ease;
 
-  /* Iconic offset hard shadow (used on hover for buttons + drawer) */
-  --shadow-button: 2px 2px 0 0 var(--color-white);
-
-  /* One bold weight, used for buttons + emphasis */
   --font-weight-bold: 700;
+}
+
+@media (min-width: 640px) {
+  :root { --page-x: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  :root { --page-x: 2rem; }
 }

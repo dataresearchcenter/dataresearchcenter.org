@@ -9,6 +9,8 @@ theme:
   custom_dir: docs/overrides
   logo: https://darcdn.et/style/logos/darc/svg/DARC-Logo-RGB-Horizontal-Subline-Neg.svg
   favicon: https://darcdn.et/style/logos/darc/favicon.ico
+  # No Google Fonts; darc-zensical.css declares Inter and Sligoil Micro.
+  font: false
   features:
     - navigation.instant
     - navigation.tracking
@@ -30,10 +32,15 @@ extra:
       url: blog/category/darc/
     - title: OpenAleph
       url: blog/category/openaleph/
-  # Header, top left (in place of the site name).
-  # signin:
-  #   label: Sign in
-  #   url: https://search.openaleph.org/api/2/sessions/oauth?next=%2Fnotifications
+  # The inverted header's logo (`header: inverted`)
+  logo_light: https://darcdn.et/style/logos/darc/svg/DARC-Logo-RGB-Horizontal-Subline-Pos.svg
+  # Header buttons on `header: zone` pages; Sign up goes to zone.md's guide.
+  signin:
+    - label: Login
+      url: https://search.openaleph.org/api/2/sessions/oauth?next=%2Fnotifications
+    - label: Sign up
+      url: "#signup"
+      primary: true
   social:
     - icon: material/mail
       link: mailto:hi@dataresearchcenter.org
@@ -48,7 +55,6 @@ extra_css:
   - stylesheets/components.css
   - stylesheets/site.css
   - stylesheets/landing.css
-  - stylesheets/extra.css
 
 markdown_extensions:
   - admonition
@@ -62,7 +68,6 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  # ```mermaid blocks become diagrams (the theme loads Mermaid when a page has one)
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -72,11 +77,6 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
-  # String references resolve to Zensical's bundled icon-aware
-  # to_svg/twemoji helpers (zensical/config.py:453-457) – these scan
-  # `templates/.icons/{lucide,material,simple,octicons,fontawesome}/`
-  # so `:lucide-x:` / `:material-x:` / `:simple-x:` / `:octicons-x:` /
-  # `:fontawesome-...:` shortcodes render as inline SVG.
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -87,36 +87,26 @@ plugins:
       post_url_date_format: yyyy
       blog_toc: false
       post_excerpt: required
-  # No site search (Zensical enables it unless told not to); the landing
-  # page searches OpenAleph instead.
+  # Zensical enables search unless told not to.
   - search:
       enabled: false
-  # `cache: false` is deliberate: with a warm cache the optimize plugin's
-  # worker rewrites a file's src_path to its .cache path before the main
-  # thread removes it from the Files collection, intermittently crashing the
-  # build ("... not in collection"). Disabling the cache keeps every job doing
-  # real (slower) work, so removal always wins the race.
+  # A warm cache intermittently crashes the build ("... not in collection").
   - optimize:
       cache: false
       enabled: !ENV [CI, false]
-  # Map legacy (pre-migration) blog URLs → the new blog-plugin posts.
-  # Values are the post src paths; the redirects plugin resolves each to the
-  # post's current URL (contrib/nginx.map lists the same redirects for nginx).
+  # Also in contrib/nginx.map
   - redirects:
       redirect_maps:
         "blog/2026/01/Our-Work-on-The-Damascus-Dossier/f891f334-c78a-46eb-8f1d-0909acbc92c4.md": "blog/posts/2026-01-15-our-work-on-the-damascus-dossier.md"
         "blog/2025/07/Why-We-Run-Our-Own-Servers-(And-Why-That-Matters-for-You)/02285437-436f-460c-921a-4b40342fb026.md": "blog/posts/2025-07-15-why-we-run-our-own-servers-and-why-that-matters-for-you.md"
         "blog/2025/04/Road-Trippin'-with-DARC/0504bd46-d8d7-4b98-b0b5-4ae4741dc841.md": "blog/posts/2025-04-18-road-trippin-with-darc.md"
         "blog/2025/03/Introducing-DARC:-The-Future-of-Investigative-Research-and-Data-Solutions/e862307a-e635-4101-9ad0-88b3fa51c0f9.md": "blog/posts/2025-03-31-introducing-darc-the-future-of-investigative-research-and-data-solutions.md"
-        # The team page is a section on the landing page now.
         "who-we-are.md": "index.md#who-we-are"
 
-# docs/snippets/ holds the blocks `make render` writes (scripts/render.py); the
-# pages include them with `--8<--`, so they aren't published as files.
+# Included with --8<-- (make render)
 exclude_docs: |
   /snippets/
 
-# Authoring aids (reference.md, typography.md) stay as files but out of the nav.
 not_in_nav: |
   index.md
   reference.md

@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch the OpenAleph data the landing pages show and store it locally.
-
-Resolves the collection IDs referenced in data/topics.yml and
-data/dataset_groups.yml via the OpenAleph API and snapshots metadata and
-statistics for the index numbers. Downloads topic images and dataset group
-icons from their original sources, plus the FtM schema icons and country flags
-the OpenAleph UI uses for the Explore lists.
-Writes data/openaleph/{metadata,statistics,collections,images,icons,flags}.json,
-consumed by render.py, and docs/assets/openaleph/{images,flags}/. Both are
-gitignored; re-running replaces them (`make fetch`).
-"""
+"""OpenAleph API snapshot → data/openaleph/, images and flags → docs/assets/openaleph/."""
 
 import hashlib
 import json
@@ -169,9 +159,7 @@ def fetch_image(image):
 
 
 def empty_dir(path):
-    """Start clean so replaced files don't linger in the published assets.
-
-    Emptied in place rather than recreated, which races on shared mounts."""
+    """Empty in place: recreating the folder races on shared mounts."""
     path.mkdir(parents=True, exist_ok=True)
     for old in path.iterdir():
         old.unlink(missing_ok=True)

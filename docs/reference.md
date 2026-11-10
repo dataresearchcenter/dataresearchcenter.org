@@ -64,6 +64,15 @@ excerpts) only the h1 is Sligoil.
 wide page (`wide: true`, 1280px), like the team section at the bottom of the
 landing page. Elsewhere it changes nothing.
 
+**Page header:** `header:` in the front matter picks one of three:
+
+- `standard` (the default): centered logo, burger on the right.
+- `zone`: a smaller logo on the left, Login and Sign up on the right
+  (`extra.signin` in `mkdocs.yml`, `primary: true` fills one), no menu.
+  zone.md uses it.
+- `inverted`: the standard header in black on paper, with the dark logo
+  (`extra.logo_light`).
+
 _Project-specific component – no upstream._
 
 ---

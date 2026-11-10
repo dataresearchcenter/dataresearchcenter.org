@@ -1,9 +1,4 @@
-{#-
-  The theme's blog listing template (index, category and archive pages),
-  plus a row of category buttons (`extra.blog_categories` in mkdocs.yml)
-  under the title. The current listing's button is filled; its paginated
-  pages (`…/page/2/`) count as the listing.
--#}
+{#- The theme's blog listing, plus category buttons (`extra.blog_categories`). -#}
 {% extends "main.html" %}
 {% block container %}
   <div class="md-content" data-md-component="content">
@@ -14,6 +9,7 @@
         {% if config.extra.blog_categories %}
           <p class="blog-categories">
             {% for item in config.extra.blog_categories %}
+              {# paginated pages (…/page/2/) count as the listing #}
               {% set paged = item.url ~ "page/" %}
               {% set active = page.url == item.url or page.url[:paged | length] == paged %}
               <a href="{{ item.url | url }}" class="btn{% if active %} btn--primary{% endif %}">{{ item.title }}</a>

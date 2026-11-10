@@ -3,13 +3,11 @@
 Production website for the **Data and Research Center (DARC)** —
 <https://dataresearchcenter.org>.
 
-Built with [Zensical](https://zensical.org/) from `mkdocs.yml`.
-Content is plain markdown under `docs/`, built and deployed to S3 on every push to
-`main`.
+Built with [Zensical](https://zensical.org/) from `mkdocs.yml`. Content is
+markdown under `docs/`, deployed to S3 on every push to `main`.
 
-> **Other DARC sites:** clone this repo as a starting point. It is no longer a
-> shared upstream template/boilerplate — only the design layer is shared
-> (see [Design system](#design-system)).
+Other DARC sites clone this repo; only the design layer is shared (see
+[Design system](#design-system)).
 
 ## Setup
 
@@ -19,8 +17,8 @@ make install        # .venv with Zensical and the scripts' dependencies
 
 ## Develop & build
 
-Everything goes through the Makefile (run it from the project root; it uses
-`.venv` when present, else the tools on `PATH`). Every target can be repeated.
+Run the Makefile from the project root; it uses `.venv` when present, else
+the tools on `PATH`.
 
 ```bash
 make fetch          # live OpenAleph data for the landing pages (network; once, and to refresh)
@@ -28,6 +26,7 @@ make serve          # http://localhost:8000 with live reload
 make build          # → ./site (the default target)
 make render         # just the snippets, after editing data/*.yml, scripts/templates/ or the blog
 make clean          # remove site/ and docs/snippets/
+make publish        # fetch, build and sync ./site to S3 (needs S3 credentials)
 ```
 
 `make fetch` writes an API snapshot to `data/openaleph/` and images to
@@ -36,29 +35,22 @@ them and the newest blog posts into `docs/snippets/`, which the landing pages
 include. All three folders are gitignored. Without a snapshot the site still
 builds, minus the OpenAleph blocks (`make render` says so).
 
-Image optimization (the `optimize` plugin) runs in CI only — it's gated on
-`CI=true`. To run it locally you also need the `pngquant` binary (`apt install
-pngquant` / `brew install pngquant`):
-
-```bash
-CI=true make build
-```
-
-Push to `main` runs `make fetch build` in GitHub Actions and syncs `./site` to
-S3; `make publish` does the same from a machine with S3 credentials.
+The image `optimize` plugin runs only with `CI=true` and needs `pngquant`
+(`CI=true make build`). Push to `main` runs `make fetch build` in GitHub
+Actions and syncs `./site` to S3.
 
 ## Layout
 
 ```
 docs/
-  *.md                   pages (index with the team section, what-we-do, projects, contact)
+  *.md                   pages (index with the team section, what-we-do, projects, contact, open-source)
   blog/                  blog plugin: index + posts/ (categories DARC, OpenAleph)
   openaleph.md           OpenAleph project page (merged from openaleph.org)
   openaleph/             managed service page + icons
   zone.md                darc.zone landing (search.openaleph.org)
   reference.md           component authoring reference
-  stylesheets/           tokens · components · site · landing · extra
-  overrides/             Material template overrides (header, footer, main, nav)
+  stylesheets/           tokens · components · site · landing
+  overrides/             template overrides (main, blog, header, content, post, copyright)
   snippets/              rendered by make render (gitignored): OpenAleph blocks, latest posts
   assets/openaleph/      fetched by make fetch (gitignored): topic images, icons, flags
 data/
@@ -89,7 +81,7 @@ Explore lists, plus the newest blog posts in the News section.
 | Topics: title, markdown description, image + attribution, countries, search terms, collection IDs | `data/topics.yml` |
 | Dataset groups: label, description, markdown `content`, icon, collection IDs | `data/dataset_groups.yml` |
 | Block markup | `scripts/templates/` |
-| Styles | `docs/stylesheets/landing.css` |
+| Styles | `docs/stylesheets/landing.css`, `components.css` |
 
 Collection names, categories and counts, the index numbers, the Explore lists
 and country names come from the API, so the YAML only needs IDs and codes.
@@ -115,12 +107,12 @@ admonitions, icons.
 
 ## Design system
 
-The shared, cross-DARC design layer is `darc-zensical.css`, loaded at build time
-from [`zensical-theme-darc`](https://github.com/dataresearchcenter/zensical-theme-darc).
-Keep project-specific styling out of it — use the local layers instead:
+The shared DARC design layer, `darc-zensical.css`, is loaded by URL from
+[`zensical-theme-darc`](https://github.com/dataresearchcenter/zensical-theme-darc):
+palette, fonts (Inter and Sligoil Micro from the DARC CDN; `theme.font: false`
+keeps Google Fonts out), scheme tokens. This site's styles are local:
 
-- `docs/stylesheets/tokens.css` — design tokens (colors, spacing, stroke, radii)
-- `docs/stylesheets/components.css` — `.screen`, `.hero`, `.grid.cards`, `.btn`, profile cards
-- `docs/stylesheets/site.css` — layout chrome (drawer, header, footer, typography, list markers)
-- `docs/stylesheets/landing.css` — landing page (card variants, search pill, OpenAleph blocks)
-- `docs/stylesheets/extra.css` — last-mile overrides
+- `docs/stylesheets/tokens.css`: section colors, stroke, radii, widths
+- `docs/stylesheets/components.css`: sections, heroes, buttons, cards, forms, search pill
+- `docs/stylesheets/site.css`: drawer, header, TOC, footer, typography, blog
+- `docs/stylesheets/landing.css`: the OpenAleph blocks, News, darc.zone hero

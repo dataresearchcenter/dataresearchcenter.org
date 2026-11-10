@@ -1,18 +1,5 @@
 #!/usr/bin/env python3
-"""Render the snippets the landing pages include: OpenAleph data blocks and
-the latest blog posts (`make render`, offline).
-
-Writes docs/snippets/ (gitignored, emptied first; the pages include its files
-with `--8<-- "docs/snippets/<name>.html"`, mkdocs.yml keeps the folder out of
-the site):
-
-- news.html: the newest posts in docs/blog/posts, through the blog's own
-  excerpt partial (partials/post.html), so they look like the blog listing.
-- One block per scripts/templates/<name>.html (except _partials), from
-  data/topics.yml, data/dataset_groups.yml and the API snapshot in
-  data/openaleph/ (fetch.py). Without the snapshot these are left out, with a
-  warning: run `make fetch`.
-"""
+"""data/, the API snapshot and the blog posts → docs/snippets/ (offline)."""
 
 import html
 import json
@@ -80,16 +67,13 @@ def render_markdown(text):
 
 
 def flatten(markup):
-    # md_in_html only recognizes block tags at the start of a line (indented
-    # 4+ spaces they're text, but their end tags still close elements), and
-    # a blank line would end the raw block: flatten the indentation.
+    # md_in_html reads block tags indented 4+ spaces as text, and a blank
+    # line ends the raw block.
     return "\n".join(line.strip() for line in markup.splitlines() if line.strip())
 
 
 def empty_dir(path):
-    """Start clean so blocks of removed templates don't linger.
-
-    Emptied in place rather than recreated, which races on shared mounts."""
+    """Empty in place: recreating the folder races on shared mounts."""
     path.mkdir(parents=True, exist_ok=True)
     for old in path.iterdir():
         old.unlink(missing_ok=True)
@@ -140,9 +124,8 @@ def relink(text, base):
 
 
 def latest_posts(count):
-    """The newest blog posts, in the blog's order (date, then file name), shaped
-    like the blog plugin's posts for partials/post.html. Links point at the
-    post sources (relative to docs/): Zensical resolves them in raw HTML too."""
+    """Newest posts, shaped like the blog plugin's for partials/post.html; links
+    point at the sources, which Zensical resolves in raw HTML too."""
     posts = []
     for path in sorted(BLOG_DIR.rglob("*.md")):
         front, body = re.match(r"---\n(.*?)\n---\n(.*)", path.read_text(), re.S).groups()
@@ -187,8 +170,7 @@ def latest_posts(count):
 
 
 def render_news():
-    """news.html: the newest posts through the blog's excerpt partial, with
-    the theme's (English) labels."""
+    """news.html, through the blog's excerpt partial."""
     env = Environment(loader=FileSystemLoader(THEME_TEMPLATE_DIRS))
     env.filters["url"] = lambda url: url
     env.filters["date"] = lambda value: f"{value:%B} {value.day}, {value.year}"

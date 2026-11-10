@@ -10,6 +10,8 @@ hide:
 
 <div class="hero hero--landing" markdown>
 
+# We solve your data and research problems
+
 We provide expert-driven, flexible research and data solutions tailored to the unique needs of journalists, NGOs, civil society organizations, and select corporate clients. Powered by [OpenAleph](openaleph.md), our versatile open-source search tool, we ensure fast, efficient, and precise investigations, delivering the reliability of an in-house team with the convenience of a monthly subscription.
 
 </div>
@@ -21,7 +23,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 ## Search our public database
 
 <form action="https://search.openaleph.org/search" method="get" role="search">
-  <input type="search" name="q" placeholder="Try: Viktor Orbán, Rosneft, 汕頭" aria-label="Search OpenAleph" autocomplete="off" spellcheck="false">
+  <input type="search" name="q" placeholder="Donald Trump, Владимир Путин, 习近平" aria-label="Search OpenAleph" autocomplete="off" spellcheck="false">
   <button class="btn btn--primary" type="submit">Search</button>
 </form>
 
@@ -43,7 +45,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 
 <div class="card card--feature screen--bg-orange" markdown>
 
-## Hire us to solve your data and research problems
+## Hire us for your project or reserve monthly hours
 
 - Asset tracing: companies, property, ships, planes
 - Tracking down people, networks and website owners

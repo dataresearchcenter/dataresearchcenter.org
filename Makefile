@@ -1,16 +1,6 @@
-# dataresearchcenter.org – the Zensical site and the snippets its landing pages
-# include (scripts/, data/). Run from the project root. Every target can be
-# repeated; only `fetch` needs the network.
-#
-#   make install    .venv with Zensical and the scripts' dependencies
-#   make fetch      OpenAleph API + images → data/openaleph/, docs/assets/openaleph/
-#   make render     data/ + blog posts → docs/snippets/ (offline; build and serve run it)
-#   make build      → site/ (the default; CI=true also optimizes images)
-#   make serve      http://localhost:8000 with live reload
-#   make publish    fetch, build, then sync site/ to S3
-#   make clean      remove site/ and docs/snippets/ (the fetched data stays)
+# Run from the project root: snippet paths resolve against the working directory.
 
-# The project venv (make install) when present, else the tools on PATH (CI).
+# .venv (make install) when present, else the tools on PATH (CI)
 PYTHON ?= $(or $(wildcard .venv/bin/python),python3)
 ZENSICAL ?= $(or $(wildcard .venv/bin/zensical),zensical)
 

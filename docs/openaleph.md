@@ -1,12 +1,9 @@
 ---
 title: "OpenAleph"
+header: inverted
 hide:
   - toc
 ---
-
-<!-- The open source project on one page, merged from the openaleph.org pages
-     (home, start, faq, about; redirects: contrib/nginx.map). The managed
-     service has its own page, openaleph/managed.md. -->
 
 <section class="screen screen--bg-white" markdown>
 
@@ -147,7 +144,7 @@ OpenAleph is open source software that can be deployed by different organization
 
 **What data formats can I import?**
 
-OpenAleph supports a variety of file types, among them PDFs, Word documents, spreadsheets, emails (including PST and MBOX), and various structured formats like CSV. Since release 4.0 OpenAleph supports text extraction (and therefore full text search) for audio and video material of all kinds and languages. 
+OpenAleph supports a variety of file types, among them PDFs, Word documents, spreadsheets, emails (including PST and MBOX), and various structured formats like CSV. Since release 4.0 OpenAleph supports text extraction (and therefore full text search) for audio and video material of all kinds and languages.
 
 **Can I connect OpenAleph to other data sources?**
 
@@ -220,7 +217,7 @@ OpenAleph is an open source tool that's primarily developed by the [Data and Res
 
 ### We love hearing from you!
 
-Have you found a bug in OpenAleph? Open an Issue in the [repository](https://github.com/openaleph/openaleph), or get in touch with us at [hi@dataresearchcenter.org](mailto:hi@dataresearchcenter.org). If you want to get involved, fork the repo and send us a pull request. 
+Have you found a bug in OpenAleph? Open an Issue in the [repository](https://github.com/openaleph/openaleph), or get in touch with us at [hi@dataresearchcenter.org](mailto:hi@dataresearchcenter.org). If you want to get involved, fork the repo and send us a pull request.
 
 We also run a [community platform](https://darc.social) to chat about all things OSINT and OpenAleph and we would love to hear from you there!
 

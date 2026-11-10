@@ -1,15 +1,7 @@
 #!/usr/bin/env python3
-"""Downsize inlined image assets to web-sensible dimensions (in place).
+"""Downsize images in docs/assets/ in place (the optimize plugin only compresses).
 
-Pairs with the mkdocs-material `optimize` plugin: this fixes *dimensions*
-(which optimize never touches), optimize handles final *compression* at build.
-
-Idempotent — only shrinks images whose longest edge exceeds the per-folder cap,
-never upscales, preserves aspect ratio and format. Run it after inlining new
-images, then commit the smaller sources.
-
-    python scripts/resize_assets.py            # resize docs/assets/**
-    python scripts/resize_assets.py --dry-run  # report only
+    python scripts/resize_assets.py [--dry-run]
 """
 
 import argparse

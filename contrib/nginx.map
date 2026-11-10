@@ -1,8 +1,5 @@
-# Permanent (301) redirects for dataresearchcenter.org, which now also hosts
-# the openaleph.org pages (as /openaleph/) and the OpenAleph blog posts.
-#
-# Keys are "$host$uri" (decoded path, no query string), values absolute URLs.
-# Use it in the http block (the bucket size fits the long legacy URLs):
+# 301 redirects: "$host$uri" (decoded, no query string) → absolute URL.
+# In the http block:
 #
 #     map_hash_bucket_size 256;
 #     map $host$uri $darc_redirect {
@@ -10,18 +7,15 @@
 #         include /path/to/contrib/nginx.map;
 #     }
 #
-# and in the server blocks for openaleph.org and dataresearchcenter.org:
+# and in the openaleph.org and dataresearchcenter.org server blocks:
 #
 #     if ($darc_redirect) {
 #         return 301 $darc_redirect;
 #     }
 #
-# Redirect www.* to the bare domain first; the keys use bare hosts. Paths not
-# listed are served as before, in particular openaleph.org/docs/ (the separate
-# documentation site). Directory URLs are listed with and without the slash.
+# Keys use bare hosts (redirect www.* first). openaleph.org/docs/ isn't listed.
 
-# openaleph.org pages: the project is one page, /openaleph/ (start, faq and
-# about are its sections); the managed service has its own page
+# openaleph.org pages
 "openaleph.org/"          "https://dataresearchcenter.org/openaleph/";
 "openaleph.org/start/"    "https://dataresearchcenter.org/openaleph/#get-started";
 "openaleph.org/start"     "https://dataresearchcenter.org/openaleph/#get-started";
@@ -32,8 +26,7 @@
 "openaleph.org/about/"    "https://dataresearchcenter.org/openaleph/#about";
 "openaleph.org/about"     "https://dataresearchcenter.org/openaleph/#about";
 
-# openaleph.org blog: the index and its pages go to the OpenAleph category;
-# posts and archives keep their path
+# openaleph.org blog (posts and archives keep their path)
 "openaleph.org/blog/"                                                                             "https://dataresearchcenter.org/blog/category/openaleph/";
 "openaleph.org/blog"                                                                              "https://dataresearchcenter.org/blog/category/openaleph/";
 "openaleph.org/blog/2025/openaleph-commits-to-the-commons/"                                       "https://dataresearchcenter.org/blog/2025/openaleph-commits-to-the-commons/";
@@ -120,8 +113,7 @@
 ~^openaleph\.org/assets/icons/(.+)$                 "https://dataresearchcenter.org/openaleph/assets/icons/$1";
 "openaleph.org/assets/openaleph-logo-square.png"   "https://dataresearchcenter.org/assets/openaleph-logo-square.png";
 
-# dataresearchcenter.org legacy blog URLs (from before the MkDocs blog; the
-# redirects plugin in mkdocs.yml also serves these as HTML redirects)
+# dataresearchcenter.org legacy blog URLs (also in mkdocs.yml redirects)
 "dataresearchcenter.org/blog/2025/03/Introducing-DARC:-The-Future-of-Investigative-Research-and-Data-Solutions/e862307a-e635-4101-9ad0-88b3fa51c0f9/"  "https://dataresearchcenter.org/blog/2025/introducing-darc-the-future-of-investigative-research-and-data-solutions/";
 "dataresearchcenter.org/blog/2025/03/Introducing-DARC:-The-Future-of-Investigative-Research-and-Data-Solutions/e862307a-e635-4101-9ad0-88b3fa51c0f9"   "https://dataresearchcenter.org/blog/2025/introducing-darc-the-future-of-investigative-research-and-data-solutions/";
 "dataresearchcenter.org/blog/2025/04/Road-Trippin'-with-DARC/0504bd46-d8d7-4b98-b0b5-4ae4741dc841/"                                                    "https://dataresearchcenter.org/blog/2025/road-trippin-with-darc/";
@@ -131,7 +123,6 @@
 "dataresearchcenter.org/blog/2026/01/Our-Work-on-The-Damascus-Dossier/f891f334-c78a-46eb-8f1d-0909acbc92c4/"                                           "https://dataresearchcenter.org/blog/2026/our-work-on-the-damascus-dossier/";
 "dataresearchcenter.org/blog/2026/01/Our-Work-on-The-Damascus-Dossier/f891f334-c78a-46eb-8f1d-0909acbc92c4"                                            "https://dataresearchcenter.org/blog/2026/our-work-on-the-damascus-dossier/";
 
-# dataresearchcenter.org pages that became landing page sections (the
-# redirects plugin serves these as HTML redirects too)
+# dataresearchcenter.org pages that became landing page sections
 "dataresearchcenter.org/who-we-are/"  "https://dataresearchcenter.org/#who-we-are";
 "dataresearchcenter.org/who-we-are"   "https://dataresearchcenter.org/#who-we-are";

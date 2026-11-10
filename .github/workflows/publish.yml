@@ -17,12 +17,8 @@ jobs:
         with:
           python-version: "3.13"
       - run: pip install -r requirements.txt
-      # pngquant: system binary the optimize plugin shells out to for PNG (not
-      # pip-installable). Optimize runs in CI (GitHub sets CI=true); JPG is
-      # native in Zensical.
+      # The optimize plugin (CI only) shells out to pngquant.
       - run: sudo apt-get update && sudo apt-get install -y pngquant
-      # Live OpenAleph data and the newest blog posts for the landing pages,
-      # then the site (the Makefile's targets, with the tools installed above).
       - run: make fetch build
       - uses: jakejarvis/s3-sync-action@master
         with:

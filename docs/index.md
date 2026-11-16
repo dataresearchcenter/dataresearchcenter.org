@@ -1,11 +1,6 @@
 ---
 title: "Data and Research Center – DARC"
 wide: true
-drawer:
-  - updates
-  - what-we-do
-  - who-we-are
-  - contact
 hide:
   - toc
   - title
@@ -17,7 +12,7 @@ hide:
 
 # We solve your data and research problems
 
-We provide expert-driven, flexible research and data solutions tailored to the unique needs of journalists, NGOs, civil society organizations, and select corporate clients. Powered by [OpenAleph](openaleph.md), our versatile open-source search tool, we ensure fast, efficient, and precise investigations, delivering the reliability of an in-house team with the convenience of a monthly subscription.
+We provide expert-driven, flexible research and data solutions tailored to the unique needs of journalists, NGOs, and civil society organizations. Powered by [OpenAleph](./openaleph.md), our versatile open-source search tool, we ensure fast and efficient investigations. Bring us in on your project like an in-house team or outsource individual tasks to us so that your team can focus on getting the most out of the story.
 
 </div>
 
@@ -27,7 +22,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 
 ## Search the public DARC.ZONE
 
-<form action="https://search.openaleph.org/search" method="get" role="search">
+<form action="https://darc.zone/search" method="get" role="search">
   <input type="search" name="q" placeholder="Donald Trump, Владимир Путин, 习近平" aria-label="Search OpenAleph" autocomplete="off" spellcheck="false">
   <button class="btn btn--primary" type="submit">Search</button>
 </form>
@@ -68,7 +63,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 - [Our projects](./projects.md)
 - [Read our blog](./blog/index.md)
 - [OpenAleph](./openaleph.md)
-- [DARC Open Source](./open-source.md)
+- [DARC Open Source](./docs.md)
 
 [Meet the team](#who-we-are){.btn .btn--primary}
 
@@ -88,7 +83,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 --8<-- "docs/snippets/news.html"
 
 [Blog](blog/index.md){.btn}
-[Newsletter](./projects.md){.btn .btn--primary}
+[Newsletter](https://darc.li/news){.btn .btn--primary}
 
 </section>
 

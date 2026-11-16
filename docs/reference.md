@@ -73,9 +73,9 @@ the layout:
   (`extra.signin` in `mkdocs.yml`, `primary: true` fills one), no menu.
   zone.md uses it.
 
-**Menu sections:** `drawer:` in the front matter lists h2 ids
-(`[updates, what-we-do]`); the menu shows those sections, in page order, above
-the pages.
+**Menu sections:** `extra.drawer` in `mkdocs.yml` lists landing page sections
+(`title`, `url: ./#updates`); the menu shows them above the pages, on every
+page.
 
 _Project-specific component – no upstream._
 
@@ -282,7 +282,7 @@ and a large title; a `screen--bg-*` class fills the card with that color. A
 
 ## Search
 
-<form action="https://search.openaleph.org/search" method="get" role="search">
+<form action="https://darc.zone/search" method="get" role="search">
   <input type="search" name="q" placeholder="Search" aria-label="Search">
   <button class="btn btn--primary" type="submit">Search</button>
 </form>

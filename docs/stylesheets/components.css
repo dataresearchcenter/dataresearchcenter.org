@@ -402,6 +402,13 @@ body:has(.md-content__inner > #__skip + .screen:not(.screen--bg-black), .md-cont
   }
 }
 
+/* Even columns: symbols are the same size on either side. */
+@media (min-width: 768px) {
+  .hero:has(> p > img.section-icon) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .md-typeset .hero p:last-child:has(> .btn) {
   display: flex;
   flex-wrap: wrap;

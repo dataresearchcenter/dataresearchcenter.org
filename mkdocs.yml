@@ -1,5 +1,5 @@
 site_name: Data and Research Center
-site_url: https://dataresearchcenter.org
+site_url: https://darc.li
 site_description: The Data and Research Center is an independent organization providing bespoke data and research services for investigative teams.
 
 theme:
@@ -39,10 +39,20 @@ extra:
   # navigation keeps the header, links resolved on the page it was loaded on.
   signin:
     - label: Login
-      url: https://search.openaleph.org/api/2/sessions/oauth?next=%2Fnotifications
+      url: https://darc.zone/notifications
     - label: Sign up
       url: zone/#signup
       primary: true
+  # The drawer on every page: these landing page sections, then the pages
+  drawer:
+    - title: Updates
+      url: ./#updates
+    - title: What we do
+      url: ./#what-we-do
+    - title: Who we are
+      url: ./#who-we-are
+    - title: Contact
+      url: ./#contact
   social:
     - icon: material/mail
       link: mailto:hi@dataresearchcenter.org
@@ -52,7 +62,7 @@ extra:
       link: https://github.com/dataresearchcenter
 
 extra_css:
-  - https://dataresearchcenter.github.io/zensical-theme-darc/stylesheets/darc-zensical.css
+  - https://darcdn.et/style/darc-zensical.css
   - stylesheets/tokens.css
   - stylesheets/components.css
   - stylesheets/site.css
@@ -98,14 +108,6 @@ plugins:
   - optimize:
       cache: false
       enabled: !ENV [CI, false]
-  # Also in contrib/nginx.map
-  - redirects:
-      redirect_maps:
-        "blog/2026/01/Our-Work-on-The-Damascus-Dossier/f891f334-c78a-46eb-8f1d-0909acbc92c4.md": "blog/posts/2026-01-15-our-work-on-the-damascus-dossier.md"
-        "blog/2025/07/Why-We-Run-Our-Own-Servers-(And-Why-That-Matters-for-You)/02285437-436f-460c-921a-4b40342fb026.md": "blog/posts/2025-07-15-why-we-run-our-own-servers-and-why-that-matters-for-you.md"
-        "blog/2025/04/Road-Trippin'-with-DARC/0504bd46-d8d7-4b98-b0b5-4ae4741dc841.md": "blog/posts/2025-04-18-road-trippin-with-darc.md"
-        "blog/2025/03/Introducing-DARC:-The-Future-of-Investigative-Research-and-Data-Solutions/e862307a-e635-4101-9ad0-88b3fa51c0f9.md": "blog/posts/2025-03-31-introducing-darc-the-future-of-investigative-research-and-data-solutions.md"
-        "who-we-are.md": "index.md#who-we-are"
 
 # Included with --8<-- (make render)
 exclude_docs: |

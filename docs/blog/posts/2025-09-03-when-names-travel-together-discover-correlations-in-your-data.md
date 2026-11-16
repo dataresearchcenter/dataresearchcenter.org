@@ -12,7 +12,7 @@ categories:
 
 One of the cornerstones of OpenAleph is its search functionality. In version 5 of our investigative software, we have improved search and highlighting, but we also went a step further. The **Discovery Dashboard** and **Closely Correlated Names** are two new experimental features designed to help users uncover interesting connections in their data.
 
-The new [Discovery page](https://search.openaleph.org/datasets/469#mode=discovery) is available to explore in our public OpenAleph instance. Using the [search function](https://search.openaleph.org/datasets/469?cslimit=30&csq=frontex#mode=search) in this instance reveals the feature that surfaces closely correlated names.
+The new [Discovery page](https://darc.zone/datasets/469#mode=discovery) is available to explore in our public OpenAleph instance. Using the [search function](https://darc.zone/datasets/469?cslimit=30&csq=frontex#mode=search) in this instance reveals the feature that surfaces closely correlated names.
 
 ## The Discovery Dashboard
 

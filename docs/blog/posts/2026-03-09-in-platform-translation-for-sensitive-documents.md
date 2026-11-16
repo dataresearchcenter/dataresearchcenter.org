@@ -50,7 +50,7 @@ We also published [prebuilt Docker images](https://github.com/openaleph/ftm-tran
 
 OpenAleph must first detect the source language of a document before it can translate it. This happens during the `analyze` step of the ingestion process. The language is inferred using the [FastText](https://fasttext.cc/) Python library and stored in the [Document](https://followthemoney.tech/explorer/schemata/Document/) FollowTheMoney entity under the `detectedLanguage` property.
 
-The target language is configured for the entire OpenAleph instance. By default, this is English (which we use in our [own deployment](https://search.openaleph.org/)). After a document has been translated, a button appears in the Text view of the document. Clicking this button cycles between the original text and the translation.
+The target language is configured for the entire OpenAleph instance. By default, this is English (which we use in our [own deployment](https://darc.zone/)). After a document has been translated, a button appears in the Text view of the document. Clicking this button cycles between the original text and the translation.
 
 ![](../../assets/blogs/in-platform-translation-1.png)
 

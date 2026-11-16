@@ -33,7 +33,7 @@ To do this, we used [**Libpostal**](https://github.com/openvenues/libpostal), an
 
 Once the address was structured and cleaned, we could geocode it, that is, convert it into geographic coordinates. For that, we used [**ftm-geocode**](https://github.com/dataresearchcenter/ftm-geocode), our own open source library, originally developed for the [FarmSubsidy.org](https://www.farmsubsidy.org/) project. **ftm-geocode** interfaces with [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org/ui/search.html) or other geocoding services to pinpoint the location of each address and make it ready for mapping in OpenAleph.
 
-_An example address from the [EU Financial Transparency System dataset](https://search.openaleph.org/datasets/63) that has been structured and geocoded:_
+_An example address from the [EU Financial Transparency System dataset](https://darc.zone/datasets/63) that has been structured and geocoded:_
 
 ![A nice structured address](../../assets/blogs/geocoded-address.png)
 

@@ -23,7 +23,7 @@ Today we’re releasing **OpenAleph 5**, a major update with new data discovery 
 - **Discovery Dashboard:** After uploading documents into a collection, the new Discovery tab gives you an at-a-glance view of the people, companies, organizations, and locations that appear most frequently in the data, along with other names in the dataset that are closely correlated with each of them.
 - **Search suggestions**: When you search for a term, OpenAleph suggests related names (people, companies etc.) from your dataset. These are the terms most often found alongside your query, helping refine searches and highlight connections you might otherwise miss.
 
-👉 *The new [Discovery page](https://search.openaleph.org/datasets/469#mode=discovery) is available to explore in our public OpenAleph instance. Try the [search function](https://search.openaleph.org/datasets/469?cslimit=30&csq=frontex#mode=search) there to see how correlated names are surfaced.* 
+👉 *The new [Discovery page](https://darc.zone/datasets/469#mode=discovery) is available to explore in our public OpenAleph instance. Try the [search function](https://darc.zone/datasets/469?cslimit=30&csq=frontex#mode=search) there to see how correlated names are surfaced.* 
 
 - **Sharper highlights:** Occurrences of a search term in source documents are now marked more precisely and visibly. Highlights also apply to extracted mentions, not just direct search terms, making it easier to spot what matters in long texts.
 - **Status transparency:** The new status page shows what OpenAleph is working on and provides time estimates for running jobs. Admins can also see exactly where upload failures occur, and in version 5.1 this visibility will be extended to all users.

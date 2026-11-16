@@ -25,8 +25,7 @@ ASSET_DIR = ROOT / "docs" / ASSET_URL
 IMAGE_DIR = "images"
 FLAG_DIR = "flags"
 
-API_URL = os.environ.get("OPENALEPH_API_URL", "https://search.openaleph.org/api/2")
-# search.openaleph.org sits behind an Anubis challenge; this UA is let through.
+API_URL = os.environ.get("OPENALEPH_API_URL", "https://darc.zone/api/2")
 USER_AGENT = os.environ.get("OPENALEPH_USER_AGENT", "openaleph")
 # Image downloads; Wikimedia asks for a descriptive UA with contact details.
 BUILD_USER_AGENT = os.environ.get(

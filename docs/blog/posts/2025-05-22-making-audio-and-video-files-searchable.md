@@ -11,7 +11,7 @@ categories:
 <!-- more -->
 
 We're not there yet,but things are good enough now that we felt ready to experiment. 
-We've built a feature for [OpenAleph](https://search.openaleph.org/) that allows users to transcribe audio and video files. By using the built-in search functionality, users can sift through the transcribed text to reveal names, keywords and phrases. 
+We've built a feature for [OpenAleph](https://darc.zone/) that allows users to transcribe audio and video files. By using the built-in search functionality, users can sift through the transcribed text to reveal names, keywords and phrases. 
 
 We're using [Whisper](https://openai.com/index/whisper/), an automatic speech recognition (ASR) system created and open-sourced by OpenAI. As of early 2025, it seems to be the de-facto tool for transcription. Whisper is multi-lingual and can automatically detect the language of the audio stream. 
 To guarantee the privacy of the data in OpenAleph, we implemented a local-only version of Whisper running on our own infrastructure. The audio or video files uploaded to OpenAleph will be transcribed using this local model, and no data is sent to  OpenAI's servers.

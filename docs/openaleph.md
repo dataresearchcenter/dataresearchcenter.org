@@ -16,7 +16,7 @@ hide:
 
 The open source platform that securely stores large amounts of data and makes it searchable for easy collaboration.
 
-[Get started](#get-started){.btn} [OpenAleph live](https://search.openaleph.org){.btn .btn--primary}
+[Blog](/blog/category/openaleph){.btn} [Github](https://github.com/openaleph){.btn} [OpenAleph live](https://darc.zone){.btn .btn--primary}
 
 </div>
 
@@ -39,13 +39,13 @@ Anyone seeking a better understanding of their data can have OpenAleph at their 
 
 </div>
 
-![Creating an investigation in OpenAleph](assets/blogs/taking-translations-1.png)
+![data upload symbol](assets/icons/archive.svg){.section-icon}
 
 </div>
 
 <div class="hero" markdown>
 
-![An audio file's transcript in OpenAleph](assets/blogs/media-search-2.png)
+![data processing symbol](assets/icons/gear.svg){.section-icon}
 
 <div markdown>
 
@@ -71,13 +71,13 @@ You've got a haystack, and you're looking for a needle. OpenAleph's search lets 
 
 </div>
 
-![Search results with filters and a preview in OpenAleph](assets/blogs/imosearch_2.png)
+![document search symbol](assets/icons/docs-zoom.svg){.section-icon}
 
 </div>
 
 <div class="hero" markdown>
 
-![A FollowTheMoney company with its assets and shares in OpenAleph](assets/blogs/pyongchangownership_3.png)
+![collaboration symbol](assets/icons/person-laptop.png){.section-icon}
 
 <div markdown>
 
@@ -110,7 +110,7 @@ Clone our repo and get started. If you get stuck, the documentation is here to s
 
 </div>
 
-![The system status screen of an OpenAleph instance](assets/blogs/openaleph5-status-screen.png)
+![do it yourself symbol](assets/icons/face-nerd.svg){.section-icon}
 
 </div>
 
@@ -169,7 +169,7 @@ OpenAleph builds on the *FollowTheMoney&#32;*(FtM) data schema, which is specifi
 
 **Is there an API?**
 
-Yes, OpenAleph provides a RESTful API for programmatic access to all core features, including document upload, search, and metadata queries. You can find the [API documentation here](https://redocly.github.io/redoc/?url=https://search.openaleph.org/api/2/openapi.json).
+Yes, OpenAleph provides a RESTful API for programmatic access to all core features, including document upload, search, and metadata queries. You can find the [API documentation here](https://redocly.github.io/redoc/?url=https://darc.zone/api/2/openapi.json).
 
 **Is OpenAleph secure for sensitive investigations?**
 

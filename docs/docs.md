@@ -7,7 +7,7 @@ hide:
 
 # Our open source stack
 
-The libraries behind OpenAleph and our data work, in six layers: from storage at the bottom to the OpenAleph application on top. Each layer builds on the ones below it.
+An overview about the libraries we develope and maintain to do our data and research work. They are the building blocks of [OpenAleph](./openaleph.md) but most of them can be used standalone as well.
 
 <div class="stack" markdown>
 

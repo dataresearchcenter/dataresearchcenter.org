@@ -3,6 +3,7 @@ title: "darc.zone · Bringing hidden data to light"
 description: "Search millions of documents, find people and companies, uncover the connections that matter."
 wide: true
 header: zone
+canonical: https://darc.zone/
 hide:
   - toc
   - title
@@ -16,7 +17,7 @@ hide:
 
 Search millions of documents, find people and companies, uncover the connections that matter.
 
-<form action="https://search.openaleph.org/search" method="get" role="search">
+<form action="https://darc.zone/search" method="get" role="search">
   <input type="search" name="q" placeholder="Donald Trump, Владимир Путин, 习近平" aria-label="Search OpenAleph" autocomplete="off" spellcheck="false">
   <button class="btn btn--primary" type="submit">Search</button>
 </form>
@@ -40,6 +41,7 @@ Search millions of documents, find people and companies, uncover the connections
 per month for the first user, plus €50 for each additional user
 
 Access our data, plus tools to upload, process and investigate your own. Work on investigations together.
+
 - Full-text search with advanced operators, transliteration and fuzzy matching
 - 100 GB of space for your own data
 - Extract people, companies and other entities automatically
@@ -54,6 +56,7 @@ Access our data, plus tools to upload, process and investigate your own. Work on
 Your own dedicated OpenAleph installation, deployed, hosted and managed by DARC, and adapted to your organization's needs.
 
 Everything in Team, on your own instance.
+
 - Hosted in Germany or with partners in Romania, Finland, the Netherlands or Iceland
 - Data encryption, multi-factor authentication and DDoS protection
 - Integration with your organization's existing SSO
@@ -75,29 +78,6 @@ Explore datasets relevant to the stories making headlines. Find the data you nee
 
 </section>
 
-
-<section class="screen screen--bg-purple" markdown>
-
-## Curated Collections
-
-Explore our topic-based dataset collections, ready to search and, for Team users, use as a reference for cross-checking your own data. Some sensitive datasets are available only to journalists on request. [Get in touch](mailto:hi@dataresearchcenter.org) for access.
-
---8<-- "docs/snippets/datasets.html"
-
-[Browse all datasets](https://search.openaleph.org/datasets){.btn}
-
-</section>
-
-<section class="screen screen--bg-orange" markdown>
-
-## Free Software, Built in the Open
-
-DARC.ZONE runs on OpenAleph, open-source software developed and maintained by the [Data and Research Center – DARC](index.md). Built for investigative research, OpenAleph is developed in the open with contributions from a wider community.
-
-[View on GitHub →](https://github.com/openaleph/openaleph){.btn .btn--primary} [Our blog](/blog/category/openaleph/){.btn}
-
-</section>
-
 <section id="signup" class="screen screen--bg-yellow" markdown>
 
 ## Getting Started
@@ -106,7 +86,7 @@ Creating a DARC.ZONE account takes just a few minutes. Register for free to star
 
 ### Create Your Account
 
-1. Click **Log in** in the top-right corner.
+1. Go to the [login page](https://darc.zone/api/2/sessions/oauth?next=%2Fnotifications).
 2. Select **Register**.
 3. Enter your:
     - Email address
@@ -133,7 +113,7 @@ After registering, OpenAleph will send a verification email to the address you p
 
 Once your email has been verified:
 
-1. Click **Back to application** to return to **search.openaleph.org**.
+1. Click **Back to application** to return to **darc.zone**.
 2. Select **Sign in** → **Sign in to Account**.
 3. Log in using your email address, password, and your authenticator app.
 
@@ -145,9 +125,32 @@ Journalists and investigative researchers can get in touch to request extended a
 
 For newsrooms and organizations, **DARC.ZONE Team** provides access to the platform’s full technical capabilities, including tools to upload and process your own data, cross-reference it against DARC.ZONE datasets, and collaborate securely with your team.
 
-Interested in extended access or a Team subscription? [Get in touch] (mailto:hi@dataresearchcenter.org).
+Interested in extended access or a Team subscription? [Get in touch](mailto:hi@dataresearchcenter.org).
 
 </section>
+
+<section class="screen screen--bg-purple" markdown>
+
+## Curated Collections
+
+Explore our topic-based dataset collections, ready to search and, for Team users, use as a reference for cross-checking your own data. Some sensitive datasets are available only to journalists on request. [Get in touch](mailto:hi@dataresearchcenter.org) for access.
+
+--8<-- "docs/snippets/datasets.html"
+
+[Browse all datasets](https://darc.zone/datasets){.btn}
+
+</section>
+
+<section class="screen screen--bg-orange" markdown>
+
+## Free Software, Built in the Open
+
+DARC.ZONE runs on OpenAleph, open-source software developed and maintained by the [Data and Research Center – DARC](https://darc.li/). Built for investigative research, OpenAleph is developed in the open with contributions from a wider community.
+
+[View on GitHub →](https://github.com/openaleph/openaleph){.btn .btn--primary} [Our blog](https://darc.li/blog/category/openaleph/){.btn}
+
+</section>
+
 
 <section class="screen screen--bg-green" markdown>
 

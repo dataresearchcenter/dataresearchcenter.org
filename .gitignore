@@ -1,5 +1,6 @@
-# Build output (make build) and Zensical's cache
+# Build output (make build, make zone) and Zensical's cache
 site/
+site-zone/
 .cache/
 
 # Fetched and rendered by make fetch / make render (scripts/)

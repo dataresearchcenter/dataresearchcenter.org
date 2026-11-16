@@ -31,7 +31,7 @@ However, while the original Whisper Python  could be executed inside a Docker co
 
 Enter [WhisperCpp](https://github.com/ggml-org/whisper.cpp),a re-implementation of the original OpenAI Whisper in C/C++. While it's not heavily documented, the README was enough to get started. The binaries can be built with optimizations for Intel CPUs, GPUs, and Apple Silicon processors. The Docker build worked fine (on my machine), and the memory footprint was considerably smaller than anything else we'd tried. 
 
-Then we hit a snag: building the Docker image in GitHub actions repeatedly failed due to memory limits. Resolved to building locally, we pressed on and shipped the implementation to our live [OpenAleph](https://search.openaleph.org/) instance.
+Then we hit a snag: building the Docker image in GitHub actions repeatedly failed due to memory limits. Resolved to building locally, we pressed on and shipped the implementation to our live [OpenAleph](https://darc.zone/) instance.
 
 That's when we discovered that running WhisperCpp on our co-located Intel CPU architecture was painfully slow, so slow that we might as well transcribe files manually with pen and paper.  Further testing revealed that WhisperCpp shines when run directly on Apple Silicone, with Docker on an Apple Silicone host as a close second. 
 

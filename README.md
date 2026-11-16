@@ -1,10 +1,11 @@
-# dataresearchcenter.org
+# darc.li
 
 Production website for the **Data and Research Center (DARC)** —
-<https://dataresearchcenter.org>.
+<https://darc.li>.
 
 Built with [Zensical](https://zensical.org/) from `mkdocs.yml`. Content is
-markdown under `docs/`, deployed to S3 on every push to `main`.
+markdown under `docs/`, deployed on every push to `main`; the zone page
+(`docs/zone.md`) is also the root of <https://darc.zone>.
 
 Other DARC sites clone this repo; only the design layer is shared (see
 [Design system](#design-system)).
@@ -25,8 +26,9 @@ make fetch          # live OpenAleph data for the landing pages (network; once, 
 make serve          # http://localhost:8000 with live reload
 make build          # → ./site (the default target)
 make render         # just the snippets, after editing data/*.yml, scripts/templates/ or the blog
-make clean          # remove site/ and docs/snippets/
-make publish        # fetch, build and sync ./site to S3 (needs S3 credentials)
+make clean          # remove site/, site-zone/ and docs/snippets/
+make zone           # build, then the zone page as the root of ./site-zone with its assets
+make publish        # fetch, build, zone, sync ./site to darc.li and ./site-zone to darc.zone (needs PUTFS_API_KEY/SECRET)
 ```
 
 `make fetch` writes an API snapshot to `data/openaleph/` and images to
@@ -36,8 +38,8 @@ include. All three folders are gitignored. Without a snapshot the site still
 builds, minus the OpenAleph blocks (`make render` says so).
 
 The image `optimize` plugin runs only with `CI=true` and needs `pngquant`
-(`CI=true make build`). Push to `main` runs `make fetch build` in GitHub
-Actions and syncs `./site` to S3.
+(`CI=true make build`). Push to `main` runs `make publish` in GitHub
+Actions.
 
 ## Layout
 
@@ -47,7 +49,7 @@ docs/
   blog/                  blog plugin: index + posts/ (categories DARC, OpenAleph)
   openaleph.md           OpenAleph project page (merged from openaleph.org)
   openaleph/             managed service page + icons
-  zone.md                darc.zone landing (search.openaleph.org)
+  zone.md                darc.zone landing (the root of darc.zone, in front of its OpenAleph instance)
   reference.md           component authoring reference
   stylesheets/           tokens · components · site · landing
   overrides/             template overrides (main, blog, header, content, post, copyright)
@@ -62,16 +64,16 @@ scripts/
   templates/             the blocks' Jinja2 templates
   resize_assets.py       downsize inlined images in place (one-off helper)
 contrib/nginx.map        permanent redirects (openaleph.org, legacy blog URLs, /who-we-are/)
-Makefile                 install · fetch · render · build · serve · publish · clean
+Makefile                 install · fetch · render · build · serve · zone · publish · clean
 mkdocs.yml               theme, nav, markdown_extensions, plugins (read by Zensical)
 requirements.txt
-.github/workflows/publish.yml   make fetch build (+ optimize) and sync ./site to S3
+.github/workflows/publish.yml   make publish (+ optimize)
 ```
 
 ## Editorial data
 
 The landing page (`docs/index.md`) and the darc.zone page (`docs/zone.md`)
-show live data from [search.openaleph.org](https://search.openaleph.org):
+show live data from the OpenAleph instance at [darc.zone](https://darc.zone):
 index numbers, "Data behind the headlines" topics, Curated Collections and the
 Explore lists, plus the newest blog posts in the News section.
 

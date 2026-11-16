@@ -3,10 +3,11 @@
 ## What this is
 
 The website of the Data and Research Center (DARC),
-[dataresearchcenter.org](https://dataresearchcenter.org), built with
+[darc.li](https://darc.li), built with
 [Zensical](https://zensical.org/) from `mkdocs.yml` (`theme.variant: classic`:
 the Material look the CSS is built on). Content is markdown under `docs/`;
-push to `main` builds and deploys to S3.
+push to `main` builds and deploys it, and the zone page as the root of
+[darc.zone](https://darc.zone) (`make zone`).
 
 Other DARC sites clone this repo; only `darc-zensical.css` is shared, from
 [`zensical-theme-darc`](https://github.com/dataresearchcenter/zensical-theme-darc).
@@ -22,8 +23,9 @@ make fetch       # OpenAleph API + images → data/openaleph/, docs/assets/opena
 make render      # data/ + blog posts → docs/snippets/ (offline; build and serve run it)
 make build       # → site/ (default target; CI=true also runs the optimize plugin, needs pngquant)
 make serve       # http://localhost:8000, live reload
-make publish     # fetch, build, sync site/ to S3
-make clean       # remove site/ and docs/snippets/
+make zone        # build, then the zone page as index.html with assets/, stylesheets/, javascripts/ → site-zone/
+make publish     # fetch, build, zone, sync site/ to darc.li and site-zone/ to darc.zone
+make clean       # remove site/, site-zone/ and docs/snippets/
 ```
 
 Run `make` from the project root (snippet paths resolve against the working
@@ -36,7 +38,7 @@ targets are repeatable; `build` works offline from the last `fetch`.
 docs/
   index.md               landing page; ends with the team (#who-we-are)
   what-we-do.md  projects.md  contact.md  open-source.md
-  zone.md                darc.zone landing (search.openaleph.org) with plans and the sign up guide; `header: zone`
+  zone.md                darc.zone landing (the root of darc.zone, in front of its OpenAleph instance) with plans and the sign up guide; `header: zone`; links to the main site are absolute (`https://darc.li/…`), `canonical:` is darc.zone
   openaleph.md           OpenAleph open source project (merged from openaleph.org)
   openaleph/managed.md   the managed service; openaleph/assets/icons/
   blog/                  blog plugin: index.md, posts/ (categories DARC, OpenAleph)
@@ -52,7 +54,7 @@ data/
 scripts/
   fetch.py  render.py  templates/  resize_assets.py
 contrib/nginx.map        301s: openaleph.org pages and blog, legacy blog URLs, /who-we-are/
-.github/workflows/publish.yml      pip install, pngquant, make fetch build, S3 sync
+.github/workflows/publish.yml      pip install, pngquant, make publish
 ```
 
 ## Snippets pipeline
@@ -138,9 +140,9 @@ See `docs/reference.md` for snippets. Wrapper `<div>`/`<section>` need the
   a page marker (`.page--header-zone`, `partials/content.html`), as instant
   navigation keeps the header.
 - Drawer: the primary sidebar as a right overlay, also on blog posts (`main.html`
-  ignores `hide: navigation`); none on `header: zone` pages. Front matter
-  `drawer:` (h2 ids, e.g. index.md) lists those sections above the pages.
-  Colored like the header.
+  ignores `hide: navigation`); none on `header: zone` pages. The landing
+  page sections from `extra.drawer` come first, then the pages. Colored like
+  the header.
 - TOC on the left at desktop, hidden when empty, sticky at the top.
 - Blog pages (listings, posts) sit on paper; post categories are `[DARC]` or
   `[OpenAleph]`, with buttons from `extra.blog_categories`.

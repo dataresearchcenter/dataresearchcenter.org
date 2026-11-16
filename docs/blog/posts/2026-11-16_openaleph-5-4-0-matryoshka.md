@@ -22,6 +22,10 @@ In this release, [we've addressed](https://github.com/openaleph/ingest-file/rele
 
 Microsoft created a proprietary technology called [Object Linking and Embedding](https://en.wikipedia.org/wiki/Object_Linking_and_Embedding) (OLE), which allows users to embed or link files inside a Microsoft Office document. For example, a Microsoft Word document can contain a .zip archive. An Excel spreadsheet can hide a PDF inside a cell.
 
+Yes, this is totally normal:
+
+![ole](../../assets/blogs/opal_matryoshka_3.png)
+
 OpenAleph can now extract and process these embedded files, too. Upload an Excel spreadsheet with a PDF tucked inside a cell, and you'll get two searchable documents at the end of the processing pipeline: the original spreadsheet and its child document, the PDF.
 
 ![ole](../../assets/blogs/opal_matryoshka_1.png)

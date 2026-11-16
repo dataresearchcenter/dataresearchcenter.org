@@ -1,4 +1,4 @@
-zensical>=0.0.74
+zensical>=0.1.1
 pyyaml
 jinja2
 markdown

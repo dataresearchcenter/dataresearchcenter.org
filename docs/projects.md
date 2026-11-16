@@ -4,7 +4,7 @@ hide:
   - toc
 ---
 
-<section class="screen screen--bg-black" data-background-color="black" markdown>
+<section class="screen screen--bg-black" markdown>
 
 # Some work we're proud of
 
@@ -31,7 +31,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### What we did
 
-    We made the leak, provided by the [Distributed Denail of Secrets](https://ddosecrets.com), searchable with our open source investigative search platform [OpenAleph](https://openaleph.org) in collaboration with SPIEGEL / ZDF / Paper Trail.
+    We made the leak, provided by the [Distributed Denail of Secrets](https://ddosecrets.com), searchable with our open source investigative search platform [OpenAleph](openaleph.md) in collaboration with SPIEGEL / ZDF / Paper Trail.
 
     [View project](https://www.zdfheute.de/politik/ausland/epstein-frauen-deutschland-100.html){.btn}
 { .card--full }
@@ -54,7 +54,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### What we did
 
-    We provided a temporary, standalone public [OpenAleph](https://openaleph.org) instance for EIA, optimized for high load during the publication phase. This included additional security and caching layers, as well as a failover replica in another data center.
+    We provided a temporary, standalone public [OpenAleph](openaleph.md) instance for EIA, optimized for high load during the publication phase. This included additional security and caching layers, as well as a failover replica in another data center.
 
     [View project](https://aleph.eia.org/){.btn}
 { .card--full }
@@ -118,7 +118,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    We obtained leaked documents and quickly ingested them into a dedicated [OpenAleph](https://openaleph.org) instance, making the documents researchable and accessible to the investigative team.
+    We obtained leaked documents and quickly ingested them into a dedicated [OpenAleph](openaleph.md) instance, making the documents researchable and accessible to the investigative team.
 
     [View project](https://fragdenstaat.de/blog/2023/05/19/icmpd-die-migrations-manager/){.btn}
 { .card--full }
@@ -135,7 +135,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    We obtained leaked documents and quickly ingested them into a dedicated [OpenAleph](https://openaleph.org) instance, making the documents searchable and accessible to the investigative team.
+    We obtained leaked documents and quickly ingested them into a dedicated [OpenAleph](openaleph.md) instance, making the documents searchable and accessible to the investigative team.
 
     [View project](https://www.youtube.com/watch?v=QuKbsIPNi7Q){.btn}
 { .card--full }
@@ -152,7 +152,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    We obtained leaked documents and quickly ingested them into a dedicated [OpenAleph](https://openaleph.org) instance, making the documents searchable and accessible to the investigative team.
+    We obtained leaked documents and quickly ingested them into a dedicated [OpenAleph](openaleph.md) instance, making the documents searchable and accessible to the investigative team.
 
     [View project](https://www.codastory.com/authoritarian-tech/icmpd-eu-refugee-policy/){.btn}
 { .card--full }
@@ -171,7 +171,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    We provided comprehensive data engineering services, including scraping national data sources, cleaning the data, and making it comparable and analyzable. We built the API and website for the exploration tool you see today. Additionally, we transformed the data into the [FollowTheMoney](https://followthemoney.tech) standard to make it searchable in [OpenAleph](https://openaleph.org).
+    We provided comprehensive data engineering services, including scraping national data sources, cleaning the data, and making it comparable and analyzable. We built the API and website for the exploration tool you see today. Additionally, we transformed the data into the [FollowTheMoney](https://followthemoney.tech) standard to make it searchable in [OpenAleph](openaleph.md).
 
     [View project](https://farmsubsidy.org){.btn}
 { .card--full }
@@ -205,7 +205,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    We provided an extensive data engineering solution to effectively clean the data for use in [OpenAleph](https://openaleph.org), de-duplicate and cross-reference entities within the dataset, and make it accessible and searchable for team use. We also built the website to give the public access to the exploration tool.
+    We provided an extensive data engineering solution to effectively clean the data for use in [OpenAleph](openaleph.md), de-duplicate and cross-reference entities within the dataset, and make it accessible and searchable for team use. We also built the website to give the public access to the exploration tool.
 
     [View project](https://opensecuritydata.eu/){.btn}
 { .card--full }
@@ -224,7 +224,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    For this project, we provide everything from scraping a diverse range of data sources to cleaning the data, transforming it into the FollowTheMoney standard and making it comparable. We use different methods to de-duplicate entities within the data and operate a custom [OpenAleph](https://openaleph.org) database which allows the data to be easily accessible and searchable for external partners.
+    For this project, we provide everything from scraping a diverse range of data sources to cleaning the data, transforming it into the FollowTheMoney standard and making it comparable. We use different methods to de-duplicate entities within the data and operate a custom [OpenAleph](openaleph.md) database which allows the data to be easily accessible and searchable for external partners.
 
     [View project](https://followthegrant.org){.btn}
 { .card--full }
@@ -258,7 +258,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### How we contributed
 
-    We developed and implemented a data engineering solution that scraped a vast resource of federal-level data and extracted the documents. After gathering the documents, we cleaned the data and made it accessible and searchable in [OpenAleph](https://openaleph.org).
+    We developed and implemented a data engineering solution that scraped a vast resource of federal-level data and extracted the documents. After gathering the documents, we cleaned the data and made it accessible and searchable in [OpenAleph](openaleph.md).
 
     [View project](https://github.com/okfde/dokukratie/){.btn}
 { .card--full }

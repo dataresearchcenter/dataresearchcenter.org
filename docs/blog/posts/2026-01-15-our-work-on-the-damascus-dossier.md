@@ -1,6 +1,8 @@
 ---
 date: 2026-01-15
 slug: "our-work-on-the-damascus-dossier"
+categories:
+  - DARC
 ---
 
 # The Damascus Dossier: Getting information from 100,000 photos without looking at them

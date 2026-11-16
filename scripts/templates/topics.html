@@ -1,0 +1,51 @@
+{#- "Data behind the headlines": one media card per topic in topics.yml. -#}
+{% from "_macros.html" import collection_list %}
+
+{%- macro link(label, url) -%}
+  {%- if url %}<a href="{{ url }}">{{ label }}</a>{% else %}{{ label }}{% endif -%}
+{%- endmacro -%}
+
+<div class="grid">
+  {% for topic in topics %}
+  <article class="card card--media topic">
+    {% if topic.image %}
+    {% set image = topic.image %}
+    {% set credit = image.attribution or {} %}
+    <figure class="card__media">
+      <img src="{{ image.src }}" alt="{{ (image.alt or [{}])[0].text or topic.title }}"{% if image.width %} width="{{ image.width }}" height="{{ image.height }}"{% endif %} loading="lazy">
+      {% if credit.license or credit.author or credit.source %}
+      <figcaption>
+        {%- for key in ["license", "author", "source"] if credit[key] -%}
+        {% if not loop.first %} · {% endif %}{{ link(credit[key], credit[key ~ "_url"]) }}
+        {%- endfor -%}
+      </figcaption>
+      {% endif %}
+    </figure>
+    {% endif %}
+    <div class="card__body">
+      {% if topic.countries %}
+      <p class="topic__countries">
+        {% for country in topic.countries %}
+        <kbd>{% if country.flag %}<img src="{{ country.flag }}" alt="" width="16" height="12">{% endif %}{{ country.name }}</kbd>
+        {% endfor %}
+      </p>
+      {% endif %}
+      <h3>{{ topic.title }}</h3>
+      {{ topic.description|markdown }}
+      {% if topic.search_terms %}
+      <ul class="terms" aria-label="Searches">
+        {% for term in topic.search_terms %}
+        <li><a class="btn{% if term.query %} btn--query{% endif %}" href="{{ term.url }}">{{ term.label }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% if topic.collections %}
+    <div class="card__footer">
+      <p class="section-label">Datasets</p>
+      {{ collection_list(topic.collections) }}
+    </div>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>

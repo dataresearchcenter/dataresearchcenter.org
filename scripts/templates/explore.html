@@ -1,0 +1,15 @@
+{#- Top 15 entity types, dataset categories and countries, as on the
+    OpenAleph UI home. -#}
+{% from "_macros.html" import statistics_list %}
+{% set titles = {"schema": "Entity types", "category": "Dataset categories", "country": "Countries and territories"} %}
+
+<div class="grid grid--three">
+  {% for stat in explore %}
+  <article class="card Statistics">
+    <header class="card__header">
+      <h3>{{ titles[stat.kind] }}</h3>
+    </header>
+    {{ statistics_list(stat.entries[:15], stat.kind) }}
+  </article>
+  {% endfor %}
+</div>

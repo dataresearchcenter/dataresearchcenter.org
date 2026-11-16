@@ -1,0 +1,32 @@
+{#- Static ports of OpenAleph UI components (same names and classes). -#}
+
+{%- macro collection_list(collections) -%}
+{#- CollectionList #}
+<div class="CollectionList">
+  {% for collection in collections %}
+  <a class="CollectionList__item" href="{{ collection.url }}">
+    {% if collection.category_label %}
+    <span class="CollectionList__category">{{ collection.category_label }}</span>
+    {% endif %}
+    <span class="CollectionList__label" title="{{ collection.label }}">{{ collection.label }}</span>
+    {% if collection.count is not none %}
+    <span class="CollectionList__count">{{ collection.count|thousands }}</span>
+    {% endif %}
+  </a>
+  {% endfor %}
+</div>
+{%- endmacro -%}
+
+{%- macro statistics_list(items, kind) -%}
+{#- Statistics list: FtM schema icons for entity types, flag-icons flags for
+    countries (blank for e.g. "Global"). Rows share the CollectionList row
+    (landing.css). #}
+<ul class="Statistics__list">
+  {% for item in items %}
+  <li><a class="Statistics__item" href="{{ item.url }}">
+    {%- if item.icon %}<svg class="Statistics__icon" viewBox="0 0 25 25" aria-hidden="true">{% for d in item.icon %}<path d="{{ d }}"/>{% endfor %}</svg>{% endif %}
+    {%- if kind == "country" %}{% if item.flag %}<img class="Statistics__icon no-border no-shadow" src="{{ item.flag }}" alt="" width="20" height="15" loading="lazy">{% else %}<span class="Statistics__icon" aria-hidden="true"></span>{% endif %}{% endif -%}
+    <span class="Statistics__label">{{ item.label }}</span><span class="Statistics__value">{{ item.count|thousands }}</span></a></li>
+  {% endfor %}
+</ul>
+{%- endmacro -%}

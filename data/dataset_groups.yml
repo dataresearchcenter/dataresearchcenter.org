@@ -1,0 +1,43 @@
+groups:
+  - label: EU Lobbying & Transparency
+    description: Lobby registers, EU Commission documents and FOI requests
+    icon: https://openmoji.org/data/color/svg/1F1EA-1F1FA.svg
+    collections: [438, 557, 798, 537, 802]
+
+  - label: EU Funding & Public Procurement
+    description: Research grants, financial transparency and state aid data from EU institutions
+    icon: https://openmoji.org/data/color/svg/1F4B6.svg
+    content: >-
+      These datasets are scraped from the official websites of the European
+      Commission and updated regularly. We maintain as well the combined database
+      for the payments in the EU's Common Agricultural Policy (CAP)
+      [farmsubsidy.org](https://farmsubsidy.org).
+    collections: [63, 534, 543, 514, 515, 926]
+
+  - label: Company Registries & Corporate Ownership
+    description: Business registries, beneficial ownership data and corporate structures from around the world
+    icon: https://openmoji.org/data/color/svg/1F3E2.svg
+    content: >-
+      Most company registry datasets are provided by our partners at
+      [OpenSanctions](https://opensanctions.org). Please check
+      [OpenSanctions licensing](https://www.opensanctions.org/licensing/) for
+      appropriate usage if you are not a journalist, researcher or civic
+      activist.
+    collections: [404, 411, 415, 472, 450, 417, 410, 448, 449, 445, 859, 850, 447, 275]
+
+  - label: Sanctions & Watchlists
+    description: International sanctions lists and designated entities from OFAC, EU, UN and more
+    icon: https://openmoji.org/data/color/svg/1F6A8.svg
+    content: >-
+      Sanctions lists for individual countries and Politically Exposed Persons
+      (PEPs) provided by our partners at
+      [OpenSanctions](https://opensanctions.org). Please check
+      [OpenSanctions licensing](https://www.opensanctions.org/licensing/) for
+      appropriate usage if you are not a journalist, researcher or civic
+      activist.
+    collections: [295, 289, 291, 28, 25, 23, 30, 31, 344, 771, 405]
+
+  - label: German Parliament & Politics
+    description: Parliamentary documents, legislative databases and political transparency for Germany
+    icon: https://openmoji.org/data/color/svg/1F1E9-1F1EA.svg
+    collections: [335, 570, 452, 471, 805, 813, 434, 306, 466, 583]

@@ -1,6 +1,8 @@
 ---
 date: 2025-07-15
 slug: "why-we-run-our-own-servers-and-why-that-matters-for-you"
+categories:
+  - DARC
 ---
 
 # Why We Run Our Own Servers (And Why That Matters for You)
@@ -13,7 +15,7 @@ Many teams think of cloud hosting as the easiest option, but when it comes to se
 
 ## Infrastructure Built with Security in Mind
 
-[OpenAleph](https://openaleph.org/), for example, runs entirely on physical servers that we own and operate. No AWS. No Google Cloud. No third-party black boxes.
+[OpenAleph](../../openaleph.md), for example, runs entirely on physical servers that we own and operate. No AWS. No Google Cloud. No third-party black boxes.
 
 These servers are located in a secure data center in southern Germany through colocation with a reputable provider, Hetzner. The setup was designed with input from the [Chaos Computer Club](https://www.ccc.de/en/), Europe’s largest hacker association, to ensure high security standards from the ground up.
 

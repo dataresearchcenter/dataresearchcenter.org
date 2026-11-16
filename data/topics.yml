@@ -1,0 +1,89 @@
+topics:
+  - title: The Epstein Files
+    description: >-
+      Millions of documents, images, videos and emails on Jeffrey Epstein, published
+      by the U.S. Department of Justice. We hold the **full collection of about
+      1.4 million documents** but don't publish it to protect victims.
+      [Get in touch](mailto:hi@dataresearchcenter.org) for access.
+    image:
+      url: https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Epstein_Files_Phase_1%2C_Part_C_%E2%80%93_Contact_Book_Redacted.pdf/page1-330px-Epstein_Files_Phase_1%2C_Part_C_%E2%80%93_Contact_Book_Redacted.pdf.jpg
+      alt:
+        - text: "The Epstein Files Phase 1, Part C: Contact Book Redacted."
+          language: en
+      attribution:
+        license: Public Domain
+        license_url: https://en.wikipedia.org/wiki/en:Public_domain
+        author: US Department of Justice
+        source: Wikimedia Commons
+        source_url: https://en.wikipedia.org/wiki/File:Epstein_Files_Phase_1,_Part_C_%E2%80%93_Contact_Book_Redacted.pdf
+    countries:
+      - us
+    search_terms: []
+    collections: []
+
+  - title: Iran War
+    description: >-
+      On 28 February 2026, Israel and the United States launched joint airstrikes
+      on Iran, which responded with missile and drone attacks against Israel,
+      U.S. bases and allied targets in the region.
+    image:
+      url: https://upload.wikimedia.org/wikipedia/commons/8/8a/Attack_on_residential_homes_in_central_Tehran_1.jpg
+      alt:
+        - text: Damaged buildings in Tehran following US-Israeli strikes
+          language: en
+      attribution:
+        license: CC BY-SA 4.0
+        license_url: https://creativecommons.org/licenses/by-sa/4.0/
+        author: Tasnim News Agency
+        source: Wikimedia Commons
+        source_url: https://commons.wikimedia.org/wiki/File:Attack_on_residential_homes_in_central_Tehran_1.jpg
+    countries:
+      - ir
+      - il
+      - us
+    search_terms:
+      - Ali Khamenei
+      - Masoud Pezeshkian
+      - Abbas Araghchi
+      - label: Latest sanctions against Iran
+        url: /search?filter%3Acountries=ir&filter%3Aproperties.topics=sanction&sort=dates%3Adesc&limit=30
+    collections:
+      - "295"
+      - "291"
+      - "995"
+      - "764"
+
+  - title: Sanctions against Russia after the Invasion of Ukraine
+    description: >-
+      Since Russia's full-scale invasion of Ukraine on 24 February 2022, governments
+      have imposed wide-ranging sanctions on its economy, financial system and people
+      linked to the state. [CORRECTIV's overview (German, archived)](https://correctiv.org/top-stories/2022/02/28/sanktionstracker-aktuelle-sanktionen-gegen-russland/)
+      gives more context.
+    image:
+      url: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Russian_troops_in_Novoaidar%2C_6_March_2022.png/960px-Russian_troops_in_Novoaidar%2C_6_March_2022.png
+      alt:
+        - text: Russian troops in Novoaidar, 6 March 2022
+          language: en
+      attribution:
+        license: CC BY-SA 4.0
+        license_url: https://creativecommons.org/licenses/by-sa/4.0/
+        author: Mil.ru
+        source: Wikimedia Commons
+        source_url: https://commons.wikimedia.org/wiki/File:Russian_troops_in_Novoaidar,_6_March_2022.png
+    countries:
+      - ru
+      - ua
+    search_terms:
+      - Alisher Usmanov
+      - Gennady Timchenko
+      - Alexei Mordashov
+      - Oleg Deripaska
+      - label: Latest sanctions against Russia
+        url: /search?filter%3Acountries=ru&filter%3Aproperties.topics=sanction&sort=dates%3Adesc&limit=30
+    collections:
+      - "295"
+      - "291"
+      - "344"
+      - "26"
+      - "376"
+      - "960"

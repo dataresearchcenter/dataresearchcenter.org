@@ -1,6 +1,8 @@
 ---
 date: 2025-04-18
 slug: "road-trippin-with-darc"
+categories:
+  - DARC
 ---
 
 # Road Trippin' with DARC

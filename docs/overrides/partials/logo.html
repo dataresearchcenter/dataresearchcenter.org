@@ -1,19 +1,5 @@
-{#-
-  Per-scheme logo override.
-  config.theme.logo       → DARK mode  (use the Neg variant)
-  config.extra.logo_light → LIGHT mode (use the Pos variant)
-  Visibility is toggled in darc-zensical.css via [data-md-color-scheme].
--#}
-{% set logo_dark  = config.theme.logo %}
-{% set logo_light = config.extra.logo_light or logo_dark %}
-{% if logo_dark %}
-  <img class="md-logo__img md-logo__img--dark"
-       src="{{ logo_dark | url }}"
-       alt="{{ config.site_name }}">
-  <img class="md-logo__img md-logo__img--light"
-       src="{{ logo_light | url }}"
-       alt="{{ config.site_name }}">
-{% else %}
-  {% set icon = config.theme.icon.logo or "material/library" %}
-  {% include ".icons/" ~ icon ~ ".svg" %}
+{#- Both logos: light surfaces show the dark one (site.css). -#}
+<img class="md-logo__img md-logo__img--neg" src="{{ config.theme.logo | url }}" alt="{{ config.site_name }}">
+{% if config.extra.logo_light %}
+  <img class="md-logo__img md-logo__img--pos" src="{{ config.extra.logo_light | url }}" alt="{{ config.site_name }}">
 {% endif %}

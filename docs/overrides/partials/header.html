@@ -1,10 +1,5 @@
-{#-
-  Header – three-column marketing layout, mirroring the original site:
-    [ site name + breadcrumb ]   [ centered logo ]   [ palette · search · burger ]
-
-  Keeps mkdocs-material's data-md-component attributes so the bundled JS
-  (palette toggle, search box, drawer checkbox) keeps working.
--#}
+{#- Three columns: site name, logo, actions. Keeps the theme's
+    data-md-component attributes for its JS. -#}
 {% set class = "md-header" %}
 {% if "navigation.tabs.sticky" in features %}
   {% set class = class ~ " md-header--shadow md-header--lifted" %}
@@ -14,15 +9,17 @@
 <header class="{{ class }}" data-md-component="header">
   <div class="md-header__inner md-grid">
 
-    {# LEFT – site name (grid column 1, by source order) #}
-    <div class="md-header__title">
-      <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
-         class="md-header__site-link">
-        {{ config.site_name }}
-      </a>
-    </div>
+    {% if config.extra.brand %}
+      <div class="md-header__title">
+        <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
+           class="md-header__site-link">
+          {{ config.site_name }}
+        </a>
+      </div>
+    {% else %}
+    <span></span>
+    {% endif %}
 
-    {# CENTER – clickable logo back to home (grid column 2, auto-width) #}
     <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
        title="{{ config.site_name | e }}"
        class="md-header__button md-logo"
@@ -31,7 +28,6 @@
       {% include "partials/logo.html" %}
     </a>
 
-    {# RIGHT – palette · search · repo · burger (grid column 3) #}
     <div class="md-header__actions">
       {% if config.theme.palette %}
         {% if not config.theme.palette is mapping %}
@@ -42,8 +38,7 @@
         {% include "partials/javascripts/palette.html" %}
       {% endif %}
 
-      {# Search detection – Zensical registers the plugin as "search",
-         mkdocs-material as "material/search". Look up whichever exists. #}
+      {# Zensical: "search", mkdocs-material: "material/search" #}
       {% set search_key = "search" if "search" in config.plugins
                           else ("material/search" if "material/search" in config.plugins else none) %}
       {% if search_key %}
@@ -63,7 +58,14 @@
         </div>
       {% endif %}
 
-      {# Burger – opens the right-side overlay nav (always visible, all widths). #}
+      {% if config.extra.signin %}
+        <span class="md-header__signin">
+          {% for link in config.extra.signin %}
+            <a href="{{ link.url | url }}" class="md-header__signin-link{% if link.primary %} md-header__signin-link--primary{% endif %}">{{ link.label }}</a>
+          {% endfor %}
+        </span>
+      {% endif %}
+
       <label class="md-header__button md-icon md-header__burger" for="__drawer"
              aria-label="{{ lang.t('nav.title') | d('Navigation') }}">
         {% set icon = config.theme.icon.menu or "lucide/menu" %}

@@ -1,5 +1,7 @@
 ---
 date: 2026-11-16
+categories:
+  - OpenAleph
 ---
 
 # OpenAleph Matryoshka is Here

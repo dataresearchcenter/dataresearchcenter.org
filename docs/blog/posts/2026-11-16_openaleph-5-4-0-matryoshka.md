@@ -12,7 +12,7 @@ categories:
 
 Here's what's changed, and what it means for your investigations
 
-**Getting more out of your data**
+## Getting more out of your data
 
 The datasets we throw into OpenAleph come in all shapes and sizes. Leaks, document dumps, and other collections often contain a mix of file formats, with useful information sometimes tucked away in unexpected places. `ingest-file`, the component that handles incoming files in OpenAleph, is responsible for getting that information out and ready to search. It extracts text and metadata, runs OCR, converts documents for display, and generates structured data.
 
@@ -20,7 +20,7 @@ New datasets often bring file types or edge cases we haven't accounted for. And 
 
 In this release, [we've addressed](https://github.com/openaleph/ingest-file/releases/tag/5.4.0)  two gaps: embedded files inside Microsoft Office documents, and Excel spreadsheets in the less common `.xlsb` format.
 
-**Everything you never wanted to know about embedding files in Microsoft Office files**
+## Everything you never wanted to know about embedding files in Microsoft Office files
 
 Microsoft created a proprietary technology called [Object Linking and Embedding](https://en.wikipedia.org/wiki/Object_Linking_and_Embedding) (OLE), which allows users to embed or link files inside a Microsoft Office document. For example, a Microsoft Word document can contain a .zip archive. An Excel spreadsheet can hide a PDF inside a cell.
 
@@ -34,13 +34,13 @@ OpenAleph can now extract and process these embedded files, too. Upload an Excel
 
 If you suspect that Microsoft Office documents you've already uploaded to your OpenAleph instance contain embedded files, **re-ingest all the collections that contain these documents**. OpenAleph will extract the embedded files and make them searchable.
 
-**Did you say more Excel? OpenAleph can now parse .xlsb**
+## Did you say more Excel? OpenAleph can now parse .xlsb
 
 Back in 2007, Microsoft introduced the Excel Binary File Format (.xlsb) as an alternative to the default .xlsx format. It's a proprietary format that supports macros.
 
 OpenAleph can now process .xlsb documents, expanding the range of tabular data formats it can handle.
 
-**Security improvement: e-mails are never revealed**
+## Security improvement: e-mails are never revealed
 
 The Access Control menu in OpenAleph investigations can now be configured not to suggest names and e-mail addresses as users start typing. While these suggestions do make it easier to share investigations, they can also expose the e-mail addresses of other users registered on the instance. On larger instances shared by multiple newsrooms or external collaborators, this can pose a privacy risk.
 
@@ -50,7 +50,7 @@ We've introduced [a new configuration flag](https://darc.li/docs/openaleph/dev-a
 
 When suggestions are disabled, users must enter the full, correct e-mail address of another registered user to share an investigation with them.
 
-**We make data searchable, faster**
+## We make data searchable, faster
 
 OpenAleph 5.4.0 also brings faster indexing with less storage footprint, meaning that newly uploaded data becomes fully searchable in less time. Two changes to how Elasticsearch stores and processes search information made this possible:
 

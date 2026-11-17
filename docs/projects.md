@@ -12,8 +12,35 @@ We are involved in many investigative journalism projects and maintain several [
 
 We sometimes publish more in-depth **case studies** of our collaborations with partners [in our blog](./blog/index.md).
 
-
 <div class="grid cards" markdown>
+
+-   <kbd>aleph</kbd> <kbd>leaks</kbd>
+
+    ![Inside Deutsche Bank](./assets/projects/barracuda.jpg){.no-shadow}
+
+    ## Inside Deutsche Bank
+
+    *Barracuda Media – 2026-11-17*
+
+    ### What is it about?
+
+    An unprecedented global investigation into Deutsche Bank has uncovered new details of the bank’s relationship with Jeffrey Epstein, sanctioned Russian oligarchs and alleged criminal activity, exposing serious questions about its internal controls and its ability to detect financial crime.
+
+    The files reveal that after Deutsche Bank accepted Epstein as a client, years after his conviction for soliciting prostitution from a minor, the bank subsequently identified nearly $580 million in suspicious transactions involving him and his network – more than twice the amount previously known.
+
+    They also expose the bank’s dealings with sanctioned Russian oligarchs, its use of secrecy havens in Switzerland and Luxembourg, and an alleged money-laundering network that moved hundreds of millions of euros through its systems.
+
+    The findings raise a fundamental question about the global financial system: if one of the world’s largest banks can repeatedly fail to detect and prevent financial misconduct, how much confidence can we have in the system?
+
+    ### What we did
+
+    We provided extensive research support to the project and technical management of [OpenAleph](https://openaleph.org) which was used to make the leak searchable. [Read more](./blog/posts/2026-11-17_barracuda.md)
+
+    <small>Illustration: Studio Yadi</small>
+
+    [View project](https://inside-db.com){.btn}
+    [Get data access](https://darc.zone/inside-db){.btn .btn--primary}
+{ .card--full }
 
 -   <kbd>aleph</kbd> <kbd>leaks</kbd>
 
@@ -23,7 +50,7 @@ We sometimes publish more in-depth **case studies** of our collaborations with p
 
     ### What is it about?
 
-    The [SPIEGEL](https://www.spiegel.de) / [ZDF Frontal](https://www.zdf.de/frontal-108) / [Paper Trail Media](https://www.papertrailmedia.de/) investigation, based on leaked emails from [Jeffrey Epstein's](https://de.wikipedia.org/wiki/Jeffrey_Epstein) personal inbox, reveals how Epstein targeted women from Germany, Austria, and Switzerland for his trafficking network. Two sisters from Hamburg, who were approached by Epstein's associate in 2006 under the guise of a modeling opportunity, shared their story with ZDF. At ages 16 and 18, they were invited to Epstein’s New York townhouse, where he promised to help them build a modeling career. The leaked emails, spanning from 2002 to 2019, provide evidence of Epstein’s methods to lure women into his exploitative circle, highlighting his global connections and the reach of his manipulative tactics. 
+    The [SPIEGEL](https://www.spiegel.de) / [ZDF Frontal](https://www.zdf.de/frontal-108) / [Paper Trail Media](https://www.papertrailmedia.de/) investigation, based on leaked emails from [Jeffrey Epstein's](https://de.wikipedia.org/wiki/Jeffrey_Epstein) personal inbox, reveals how Epstein targeted women from Germany, Austria, and Switzerland for his trafficking network. Two sisters from Hamburg, who were approached by Epstein's associate in 2006 under the guise of a modeling opportunity, shared their story with ZDF. At ages 16 and 18, they were invited to Epstein’s New York townhouse, where he promised to help them build a modeling career. The leaked emails, spanning from 2002 to 2019, provide evidence of Epstein’s methods to lure women into his exploitative circle, highlighting his global connections and the reach of his manipulative tactics.
 
     [SPIEGEL story in german, paywall](https://www.spiegel.de/ausland/jeffrey-epstein-wie-zwei-deutsche-schwestern-seiner-missbrauchsfalle-entkamen-a-1e0e6aa0-5725-4485-ade0-2c41267ce48f)
 

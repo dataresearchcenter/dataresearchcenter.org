@@ -39,7 +39,7 @@ We provide expert-driven, flexible research and data solutions tailored to the u
 - A private workspace on [**darc.zone**](https://darc.zone), shared with your team, from €200/month
 - For full flexibility get your own OpenAleph server, securely hosted and managed by us
 
-[See our offer](./zone.md#team){.btn .btn--primary}
+[See our offer](./zone/index.md#team){.btn .btn--primary}
 
 </div>
 

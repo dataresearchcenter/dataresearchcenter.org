@@ -26,13 +26,11 @@ serve: render
 # darc.zone: the zone page as its root. Its asset paths are relative (../assets/…)
 # and resolve to /assets/… there.
 zone: build
-	rm -rf site-zone && mkdir site-zone
-	cp site/zone/index.html site-zone/
-	cp -r site/assets site/stylesheets site/javascripts site-zone/
+	cp -r site/assets site/stylesheets site/javascripts site/zone/
 
 publish: fetch build zone
 	putfs sync ./site putfs://static.darc.zone/darc.li
-	putfs sync ./site-zone putfs://static.darc.zone/darc.zone
+	putfs sync ./site/zone putfs://static.darc.zone/darc.zone
 
 clean:
-	rm -rf site site-zone docs/snippets
+	rm -rf site docs/snippets

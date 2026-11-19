@@ -1,4 +1,21 @@
 topics:
+  - title: Inside Deutsche Bank
+    description: >-
+      A major global investigation revealing the inner workings of the
+      financial giant. The leak of 15+ million files lays bare the bank's
+      flawed culture, systemic blind spots and pursuit of profit over
+      compliance. [Get access](https://darc.zone/inside-db)
+    image:
+      url: https://darc.li/assets/projects/barracuda.jpg
+      alt:
+        - text: Inside Deutsche Bank illustration
+          language: en
+      attribution:
+        author: Studio Yadi
+    countries: []
+    search_terms: []
+    collections: []
+
   - title: The Epstein Files
     description: >-
       Millions of documents, images, videos and emails on Jeffrey Epstein, published
